@@ -40,6 +40,7 @@ const server = http.createServer(function (request, response) {
             .then((data)=>{
                 if(data.length != 0){
                     for(i of data){
+                      if(i==".dummy") continue
                       fsp.unlink(path.join(p,i))
                         .then(()=>{})
                         .catch((e)=>{
