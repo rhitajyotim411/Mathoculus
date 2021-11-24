@@ -1,9 +1,13 @@
+require("dotenv").config();
+
 const http = require("http")
 const fs = require("fs")
 const pyshell = require("python-shell")
 const fsp = require("fs").promises
 const path = require("path")
 const p = "images/"
+const port = process.env.PORT
+const host = process.env.HOST
 
 
 const server = http.createServer(function (request, response) {
@@ -21,7 +25,7 @@ const server = http.createServer(function (request, response) {
         request.on('end', function () {
 
 //-------------parsing data from json to string
-            
+
             post = JSON.parse(body);
             var data = post.replace(/^data:image\/\w+;base64,/, "");
             var buf = Buffer.from(data, 'base64');
@@ -31,7 +35,7 @@ const server = http.createServer(function (request, response) {
 
 //----------saving image to server side folder
 
-    function writeFileToSystem(buf){   
+    function writeFileToSystem(buf){
         fsp.readdir(p)
             .then((data)=>{
                 if(data.length != 0){
@@ -73,6 +77,6 @@ const server = http.createServer(function (request, response) {
     }
 })
 
-server.listen(8000,"127.0.0.1",()=>{
-    console.log("listening to 8000")
+server.listen(port,host,()=>{
+    console.log(`listening to ${host}:${port}`)
 })
