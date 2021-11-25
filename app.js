@@ -38,29 +38,19 @@ const server = http.createServer(function (request, response) {
     function writeFileToSystem(buf){
         fsp.readdir(p)
             .then((data)=>{
-                if(data.length != 0){
-                    for(i of data){
-                      if(i==".dummy") continue
-                      fsp.unlink(path.join(p,i))
-                        .then(()=>{})
-                        .catch((e)=>{
-                          console.log(e)
-                        })
-                    }
-                    fs.writeFile(`${p}/image.png`, buf, function(err) {
-                        if(err)
-                            console.log(err);
-                        runScript()
-                    });
+                for(i of data){
+                  if(i==".dummy") continue
+                  fsp.unlink(path.join(p,i))
+                    .then(()=>{})
+                    .catch((e)=>{
+                      console.log(e)
+                    })
                 }
-                else{
-                    fs.writeFile(`${p}/image.png`, buf, function(err) {
-                        if(err)
-                            console.log(err);
-                        runScript()
-                    });
-                    return
-                }
+                fs.writeFile(`${p}/image.png`, buf, function(err) {
+                    if(err)
+                        console.log(err);
+                    runScript()
+                });
             })
             .catch((e)=>{
                 console.log(e)
