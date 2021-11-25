@@ -48,8 +48,9 @@ for c in cons:
         ROI = 255 - imarr[y:y+h, x:x+w]
         #ROI = cv2.resize(ROI, (64,64))
         res = f'./images/ROI_{ROI_number}.png'
-        print(res)
+        #print(res)
         cv2.imwrite(res, pad(ROI))
+        print(cv2.imread(res, 0))
         # cv2.rectangle(imarr, (x, y), (x + w, y + h), (255,0,0), 1)
         ROI_number += 1
 
