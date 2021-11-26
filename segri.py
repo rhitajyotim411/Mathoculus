@@ -1,5 +1,4 @@
 import cv2
-import matplotlib.pyplot as plt
 from imutils import contours
 import numpy as np
 
@@ -8,24 +7,24 @@ def pad(img):
     h,w = img.shape
 
     if h%2==1:
-        img = np.vstack([img, 255 - np.zeros(w, int)])
+        img = np.vstack([img, np.zeros(w, dtype=np.uint8)])
         h += 1
 
     if w%2==1:
-        img = np.column_stack([img, 255 - np.zeros(h, int)])
+        img = np.column_stack([img, np.zeros(h, dtype=np.uint8)])
         w += 1
 
     sz = max(h,w)
     x=5 #pad to be added
 
-    pd = 255 - np.zeros((sz+2*x, sz+2*x), int)
+    pd = np.full((sz+2*x, sz+2*x), 0, dtype=np.uint8)
 
     h = int((sz-h) / 2) + x
     w = int((sz-w) / 2) + x
 
     pd[h : -h,  w : -w] = img
 
-    return pd
+    return cv2.resize(pd, (32,32), interpolation=cv2.INTER_AREA)
 #End of Function
 
 imarr = cv2.imread("./images/image.png", 0)
@@ -45,12 +44,11 @@ for c in cons:
     area = cv2.contourArea(c)
     if area > 10:
         x,y,w,h = cv2.boundingRect(c)
-        ROI = 255 - imarr[y:y+h, x:x+w]
+        ROI = imarr[y:y+h, x:x+w]
         #ROI = cv2.resize(ROI, (64,64))
         res = f'./images/ROI_{ROI_number}.png'
-        #print(res)
+        print(res)
         cv2.imwrite(res, pad(ROI))
-        print(cv2.imread(res, 0))
         # cv2.rectangle(imarr, (x, y), (x + w, y + h), (255,0,0), 1)
         ROI_number += 1
 

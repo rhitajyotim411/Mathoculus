@@ -18,12 +18,12 @@
 		</canvas>
 
 		<br><button onclick="convert()">CLICK</button>
-	</center>	
+	</center>
 	<script type="text/javascript">
 		const canvas = document.getElementById("c");
 		const context = canvas.getContext("2d");
 		context.fillStyle = "white";
-		context.lineWidth = 8;
+		context.lineWidth = 5;
 		context.fillRect(0, 0, canvas.width, canvas.height);
 		canvas.addEventListener("mousedown", (event)=>{
 			context.beginPath();
