@@ -16,7 +16,7 @@ def pad(img):
         w += 1
 
     sz = max(h,w)
-    x=20 #pad to be added
+    x=5 #pad to be added
 
     pd = 255 - np.zeros((sz+2*x, sz+2*x), int)
 
