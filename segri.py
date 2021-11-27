@@ -2,6 +2,9 @@ import cv2
 from imutils import contours
 import numpy as np
 
+f = open("img.txt", "w")
+f.close()
+
 #padding function
 def pad(img):
     h,w = img.shape
@@ -24,8 +27,15 @@ def pad(img):
 
     pd[h : -h,  w : -w] = img
 
-    return cv2.resize(pd, (32,32), interpolation=cv2.INTER_AREA)
+    return cv2.resize(pd, (64,64), interpolation=cv2.INTER_AREA)
 #End of Function
+
+def store(img):
+    f=open("img.txt", "a")
+    for i in img:
+        f.write(str(i)+",")
+    f.write("\n\n")
+    f.close()
 
 imarr = cv2.imread("./images/image.png", 0)
 imarr = imarr
@@ -47,8 +57,11 @@ for c in cons:
         ROI = imarr[y:y+h, x:x+w]
         #ROI = cv2.resize(ROI, (64,64))
         res = f'./images/ROI_{ROI_number}.png'
-        print(res)
-        cv2.imwrite(res, pad(ROI))
+        # print(res)
+        sv = pad(ROI)
+        cv2.imwrite(res, sv)
+        store(sv.flatten())
+        print(sv.flatten())
         # cv2.rectangle(imarr, (x, y), (x + w, y + h), (255,0,0), 1)
         ROI_number += 1
 

@@ -60,7 +60,7 @@ const server = http.createServer(function (request, response) {
         pyshell.PythonShell.run("segri.py", null, function(err, result){
             if(!err){
                 console.log("script ran successfully...")
-                console.log(result)
+                console.log(result.length)
             }
             else
                 console.log(err);
