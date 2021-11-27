@@ -21,17 +21,21 @@
 			url = "https://raw.githubusercontent.com/SXCSEM6-project/ModelStore/main/model.json"
       model = await tf.loadLayersModel(url);
       console.log("model loaded")
-			console.log(model.summary())
+			//console.log(model.summary())
     }
 		loadModel()
+
+
 	</script>
 </head>
 <body>
 	<br><br><br><br>
-	<center><canvas width="1000" height="400" id="c" style="border: 2px solid black;" align="center">
+	<center><canvas width="64" height="64" id="c" style="border: 2px solid black;" align="center">
 		</canvas>
 
-		<br><button onclick="convert()">CLICK</button>
+		<br><button onclick="read()">CLICK</button>
+		<br><br><button onclick="clrCnv()">CLEAR</button>
+		<br><br>
 	</center>
 	<script type="text/javascript">
 		const canvas = document.getElementById("c");
@@ -56,6 +60,27 @@
 			context.lineTo(event.offsetX, event.offsetY);
 			context.moveTo(event.offsetX, event.offsetY);
 			context.stroke();
+		}
+
+		function read()
+		{
+			img = tf.browser.fromPixels(canvas, 1) // reads image from canvas
+			pred = tf.tensor( [ img.arraySync() ] )
+			pred = tf.scalar(255).sub(img)
+			pred = pred.div(tf.scalar(255))
+			v = model.predict( tf.tensor( [ pred.arraySync() ] ) )
+			res = tf.tensor( v.dataSync() ).argMax().dataSync()
+			console.log( res[0] )
+			tf.browser.toPixels(pred,canvas) // prints read image to canvas
+			// console.log( tf.tensor( [ pred.arraySync() ] ) )
+		}
+
+		function clrCnv()
+		{
+			context.clearRect(0, 0, canvas.width, canvas.height);
+			context.fillStyle = "white";
+			context.lineWidth = 5;
+			context.fillRect(0, 0, canvas.width, canvas.height);
 		}
 
 		const convert = function(){
