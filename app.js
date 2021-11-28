@@ -10,9 +10,9 @@ const port = process.env.PORT
 const host = process.env.HOST
 
 const { Image, createCanvas } = require('canvas');
-const canvas = createCanvas(64, 64);
+const canvas = createCanvas(32, 32); //64, 64
 const ctx = canvas.getContext('2d');
-const img_dir = 'images/ROI_0.png';
+// const img_dir = 'images/ROI_0.png';
 const tf = require("@tensorflow/tfjs");
 const url = "https://raw.githubusercontent.com/SXCSEM6-project/ModelStore/main/model.json"
 

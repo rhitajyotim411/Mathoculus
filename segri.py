@@ -27,7 +27,7 @@ def pad(img):
 
     pd[h : -h,  w : -w] = img
 
-    return cv2.resize(pd, (64,64), interpolation=cv2.INTER_AREA)
+    return cv2.resize(pd, (32,32), interpolation=cv2.INTER_AREA) # 64,64
 #End of Function
 
 # def store(img):
