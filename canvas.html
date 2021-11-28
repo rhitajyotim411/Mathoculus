@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"> </script>
-<script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"> </script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"> </script>
+<script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"> </script> -->
 
 <head>
 	<meta charset="utf-8">
@@ -16,24 +16,25 @@
 	</style>
 
 	<script>
-    async function loadModel() {
-      model = undefined;
-			url = "https://raw.githubusercontent.com/SXCSEM6-project/ModelStore/main/model.json"
-      model = await tf.loadLayersModel(url);
-      console.log("model loaded")
-			//console.log(model.summary())
-    }
-		loadModel()
+    // async function loadModel() {
+    //   model = undefined;
+		// 	url = "https://raw.githubusercontent.com/SXCSEM6-project/ModelStore/main/model.json"
+    //   model = await tf.loadLayersModel(url);
+    //   console.log("model loaded")
+		// 	//console.log(model.summary())
+    // }
+		// loadModel()
 
 
 	</script>
 </head>
 <body>
+	<p id="test"></p>
 	<br><br><br><br>
-	<center><canvas width="64" height="64" id="c" style="border: 2px solid black;" align="center">
+	<center><canvas width="1000" height="400" id="c" style="border: 2px solid black;" align="center">
 		</canvas>
 
-		<br><button onclick="read(); convert();">CLICK</button>
+		<br><button onclick="convert()">CLICK</button>
 		<br><br><button onclick="clrCnv()">CLEAR</button>
 		<br><br>
 	</center>
@@ -41,7 +42,7 @@
 		const canvas = document.getElementById("c");
 		const context = canvas.getContext("2d");
 		context.fillStyle = "white";
-		context.lineWidth = 5;
+		context.lineWidth = 15;
 		context.fillRect(0, 0, canvas.width, canvas.height);
 		canvas.addEventListener("mousedown", (event)=>{
 			context.beginPath();
@@ -79,7 +80,7 @@
 		{
 			context.clearRect(0, 0, canvas.width, canvas.height);
 			context.fillStyle = "white";
-			context.lineWidth = 5;
+			context.lineWidth = 15;
 			context.fillRect(0, 0, canvas.width, canvas.height);
 		}
 
@@ -88,8 +89,13 @@
 			var msg = JSON.stringify(png);
 			console.log(msg)
    			var xhr = new XMLHttpRequest();
-   			xhr.open('POST',"/convert",true);
-   			xhr.send(msg);
+   			console.log(xhr.open('POST',"/convert",true));
+				xhr.onload = (res) => {
+					console.log(res['target']['response']);
+        	message = res['target']['response'];
+					document.getElementById('test').innerHTML = message
+				};
+				xhr.send(msg);
    			alert('file is saved');
 		}
 	</script>

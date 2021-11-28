@@ -24,43 +24,104 @@ async function loadLocalImage (filename) {
     img.onerror = err => { throw err };
     img.src = filename;
     image = tf.browser.fromPixels(canvas, 1);
-    console.log(image)
-    return image;
+    image = image.div(tf.scalar(255))
+    // console.log(canvas.toDataURL())
+    // res.write('<html><body>')
+    // res.write('<img src="' + canvas.toDataURL() + '" />');
+    // res.write('</html></body>')
+    // res.end()
+    // console.log(image)
+    // tf.browser.toPixels(image,canvas)
+    // res.write('<img src="' + canvas.toDataURL() + '" />');
+    return image
   } catch (err) {
     console.log(err);
   }
 }
 
-// async function loadModel() {
-//   model = undefined;
-//   // url = "https://raw.githubusercontent.com/SXCSEM6-project/ModelStore/main/model.json"
-//   model = await tf.loadLayersModel(url);
-//   console.log("model loaded")
-//   return model
-//   //console.log(model.summary())
-// }
+async function loadModel() {
+  model = undefined;
+  // url = "https://raw.githubusercontent.com/SXCSEM6-project/ModelStore/main/model.json"
+  model = await tf.loadLayersModel(url);
+  console.log("model loaded")
+  return model
+  //console.log(model.summary())
+}
 // loadModel()
 
-async function getImage(filename) {
-    try {
-      this.image = await loadLocalImage(filename);
-    } catch (error) {
-      console.log('error loading image', error);
-    }
-    console.log( tf.tensor( [ image.arraySync() ] ) )
-    tf.loadLayersModel(url)
-    	.then((model)=>{
-    	console.log("Success")
-      v = model.predict( tf.tensor( [ this.image.arraySync() ] ) )
-			res = tf.tensor( v.dataSync() ).argMax().dataSync()
-			console.log( res[0] )
-    })
-    // return this.image;
-      // v = model.predict( tf.tensor( [ this.image.arraySync() ] ) )
-			// res = tf.tensor( v.dataSync() ).argMax().dataSync()
-			// console.log( res[0] )
-  }
+// async function getImage(filename) {
+//     try {
+//       this.image = await loadLocalImage(filename);
+//     } catch (error) {
+//       console.log('error loading image', error);
+//     }
+//     // console.log( tf.tensor( [ image.arraySync() ] ) )
+//     // tf.loadLayersModel(url)
+//     // 	.then((model)=>{
+//     // 	console.log("Success")
+//     //   v = model.predict( tf.tensor( [ this.image.arraySync() ] ) )
+// 		// 	res = tf.tensor( v.dataSync() ).argMax().dataSync()
+// 		// 	console.log( res[0] )
+//     // })
+//     return this.image;
+//       // v = model.predict( tf.tensor( [ this.image.arraySync() ] ) )
+// 			// res = tf.tensor( v.dataSync() ).argMax().dataSync()
+// 			// console.log( res[0] )
+//   }
 // getImage(img_dir)
+
+async function getResult(n, res)
+{
+  try{
+    // t = []
+    // for(i=0; i<n; i++)
+    // {
+    //   img = await getImage(`${p}/ROI_${i}.png`)
+    //   img = img.div(tf.scalar(255))
+    //   console.log(img)
+    //   t.push( img.arraySync() )
+    // }
+    // console.log( tf.tensor( t ) )
+    // tf.loadLayersModel(url)
+    // 	.then((model)=>{
+    // 	console.log("Success")
+    //   v = model.predict( tf.tensor( t ) )
+		// 	// res = tf.tensor( v.dataSync() ).argMax().dataSync()
+		// 	// console.log( v.arraySync() )
+    //   for (i=0; i<n; i++)
+    //   {
+    //     res = tf.tensor( v.arraySync()[i] ).argMax().dataSync()
+    //     console.log( res[0] )
+    //   }
+    // })
+    console.log("called")
+    model = await loadModel()
+    for (i=0; i<n; i++)
+    {
+      img = await loadLocalImage(`${p}ROI_${i}.png`)
+      // img = tf.browser.fromPixels(canvas, 1);
+      // img = img.div(tf.scalar(255))
+      // img = img.div(tf.scalar(255))
+      console.log(img)
+      v = model.predict( tf.tensor( [ img.arraySync() ] ) )
+      result = tf.tensor( v.dataSync() ).argMax().dataSync()
+      console.log( `${p}ROI_${i}.png : ${result[0]}` )
+      // tf.browser.toPixels(img,canvas)
+      res.write('<img src="' + canvas.toDataURL() + '" />');
+    }
+    // tf.loadLayersModel(url)
+    // 	.then((model)=>{
+    // 	console.log("Success")
+    //   v = model.predict( tf.tensor( t ) )
+		// 	// res = tf.tensor( v.dataSync() ).argMax().dataSync()
+		// 	// console.log( v.arraySync() )
+    //
+    // })
+    res.end()
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 const server = http.createServer(function (request, response) {
     // loadModel()
@@ -82,13 +143,19 @@ const server = http.createServer(function (request, response) {
             post = JSON.parse(body);
             var data = post.replace(/^data:image\/\w+;base64,/, "");
             var buf = Buffer.from(data, 'base64');
-            writeFileToSystem(buf);
+            writeFileToSystem(buf, response);
+            // response.write('<html><body>');
+            // console.log(imgC)
+            // response.write('<img src="' + imgC + '" />');
+            // response.write('</body></html>');
+            // response.end();
         });
+
     }
 
 //----------saving image to server side folder
 
-    function writeFileToSystem(buf){
+    function writeFileToSystem(buf, res){
         fsp.readdir(p)
             .then((data)=>{
                 for(i of data){
@@ -102,7 +169,7 @@ const server = http.createServer(function (request, response) {
                 fs.writeFile(`${p}/image.png`, buf, function(err) {
                     if(err)
                         console.log(err);
-                    runScript()
+                    runScript(res)
                     // getImage(img_dir)
                 });
             })
@@ -110,17 +177,19 @@ const server = http.createServer(function (request, response) {
                 console.log(e)
             })
     }
-    function runScript(){
+    function runScript(res){
         pyshell.PythonShell.run("segri.py", null, function(err, result){
             if(!err){
                 console.log("script ran successfully...")
                 console.log(result.length)
-                getImage(img_dir)
+                getResult(result.length, res)
             }
             else
                 console.log(err);
         })
     }
+
+
 })
 
 server.listen(port,host,()=>{
