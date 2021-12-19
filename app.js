@@ -109,7 +109,7 @@ async function getResult(n, res)
       // result = tf.tensor( v.dataSync() ).argMax().dataSync()
       // console.log( `${p}ROI_${i}.png : ${result[0]}` )
       // tf.browser.toPixels(img,canvas)
-      res.write(`<img id="img${i}" src="` + canvas.toDataURL() + '" />');
+      res.write(`<img id="img${i}" src="` + canvas.toDataURL() + '" />\n');
       // res.write(`<canvas id="cnv${i}" width="${imgSz}" height="${imgSz}"></canvas>`);
     }
     // tf.loadLayersModel(url)

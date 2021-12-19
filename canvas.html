@@ -69,35 +69,45 @@
 				//console.log(res)
 				document.getElementById('imgRd').innerHTML = res
 				var l = document.getElementById("imgRd").childElementCount;
-				//console.log(l)
-				for(let i=0; i<l; i++)
-				{
-					// var c = document.getElementById(`cnv${i}`);
-				  // var ctx = c.getContext("2d");
-					// var img = new Image();
-					// img.onload = function() {
-					//     ctx.drawImage(this, 0, 0);
-					// 		// imgT = tf.browser.fromPixels(this);
-					// 		// console.log(imgT)
-					//     // call next step in your code here, f.ex: nextStep();
-					// };
-					// img.crossOrigin = "Anonymous";
-					// img.src = document.getElementById(`img${i}`).value;
-				  var img = document.getElementById(`img${i}`);
-					// img.width = imgSz
-					// img.height = imgSz
-				  // ctx.drawImage(img, 0, 0);
-					img.onload = function() {
-						console.log(img.complete)
-						// stopCount()
-						// imgT = tf.browser.fromPixels(img,1);
-						// console.log(imgT)
-						// read(imgT)
-						// tf.browser.toPixels(imgT,c)
+				var img = document.getElementById(`img${l-1}`)
+				img.onload = function(){
+					for(let i=0;i<l;i++){
+						var img = document.getElementById(`img${i}`)
+						console.log(img.id);
+						imgT = tf.browser.fromPixels(img,1);
+						console.log(imgT)
+						read(imgT)
 					}
-					// startCount()
-					console.log('hi')
 				}
+				//console.log(l)
+				// for(let i=0; i<l; i++)
+				// {
+				// 	// var c = document.getElementById(`cnv${i}`);
+				//   // var ctx = c.getContext("2d");
+				// 	// var img = new Image();
+				// 	// img.onload = function() {
+				// 	//     ctx.drawImage(this, 0, 0);
+				// 	// 		// imgT = tf.browser.fromPixels(this);
+				// 	// 		// console.log(imgT)
+				// 	//     // call next step in your code here, f.ex: nextStep();
+				// 	// };
+				// 	// img.crossOrigin = "Anonymous";
+				// 	// img.src = document.getElementById(`img${i}`).value;
+				//   var img = document.getElementById(`img${i}`);
+				// 	// img.width = imgSz
+				// 	// img.height = imgSz
+				//   // ctx.drawImage(img, 0, 0);
+				// 	img.onload = function() {
+				// 		console.log(img.complete)
+				// 		// stopCount()
+				// 		// imgT = tf.browser.fromPixels(img,1);
+				// 		// console.log(imgT)
+				// 		// read(imgT)
+				// 		// tf.browser.toPixels(imgT,c)
+				// 	}
+				// 	// startCount()
+				// 	console.log('hi')
+				// }
 			}).catch (function(err) {
 		   	console.error(err);
 		  });
@@ -112,7 +122,7 @@
 			pred = img.div(tf.scalar(255))
 			v = model.predict( tf.tensor( [ pred.arraySync() ] ) )
 			res = tf.tensor( v.dataSync() ).argMax().dataSync()
-			console.log( res[0] )
+			console.log( v.dataSync() )
 			// tf.browser.toPixels(pred,canvas) // prints read image to canvas
 			// console.log( tf.tensor( [ pred.arraySync() ] ) )
 		}
