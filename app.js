@@ -9,8 +9,10 @@ const p = "images/"
 const port = process.env.PORT
 const host = process.env.HOST
 
+const imgSz = 32
+
 const { Image, createCanvas } = require('canvas');
-const canvas = createCanvas(32, 32); //64, 64
+const canvas = createCanvas(imgSz, imgSz);
 const ctx = canvas.getContext('2d');
 // const img_dir = 'images/ROI_0.png';
 const tf = require("@tensorflow/tfjs");
@@ -95,7 +97,7 @@ async function getResult(n, res)
     //   }
     // })
     console.log("called")
-    model = await loadModel()
+    //model = await loadModel()
     for (i=0; i<n; i++)
     {
       img = await loadLocalImage(`${p}ROI_${i}.png`)
@@ -103,11 +105,12 @@ async function getResult(n, res)
       // img = img.div(tf.scalar(255))
       // img = img.div(tf.scalar(255))
       console.log(img)
-      v = model.predict( tf.tensor( [ img.arraySync() ] ) )
-      result = tf.tensor( v.dataSync() ).argMax().dataSync()
-      console.log( `${p}ROI_${i}.png : ${result[0]}` )
+      // v = model.predict( tf.tensor( [ img.arraySync() ] ) )
+      // result = tf.tensor( v.dataSync() ).argMax().dataSync()
+      // console.log( `${p}ROI_${i}.png : ${result[0]}` )
       // tf.browser.toPixels(img,canvas)
-      res.write('<img src="' + canvas.toDataURL() + '" />');
+      res.write(`<img id="img${i}" src="` + canvas.toDataURL() + '" />');
+      // res.write(`<canvas id="cnv${i}" width="${imgSz}" height="${imgSz}"></canvas>`);
     }
     // tf.loadLayersModel(url)
     // 	.then((model)=>{

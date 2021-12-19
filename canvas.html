@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-<!-- <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"> </script>
-<script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"> </script> -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"> </script>
+<script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"> </script>
 
 <head>
 	<meta charset="utf-8">
@@ -16,25 +16,25 @@
 	</style>
 
 	<script>
-    // async function loadModel() {
-    //   model = undefined;
-		// 	url = "https://raw.githubusercontent.com/SXCSEM6-project/ModelStore/main/model.json"
-    //   model = await tf.loadLayersModel(url);
-    //   console.log("model loaded")
-		// 	//console.log(model.summary())
-    // }
-		// loadModel()
+    async function loadModel() {
+      model = undefined;
+			url = "https://raw.githubusercontent.com/SXCSEM6-project/ModelStore/main/model.json"
+      model = await tf.loadLayersModel(url);
+      console.log("model loaded")
+			//console.log(model.summary())
+    }
+		loadModel()
 
-
+		const imgSz = 32
 	</script>
 </head>
 <body>
-	<p id="test"></p>
+	<p id="imgRd"></p>
 	<br><br><br><br>
 	<center><canvas width="1000" height="400" id="c" style="border: 2px solid black;" align="center">
 		</canvas>
 
-		<br><button onclick="convert()">CLICK</button>
+		<br><button onclick="getImg()">CLICK</button>
 		<br><br><button onclick="clrCnv()">CLEAR</button>
 		<br><br>
 	</center>
@@ -63,16 +63,57 @@
 			context.stroke();
 		}
 
-		function read()
+		function getImg()
 		{
-			img = tf.browser.fromPixels(canvas, 1) // reads image from canvas
-			pred = tf.tensor( [ img.arraySync() ] )
-			pred = tf.scalar(255).sub(img)
-			pred = pred.div(tf.scalar(255))
+			convert().then(function(res){
+				//console.log(res)
+				document.getElementById('imgRd').innerHTML = res
+				var l = document.getElementById("imgRd").childElementCount;
+				//console.log(l)
+				for(let i=0; i<l; i++)
+				{
+					// var c = document.getElementById(`cnv${i}`);
+				  // var ctx = c.getContext("2d");
+					// var img = new Image();
+					// img.onload = function() {
+					//     ctx.drawImage(this, 0, 0);
+					// 		// imgT = tf.browser.fromPixels(this);
+					// 		// console.log(imgT)
+					//     // call next step in your code here, f.ex: nextStep();
+					// };
+					// img.crossOrigin = "Anonymous";
+					// img.src = document.getElementById(`img${i}`).value;
+				  var img = document.getElementById(`img${i}`);
+					// img.width = imgSz
+					// img.height = imgSz
+				  // ctx.drawImage(img, 0, 0);
+					img.onload = function() {
+						console.log(img.complete)
+						// stopCount()
+						// imgT = tf.browser.fromPixels(img,1);
+						// console.log(imgT)
+						// read(imgT)
+						// tf.browser.toPixels(imgT,c)
+					}
+					// startCount()
+					console.log('hi')
+				}
+			}).catch (function(err) {
+		   	console.error(err);
+		  });
+		}
+
+		function read(img)
+		{
+
+			// img = tf.browser.fromPixels(canvas, 1) // reads image from canvas
+			// pred = tf.tensor( [ img.arraySync() ] )
+			// pred = tf.scalar(255).sub(img)
+			pred = img.div(tf.scalar(255))
 			v = model.predict( tf.tensor( [ pred.arraySync() ] ) )
 			res = tf.tensor( v.dataSync() ).argMax().dataSync()
 			console.log( res[0] )
-			tf.browser.toPixels(pred,canvas) // prints read image to canvas
+			// tf.browser.toPixels(pred,canvas) // prints read image to canvas
 			// console.log( tf.tensor( [ pred.arraySync() ] ) )
 		}
 
@@ -84,20 +125,26 @@
 			context.fillRect(0, 0, canvas.width, canvas.height);
 		}
 
-		const convert = function(){
+		const convert = function()
+		{
+			return new Promise(function(resolve, reject){
 			let png = canvas.toDataURL("image/png")
 			var msg = JSON.stringify(png);
-			console.log(msg)
+			//console.log(msg)
    			var xhr = new XMLHttpRequest();
-   			console.log(xhr.open('POST',"/convert",true));
+   			// console.log(xhr.open('POST',"/convert",true));
+				xhr.open('POST',"/convert",true)
 				xhr.onload = (res) => {
-					console.log(res['target']['response']);
-        	message = res['target']['response'];
-					document.getElementById('test').innerHTML = message
+					// console.log(res['target']['response']);
+        	srvRes = res['target']['response'];
+					// document.getElementById('imgRd').innerHTML = message;
+					// getImg()
+					resolve(srvRes)
 				};
 				xhr.send(msg);
    			alert('file is saved');
-		}
+		});
+	}
 	</script>
 </body>
 </html>
