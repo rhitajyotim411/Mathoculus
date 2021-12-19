@@ -21,7 +21,7 @@ const url = "https://raw.githubusercontent.com/SXCSEM6-project/ModelStore/main/m
 async function loadLocalImage (filename) {
   try {
     var img = new Image()
-    console.log('imageloaded')
+    //console.log('imageloaded')
     img.onload = () => ctx.drawImage(img, 0, 0);
     img.onerror = err => { throw err };
     img.src = filename;
@@ -96,7 +96,7 @@ async function getResult(n, res)
     //     console.log( res[0] )
     //   }
     // })
-    console.log("called")
+    // console.log("called")
     //model = await loadModel()
     for (i=0; i<n; i++)
     {
@@ -104,7 +104,7 @@ async function getResult(n, res)
       // img = tf.browser.fromPixels(canvas, 1);
       // img = img.div(tf.scalar(255))
       // img = img.div(tf.scalar(255))
-      console.log(img)
+      // console.log(img)
       // v = model.predict( tf.tensor( [ img.arraySync() ] ) )
       // result = tf.tensor( v.dataSync() ).argMax().dataSync()
       // console.log( `${p}ROI_${i}.png : ${result[0]}` )

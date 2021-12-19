@@ -13,6 +13,16 @@
 			padding: 0px;
 			margin:  0px;
 		}
+
+		#xp{
+			border: none;
+			padding: 3px;
+		  outline: none;
+		  font-size: 20px;
+			text-align: center;
+		}
+
+		input[type="text"]::placeholder { text-align: center; }
 	</style>
 
 	<script>
@@ -26,17 +36,22 @@
 		loadModel()
 
 		const imgSz = 32
+		var xp = '' //stores expresion
 	</script>
 </head>
 <body>
-	<p id="imgRd"></p>
-	<br><br><br><br>
-	<center><canvas width="1000" height="400" id="c" style="border: 2px solid black;" align="center">
-		</canvas>
+	<p id="imgRd" style="display: none;"></p>
+	<br>
+	<center>
+		<p><br><input id="xp" type="text" size="20" readonly placeholder="Result">
+			<br><br></p>
 
-		<br><button onclick="getImg()">CLICK</button>
-		<br><br><button onclick="clrCnv()">CLEAR</button>
-		<br><br>
+		<canvas width="1000" height="400" id="c" style="border: 2px solid black;" align="center"></canvas>
+
+		<br>
+		<p><button onclick="getImg()">CLICK</button>
+		&emsp;<button onclick="clrCnv()">CLEAR</button>
+		</p>
 	</center>
 	<script type="text/javascript">
 		const canvas = document.getElementById("c");
@@ -65,19 +80,22 @@
 
 		function getImg()
 		{
-			convert().then(function(res){
+			console.clear();
+			convert().then(function(res) {
 				//console.log(res)
 				document.getElementById('imgRd').innerHTML = res
 				var l = document.getElementById("imgRd").childElementCount;
 				var img = document.getElementById(`img${l-1}`)
-				img.onload = function(){
-					for(let i=0;i<l;i++){
+				img.onload = function() {
+					xp = ''
+					for(let i=0;i<l;i++) {
 						var img = document.getElementById(`img${i}`)
 						console.log(img.id);
 						imgT = tf.browser.fromPixels(img,1);
-						console.log(imgT)
+						// console.log(imgT)
 						read(imgT)
 					}
+					document.getElementById("xp").value=xp
 				}
 				//console.log(l)
 				// for(let i=0; i<l; i++)
@@ -115,14 +133,14 @@
 
 		function read(img)
 		{
-
 			// img = tf.browser.fromPixels(canvas, 1) // reads image from canvas
 			// pred = tf.tensor( [ img.arraySync() ] )
 			// pred = tf.scalar(255).sub(img)
 			pred = img.div(tf.scalar(255))
 			v = model.predict( tf.tensor( [ pred.arraySync() ] ) )
 			res = tf.tensor( v.dataSync() ).argMax().dataSync()
-			console.log( v.dataSync() )
+			console.log( res[0] )
+			xp+=res[0];
 			// tf.browser.toPixels(pred,canvas) // prints read image to canvas
 			// console.log( tf.tensor( [ pred.arraySync() ] ) )
 		}
