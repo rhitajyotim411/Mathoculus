@@ -139,10 +139,6 @@
 			// pred = tf.tensor( [ img.arraySync() ] )
 			// pred = tf.scalar(255).sub(img)
 			pred = img.div(tf.scalar(255))
-			v = model.predict( tf.tensor( [ pred.arraySync() ] ) )
-			res = tf.tensor( v.dataSync() ).argMax().dataSync()
-			console.log( res[0] )
-			xp+=res[0];
 			// tf.browser.toPixels(pred,canvas) // prints read image to canvas
 			// console.log( tf.tensor( [ pred.arraySync() ] ) )
 		}
@@ -189,7 +185,11 @@
 		temp = temp.div(tf.scalar(255))
 		// console.log( temp.dataSync() )
 		tf.browser.toPixels(temp, document.getElementById(`cnv_${i}`))
-		read(temp)
+		//read(temp)
+		v = model.predict( tf.tensor( [ temp.arraySync() ] ) )
+		res = tf.tensor( v.dataSync() ).argMax().dataSync()
+		console.log( res[0] )
+		xp+=res[0];
 	}
 	</script>
 </body>
