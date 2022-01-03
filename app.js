@@ -14,7 +14,6 @@ const imgSz = 32
 const { Image, createCanvas } = require('canvas');
 const canvas = createCanvas(imgSz, imgSz);
 const ctx = canvas.getContext('2d');
-// const img_dir = 'images/ROI_0.png';
 const tf = require("@tensorflow/tfjs");
 const url = "https://raw.githubusercontent.com/SXCSEM6-project/ModelStore/main/model.json"
 
@@ -27,107 +26,28 @@ async function loadLocalImage (filename) {
     img.src = filename;
     image = tf.browser.fromPixels(canvas, 1);
     image = image.div(tf.scalar(255))
-    // console.log(canvas.toDataURL())
-    // res.write('<html><body>')
-    // res.write('<img src="' + canvas.toDataURL() + '" />');
-    // res.write('</html></body>')
-    // res.end()
-    // console.log(image)
-    // tf.browser.toPixels(image,canvas)
-    // res.write('<img src="' + canvas.toDataURL() + '" />');
     return image
   } catch (err) {
     console.log(err);
   }
 }
 
-async function loadModel() {
-  model = undefined;
-  // url = "https://raw.githubusercontent.com/SXCSEM6-project/ModelStore/main/model.json"
-  model = await tf.loadLayersModel(url);
-  console.log("model loaded")
-  return model
-  //console.log(model.summary())
-}
-// loadModel()
-
-// async function getImage(filename) {
-//     try {
-//       this.image = await loadLocalImage(filename);
-//     } catch (error) {
-//       console.log('error loading image', error);
-//     }
-//     // console.log( tf.tensor( [ image.arraySync() ] ) )
-//     // tf.loadLayersModel(url)
-//     // 	.then((model)=>{
-//     // 	console.log("Success")
-//     //   v = model.predict( tf.tensor( [ this.image.arraySync() ] ) )
-// 		// 	res = tf.tensor( v.dataSync() ).argMax().dataSync()
-// 		// 	console.log( res[0] )
-//     // })
-//     return this.image;
-//       // v = model.predict( tf.tensor( [ this.image.arraySync() ] ) )
-// 			// res = tf.tensor( v.dataSync() ).argMax().dataSync()
-// 			// console.log( res[0] )
-//   }
-// getImage(img_dir)
-
-async function getResult(n, res)
+async function getResult(n, response)
 {
-  try{
-    // t = []
-    // for(i=0; i<n; i++)
-    // {
-    //   img = await getImage(`${p}/ROI_${i}.png`)
-    //   img = img.div(tf.scalar(255))
-    //   console.log(img)
-    //   t.push( img.arraySync() )
-    // }
-    // console.log( tf.tensor( t ) )
-    // tf.loadLayersModel(url)
-    // 	.then((model)=>{
-    // 	console.log("Success")
-    //   v = model.predict( tf.tensor( t ) )
-		// 	// res = tf.tensor( v.dataSync() ).argMax().dataSync()
-		// 	// console.log( v.arraySync() )
-    //   for (i=0; i<n; i++)
-    //   {
-    //     res = tf.tensor( v.arraySync()[i] ).argMax().dataSync()
-    //     console.log( res[0] )
-    //   }
-    // })
-    // console.log("called")
-    //model = await loadModel()
+  try
+  {
     for (i=0; i<n; i++)
     {
       img = await loadLocalImage(`${p}ROI_${i}.png`)
-      // img = tf.browser.fromPixels(canvas, 1);
-      // img = img.div(tf.scalar(255))
-      // img = img.div(tf.scalar(255))
-      // console.log(img)
-      // v = model.predict( tf.tensor( [ img.arraySync() ] ) )
-      // result = tf.tensor( v.dataSync() ).argMax().dataSync()
-      // console.log( `${p}ROI_${i}.png : ${result[0]}` )
-      // tf.browser.toPixels(img,canvas)
-      res.write(`<img id="img${i}" src="` + canvas.toDataURL() + '" />\n');
-      // res.write(`<canvas id="cnv${i}" width="${imgSz}" height="${imgSz}"></canvas>`);
+      response.write(`<img id="img${i}" src="` + canvas.toDataURL() + '" />\n')
     }
-    // tf.loadLayersModel(url)
-    // 	.then((model)=>{
-    // 	console.log("Success")
-    //   v = model.predict( tf.tensor( t ) )
-		// 	// res = tf.tensor( v.dataSync() ).argMax().dataSync()
-		// 	// console.log( v.arraySync() )
-    //
-    // })
-    res.end()
+    response.end()
   } catch (error) {
     console.log(error);
   }
 }
 
 const server = http.createServer(function (request, response) {
-    // loadModel()
     let post='';
     if(request.url == "/"){
         const data = fs.readFileSync("canvas.html","utf-8")
@@ -145,20 +65,15 @@ const server = http.createServer(function (request, response) {
 
             post = JSON.parse(body);
             var data = post.replace(/^data:image\/\w+;base64,/, "");
-            var buf = Buffer.from(data, 'base64');
-            writeFileToSystem(buf, response);
-            // response.write('<html><body>');
-            // console.log(imgC)
-            // response.write('<img src="' + imgC + '" />');
-            // response.write('</body></html>');
-            // response.end();
+            var buffer = Buffer.from(data, 'base64');
+            writeFileToSystem(buffer, response);
         });
 
     }
 
 //----------saving image to server side folder
 
-    function writeFileToSystem(buf, res){
+    function writeFileToSystem(buffer, response){
         fsp.readdir(p)
             .then((data)=>{
                 for(i of data){
@@ -169,30 +84,27 @@ const server = http.createServer(function (request, response) {
                       console.log(e)
                     })
                 }
-                fs.writeFile(`${p}/image.png`, buf, function(err) {
+                fs.writeFile(`${p}/image.png`, buffer, function(err) {
                     if(err)
                         console.log(err);
-                    runScript(res)
-                    // getImage(img_dir)
+                    runScript(response)
                 });
             })
             .catch((e)=>{
                 console.log(e)
             })
     }
-    function runScript(res){
+    function runScript(response){
         pyshell.PythonShell.run("segri.py", null, function(err, result){
             if(!err){
                 console.log("script ran successfully...")
                 console.log(result.length)
-                getResult(result.length, res)
+                getResult(result.length, response)
             }
             else
                 console.log(err);
         })
     }
-
-
 })
 
 server.listen(port,host,()=>{

@@ -36,12 +36,12 @@
 		loadModel()
 
 		const imgSz = 32
-		var xp = '' //stores expresion
-		var thicc = 3
+		var xp = '' 	//stores expresion
+		var thicc = 4		//canvas line thiccness
 	</script>
 </head>
 <body>
-	<p id="imgRd" style="display: block;"></p>
+	<p id="imgRd" style="display: none;"></p>
 	<br>
 	<center>
 		<p><br><input id="xp" type="text" size="20" readonly placeholder="Result">
@@ -94,53 +94,13 @@
 						console.log(img.id);
 						imgT = tf.browser.fromPixels(img,1);
 						// console.log(imgT)
-						pool(imgT,i)
-						// read(imgT)
+						ans(imgT,i)
 					}
 					document.getElementById("xp").value=xp
 				}
-				//console.log(l)
-				// for(let i=0; i<l; i++)
-				// {
-				// 	// var c = document.getElementById(`cnv${i}`);
-				//   // var ctx = c.getContext("2d");
-				// 	// var img = new Image();
-				// 	// img.onload = function() {
-				// 	//     ctx.drawImage(this, 0, 0);
-				// 	// 		// imgT = tf.browser.fromPixels(this);
-				// 	// 		// console.log(imgT)
-				// 	//     // call next step in your code here, f.ex: nextStep();
-				// 	// };
-				// 	// img.crossOrigin = "Anonymous";
-				// 	// img.src = document.getElementById(`img${i}`).value;
-				//   var img = document.getElementById(`img${i}`);
-				// 	// img.width = imgSz
-				// 	// img.height = imgSz
-				//   // ctx.drawImage(img, 0, 0);
-				// 	img.onload = function() {
-				// 		console.log(img.complete)
-				// 		// stopCount()
-				// 		// imgT = tf.browser.fromPixels(img,1);
-				// 		// console.log(imgT)
-				// 		// read(imgT)
-				// 		// tf.browser.toPixels(imgT,c)
-				// 	}
-				// 	// startCount()
-				// 	console.log('hi')
-				// }
 			}).catch (function(err) {
 		   	console.error(err);
 		  });
-		}
-
-		function read(img) //Predicts image result
-		{
-			// img = tf.browser.fromPixels(canvas, 1) // reads image from canvas
-			// pred = tf.tensor( [ img.arraySync() ] )
-			// pred = tf.scalar(255).sub(img)
-			pred = img.div(tf.scalar(255))
-			// tf.browser.toPixels(pred,canvas) // prints read image to canvas
-			// console.log( tf.tensor( [ pred.arraySync() ] ) )
 		}
 
 		function clrCnv()
@@ -172,20 +132,21 @@
 		});
 	}
 
-	function pool(img, i) //thiccs img
+	function ans(img, i) //thiccs img and predicts ans
 	{
+		//pooling
 		cnv = document.createElement("canvas")
-		cnv.id = `cnv_${i}`
+		cnv.id = `cnv${i}`
 		cnv.height = imgSz
 		cnv.width = imgSz
 		document.getElementById('imgRd').appendChild(cnv)
-		temp = tf.tensor4d( [img.arraySync()], [1, imgSz, imgSz, 1] )
+		temp = tf.tensor4d( [img.arraySync()], [1, imgSz, imgSz, 1] ) //3d to 4d
 		temp = tf.maxPool3d( temp, 3, 1, 'same' )
-		temp = tf.tensor3d( temp.arraySync()[0],  [imgSz, imgSz, 1])
+		temp = tf.tensor3d( temp.arraySync()[0],  [imgSz, imgSz, 1] ) //4d to 3d
 		temp = temp.div(tf.scalar(255))
-		// console.log( temp.dataSync() )
-		tf.browser.toPixels(temp, document.getElementById(`cnv_${i}`))
-		//read(temp)
+		tf.browser.toPixels(temp, document.getElementById(`cnv${i}`))
+
+		//prediction
 		v = model.predict( tf.tensor( [ temp.arraySync() ] ) )
 		res = tf.tensor( v.dataSync() ).argMax().dataSync()
 		console.log( res[0] )
