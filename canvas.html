@@ -37,10 +37,11 @@
 
 		const imgSz = 32
 		var xp = '' //stores expresion
+		var thicc = 3
 	</script>
 </head>
 <body>
-	<p id="imgRd" style="display: none;"></p>
+	<p id="imgRd" style="display: block;"></p>
 	<br>
 	<center>
 		<p><br><input id="xp" type="text" size="20" readonly placeholder="Result">
@@ -57,7 +58,7 @@
 		const canvas = document.getElementById("c");
 		const context = canvas.getContext("2d");
 		context.fillStyle = "white";
-		context.lineWidth = 15;
+		context.lineWidth = thicc;
 		context.fillRect(0, 0, canvas.width, canvas.height);
 		canvas.addEventListener("mousedown", (event)=>{
 			context.beginPath();
@@ -78,7 +79,7 @@
 			context.stroke();
 		}
 
-		function getImg()
+		function getImg()	//reads image from canvas
 		{
 			console.clear();
 			convert().then(function(res) {
@@ -93,7 +94,8 @@
 						console.log(img.id);
 						imgT = tf.browser.fromPixels(img,1);
 						// console.log(imgT)
-						read(imgT)
+						pool(imgT,i)
+						// read(imgT)
 					}
 					document.getElementById("xp").value=xp
 				}
@@ -131,7 +133,7 @@
 		  });
 		}
 
-		function read(img)
+		function read(img) //Predicts image result
 		{
 			// img = tf.browser.fromPixels(canvas, 1) // reads image from canvas
 			// pred = tf.tensor( [ img.arraySync() ] )
@@ -149,7 +151,7 @@
 		{
 			context.clearRect(0, 0, canvas.width, canvas.height);
 			context.fillStyle = "white";
-			context.lineWidth = 15;
+			context.lineWidth = thicc;
 			context.fillRect(0, 0, canvas.width, canvas.height);
 		}
 
@@ -172,6 +174,22 @@
 				xhr.send(msg);
    			alert('file is saved');
 		});
+	}
+
+	function pool(img, i) //thiccs img
+	{
+		cnv = document.createElement("canvas")
+		cnv.id = `cnv_${i}`
+		cnv.height = imgSz
+		cnv.width = imgSz
+		document.getElementById('imgRd').appendChild(cnv)
+		temp = tf.tensor4d( [img.arraySync()], [1, imgSz, imgSz, 1] )
+		temp = tf.maxPool3d( temp, 3, 1, 'same' )
+		temp = tf.tensor3d( temp.arraySync()[0],  [imgSz, imgSz, 1])
+		temp = temp.div(tf.scalar(255))
+		// console.log( temp.dataSync() )
+		tf.browser.toPixels(temp, document.getElementById(`cnv_${i}`))
+		read(temp)
 	}
 	</script>
 </body>
