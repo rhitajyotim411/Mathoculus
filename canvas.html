@@ -37,7 +37,7 @@
 
 		const imgSz = 64
 		var xp = '' 	//stores expresion
-		var thicc = 7	//canvas line thiccness
+		var thicc = 7	//canvas line thiccness (original: 5)
 	</script>
 </head>
 <body>
@@ -140,11 +140,9 @@
 		cnv.height = imgSz
 		cnv.width = imgSz
 		document.getElementById('imgRd').appendChild(cnv)
-		temp = tf.tensor4d( [img.arraySync()], [1, imgSz, imgSz, 1] ) //3d to 4d
-		temp = tf.maxPool3d( temp, 3, 1, 'same' )
-		temp = tf.tensor3d( temp.arraySync()[0],  [imgSz, imgSz, 1] ) //4d to 3d
+		temp = tf.pool(img, 3, 'max', 'same')		//pooling
 		temp = temp.div(tf.scalar(255))
-		tf.browser.toPixels(temp, document.getElementById(`cnv${i}`))
+		tf.browser.toPixels(temp, document.getElementById(`cnv${i}`))		//visual analysis
 
 		//prediction
 		v = model.predict( tf.tensor( [ temp.arraySync() ] ) )
