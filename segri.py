@@ -6,6 +6,7 @@ import numpy as np
 # f.close()
 
 #padding function
+imgSz = 64
 def pad(img):
     h,w = img.shape
 
@@ -27,7 +28,7 @@ def pad(img):
 
     pd[h : -h,  w : -w] = img
 
-    return cv2.resize(pd, (32,32), interpolation=cv2.INTER_AREA) # 64,64
+    return cv2.resize(pd, (imgSz, imgSz), interpolation=cv2.INTER_AREA) # 64,64
 #End of Function
 
 # def store(img):

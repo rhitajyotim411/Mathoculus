@@ -9,7 +9,7 @@ const p = "images/"
 const port = process.env.PORT
 const host = process.env.HOST
 
-const imgSz = 32
+const imgSz = 64
 
 const { Image, createCanvas } = require('canvas');
 const canvas = createCanvas(imgSz, imgSz);
