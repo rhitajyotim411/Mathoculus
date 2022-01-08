@@ -53,7 +53,8 @@ function getImg()	//reads image from canvas
 				// console.log(imgT)
 				ans(imgT,i)
 			}
-			document.getElementById("xp").value= `${xp} = ${eval(xp).toFixed(4)}`
+			xp_res = Math.round((eval(xp) + Number.EPSILON) * 10000) / 10000
+			document.getElementById("xp").value= `${xp} = ${xp_res}`
 		}
 	}).catch (function(err) {
    	console.error(err);
@@ -66,6 +67,7 @@ function clrCnv()
 	context.fillStyle = "white";
 	context.lineWidth = thicc;
 	context.fillRect(0, 0, canvas.width, canvas.height);
+	document.getElementById("xp").value= ''
 }
 
 const convert = function()
@@ -103,6 +105,8 @@ function ans(img, i) //thiccs img and predicts ans
 	//prediction
 	v = model.predict( tf.tensor( [ temp.arraySync() ] ) )
 	res = tf.tensor( v.dataSync() ).argMax().dataSync()
-	console.log( res[0] )
+	console.log( true_labels[ res[0] ] )
+	console.log( v.arraySync()[0][ res[0] ] )
+	console.log( v.arraySync()[0] )
 	xp+=true_labels[ res[0] ];
 }
