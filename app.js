@@ -53,6 +53,11 @@ const server = http.createServer(function (request, response) {
         const data = fs.readFileSync("canvas.html","utf-8")
         response.end(data)
     }
+     if (request.url == '/operations.js') {
+        const data = fs.readFileSync("operations.js","utf-8")
+        response.writeHead(200,{'Content-type': 'text/javascript'});
+        response.end(data)
+    }
     //main
     if (request.method == 'POST' && request.url=="/convert") {
         let body = '';
