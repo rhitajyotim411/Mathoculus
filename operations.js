@@ -1,7 +1,8 @@
 const imgSz = 64
 var xp = '' 	//stores expresion
-var thicc = 5	//canvas line thiccness (original: 5, dataset_creation: 7)
+var thicc = 5		//canvas line thiccness (original: 5, dataset_creation: 7)
 const true_labels = ['0','1','2','3','4','5','6','7','8','9','+','-','*','/']
+
 const canvas = document.getElementById("c");
 const context = canvas.getContext("2d");
 context.fillStyle = "white";
@@ -22,10 +23,10 @@ document.body.addEventListener("mouseup", (event)=>{
 
 async function loadModel() {
     model = undefined;
-	url = "https://raw.githubusercontent.com/SXCSEM6-project/ModelStore/main/model.json"
+		url = "https://raw.githubusercontent.com/SXCSEM6-project/ModelStore/main/model.json"
     model = await tf.loadLayersModel(url);
     console.log("model loaded")
-	//console.log(model.summary())
+		//console.log(model.summary())
 }
 loadModel()
 
@@ -34,6 +35,7 @@ const draw = function(event){
 	context.moveTo(event.offsetX, event.offsetY);
 	context.stroke();
 }
+
 function getImg()	//reads image from canvas
 {
 	console.clear();
@@ -57,6 +59,7 @@ function getImg()	//reads image from canvas
    	console.error(err);
   });
 }
+
 function clrCnv()
 {
 	context.clearRect(0, 0, canvas.width, canvas.height);
@@ -64,6 +67,7 @@ function clrCnv()
 	context.lineWidth = thicc;
 	context.fillRect(0, 0, canvas.width, canvas.height);
 }
+
 const convert = function()
 {
 	return new Promise(function(resolve, reject){
@@ -84,6 +88,7 @@ const convert = function()
   		//alert('file is saved');
 	});
 }
+
 function ans(img, i) //thiccs img and predicts ans
 {
 	//pooling
