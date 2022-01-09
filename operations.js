@@ -60,6 +60,8 @@ function getImg()	//reads image from canvas
 {
 	console.clear()
 	toggle(false)
+	document.getElementById("xp").value= 'Calculating...'
+
 	convert().then(function(res) {
 		//console.log(res)
 		document.getElementById('imgRd').innerHTML = res
