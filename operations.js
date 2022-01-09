@@ -5,6 +5,8 @@ const true_labels = ['0','1','2','3','4','5','6','7','8','9','+','-','*','/']
 
 const canvas = document.getElementById("c");
 const context = canvas.getContext("2d");
+let ln_color = "black";
+
 context.fillStyle = "white";
 context.lineWidth = thicc;
 context.fillRect(0, 0, canvas.width, canvas.height);
@@ -31,9 +33,24 @@ async function loadModel() {
 loadModel()
 
 const draw = function(event){
+	context.strokeStyle = ln_color;
 	context.lineTo(event.offsetX, event.offsetY);
 	context.moveTo(event.offsetX, event.offsetY);
 	context.stroke();
+}
+
+const toggle = function(){
+	let toggle_but = document.getElementById("mode")
+	if(toggle_but.innerHTML == "ERASE"){
+		ln_color = "white";
+		context.lineWidth = 20;
+		toggle_but.innerHTML = "WRITE"; 
+	}
+	else if(toggle_but.innerHTML == "WRITE"){
+		ln_color = "black";
+		context.lineWidth = thicc;
+		toggle_but.innerHTML = "ERASE"; 
+	}
 }
 
 function getImg()	//reads image from canvas
