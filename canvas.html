@@ -23,6 +23,12 @@
 			width: 1000px;
 		}
 
+		#wait{
+      position: fixed;
+      left: 50%;		top: 40%;
+      transform: translate(-50%,-40%);
+    }
+
 		input[type="text"]::placeholder { text-align: center; }
 	</style>
 </head>
@@ -30,7 +36,12 @@
 <body>
 	<p id="imgRd" style="display: none;"></p>
 	<br>
-	<center>
+
+	<div id="wait"><center>
+		<h1>Please Wait... <br> Getting Things Ready !!</h1>
+	</center></div>
+
+	<center><div id="work" style="display: none;">
 		<p><br><input id="xp" type="text" readonly placeholder="Result">
 			<br><br></p>
 
@@ -42,7 +53,7 @@
 			&emsp;<button onclick="getImg()">EVALUATE</button>
 			&emsp;<button onclick="clrCnv()">CLEAR</button>
 		</p>
-	</center>
+	</div></center>
 
 	<script src="operations.js" type="text/javascript"></script>
 </body>

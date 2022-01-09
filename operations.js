@@ -28,7 +28,10 @@ async function loadModel() {
 		url = "https://raw.githubusercontent.com/SXCSEM6-project/ModelStore/main/model.json"
     model = await tf.loadLayersModel(url);
     console.log("model loaded")
-		//console.log(model.summary())
+		// console.log(model.summary())
+
+		document.getElementById('wait').style.display="none"
+  	document.getElementById('work').style.display="block"
 }
 loadModel()
 
