@@ -39,23 +39,24 @@ const draw = function(event){
 	context.stroke();
 }
 
-const toggle = function(){
+const toggle = function(flag){
 	let toggle_but = document.getElementById("mode")
-	if(toggle_but.innerHTML == "ERASE"){
+	if(toggle_but.innerHTML == "ERASE" && flag){
 		ln_color = "white";
-		context.lineWidth = 20;
-		toggle_but.innerHTML = "WRITE"; 
+		context.lineWidth = 30;
+		toggle_but.innerHTML = "WRITE";
 	}
 	else if(toggle_but.innerHTML == "WRITE"){
 		ln_color = "black";
 		context.lineWidth = thicc;
-		toggle_but.innerHTML = "ERASE"; 
+		toggle_but.innerHTML = "ERASE";
 	}
 }
 
 function getImg()	//reads image from canvas
 {
-	console.clear();
+	console.clear()
+	toggle(false)
 	convert().then(function(res) {
 		//console.log(res)
 		document.getElementById('imgRd').innerHTML = res
@@ -70,8 +71,13 @@ function getImg()	//reads image from canvas
 				// console.log(imgT)
 				ans(imgT,i)
 			}
-			xp_res = Math.round((eval(xp) + Number.EPSILON) * 10000) / 10000
-			document.getElementById("xp").value= `${xp} = ${xp_res}`
+			try{
+				xp_res = Math.round((eval(xp) + Number.EPSILON) * 10000) / 10000
+				document.getElementById("xp").value= `${xp} = ${xp_res}`
+			}
+			catch(err){
+				document.getElementById("xp").value= "Erroneous equation: " + xp
+			}
 		}
 	}).catch (function(err) {
    	console.error(err);
@@ -85,6 +91,7 @@ function clrCnv()
 	context.lineWidth = thicc;
 	context.fillRect(0, 0, canvas.width, canvas.height);
 	document.getElementById("xp").value= ''
+	toggle(false)
 }
 
 const convert = function()
