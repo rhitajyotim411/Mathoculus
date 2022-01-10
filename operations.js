@@ -81,7 +81,7 @@ function getImg()	//reads image from canvas
 				document.getElementById("xp").value= `${xp} = ${xp_res}`
 			}
 			catch(err){
-				document.getElementById("xp").value= "Erroneous equation: " + xp
+				document.getElementById("xp").value= "Erroneous expression: " + xp
 			}
 		}
 	}).catch (function(err) {
