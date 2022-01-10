@@ -2,6 +2,7 @@
 <html>
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"> </script>
 <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"> </script>
+<script src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
 
 <head>
 	<meta charset="utf-8">
@@ -34,7 +35,7 @@
 </head>
 
 <body>
-	<p id="imgRd" style="display: none;"></p>
+	<p id="imgRd" style="display: block;"></p>
 	<br>
 
 	<div id="wait"><center>
@@ -44,16 +45,23 @@
 	<center><div id="work" style="display: none;">
 		<p><br><input id="xp" type="text" readonly placeholder="Result">
 			<br><br></p>
-
-		<canvas width="1000" height="400" id="c" style="border: 2px solid black;" align="center"></canvas>
+		<video id="webcam" autoplay playsinline width="1000" height="400" style="display: none;"></video>&emsp;
+		<canvas width="1000" height="400" id="c" style="border: 2px solid black;"></canvas>
 		<br>
 
 		<p>
 			<button onclick="toggle(true)" id="mode">ERASE</button>
 			&emsp;<button onclick="getImg()">EVALUATE</button>
+			&emsp;<button onclick="test()">UPLOAD</button>
 			&emsp;<button onclick="clrCnv()">CLEAR</button>
+			&emsp;<button onclick="start_vdo()">VIDEO</button>
+			&emsp;<button onclick="take_pic()">SNAP</button>
+			&emsp;<button onclick="stop_vdo()">STOP</button>
 		</p>
-	</div></center>
+		<img id="test" width="500" height="300" src="test.png" alt="The test" style="border : 2px solid black">
+	</div>
+	
+</center>
 
 	<script src="operations.js" type="text/javascript"></script>
 </body>

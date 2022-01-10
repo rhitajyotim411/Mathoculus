@@ -7,6 +7,46 @@ const canvas = document.getElementById("c");
 const context = canvas.getContext("2d");
 let ln_color = "black";
 
+const webcamElement = document.getElementById('webcam');
+const canvasElement = canvas;
+const webcam = new Webcam(webcamElement, 'user', canvasElement);
+
+const start_vdo = function(){
+	webcamElement.style.display = "block";   
+	webcam.start()
+   .then(result =>{
+      console.log("webcam started");
+   })
+   .catch(err => {
+       console.log(err);
+   });
+}
+
+const take_pic = function(){
+	var picture = webcam.snap();
+	//var img = document.getElementById("test");
+  	context.drawImage(picture, 0, 0);
+
+}
+
+const stop_vdo = function(){
+	webcamElement.style.display = "none";  
+	webcam.stop();
+}
+
+
+async function loadModel() {
+    model = undefined;
+		url = "https://raw.githubusercontent.com/SXCSEM6-project/ModelStore/main/model.json"
+    model = await tf.loadLayersModel(url);
+    console.log("model loaded")
+		// console.log(model.summary())
+	
+	document.getElementById('wait').style.display="none"
+  	document.getElementById('work').style.display="block"
+}
+loadModel()
+
 context.fillStyle = "white";
 context.lineWidth = thicc;
 context.fillRect(0, 0, canvas.width, canvas.height);
@@ -21,19 +61,6 @@ canvas.addEventListener("mouseup", (event)=>{
 document.body.addEventListener("mouseup", (event)=>{
 	canvas.removeEventListener("mousemove",draw,false);
 }, false);
-
-
-async function loadModel() {
-    model = undefined;
-		url = "https://raw.githubusercontent.com/SXCSEM6-project/ModelStore/main/model.json"
-    model = await tf.loadLayersModel(url);
-    console.log("model loaded")
-		// console.log(model.summary())
-
-		document.getElementById('wait').style.display="none"
-  	document.getElementById('work').style.display="block"
-}
-loadModel()
 
 const draw = function(event){
 	context.strokeStyle = ln_color;
@@ -54,6 +81,11 @@ const toggle = function(flag){
 		context.lineWidth = thicc;
 		toggle_but.innerHTML = "ERASE";
 	}
+}
+
+const test = function(){
+	var img = document.getElementById("test");
+  	context.drawImage(img, -150, -150);
 }
 
 function getImg()	//reads image from canvas
@@ -81,7 +113,7 @@ function getImg()	//reads image from canvas
 				document.getElementById("xp").value= `${xp} = ${xp_res}`
 			}
 			catch(err){
-				document.getElementById("xp").value= "Erroneous equation: " + xp
+				document.getElementById("xp").value= "Erroneous expression: " + xp
 			}
 		}
 	}).catch (function(err) {
