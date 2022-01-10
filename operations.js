@@ -9,10 +9,10 @@ let ln_color = "black";
 
 const webcamElement = document.getElementById('webcam');
 const canvasElement = canvas;
-const webcam = new Webcam(webcamElement, 'user', canvasElement);
+const webcam = new Webcam(webcamElement, 'enviroment', canvasElement);  //user or enviroment
 
 const start_vdo = function(){
-	webcamElement.style.display = "block";   
+	webcamElement.style.display = "block";
 	webcam.start()
    .then(result =>{
       console.log("webcam started");
@@ -29,8 +29,12 @@ const take_pic = function(){
 
 }
 
+const flip_vdo = function(){
+	webcam.flip();
+}
+
 const stop_vdo = function(){
-	webcamElement.style.display = "none";  
+	webcamElement.style.display = "none";
 	webcam.stop();
 }
 
@@ -41,7 +45,7 @@ async function loadModel() {
     model = await tf.loadLayersModel(url);
     console.log("model loaded")
 		// console.log(model.summary())
-	
+
 	document.getElementById('wait').style.display="none"
   	document.getElementById('work').style.display="block"
 }
@@ -85,7 +89,7 @@ const toggle = function(flag){
 
 const test = function(){
 	var img = document.getElementById("test");
-  	context.drawImage(img, -150, -150);
+  	context.drawImage(img, 0, 0);
 }
 
 function getImg()	//reads image from canvas

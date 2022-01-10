@@ -39,8 +39,10 @@ def pad(img):
 #     f.close()
 
 imarr = cv2.imread("./images/image.png", 0)
-imarr = imarr
+imarr = cv2.GaussianBlur(imarr, (7, 7), 0)  #removes noise for smooth thresholding
 #plt.imshow(imarr, cmap="gray")
+
+imarr = cv2.adaptiveThreshold(imarr, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 21, 4)
 
 imarr = cv2.threshold(imarr, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
 
@@ -53,7 +55,7 @@ cons, _ = contours.sort_contours(cons, method="left-to-right")
 ROI_number = 0
 for c in cons:
     area = cv2.contourArea(c)
-    if area > 10:
+    if area > 100:
         x,y,w,h = cv2.boundingRect(c)
         ROI = imarr[y:y+h, x:x+w]
         #ROI = cv2.resize(ROI, (64,64))
