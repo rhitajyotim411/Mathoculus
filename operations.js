@@ -51,6 +51,7 @@ async function loadModel() {
 }
 loadModel()
 
+//mouse events
 context.fillStyle = "white";
 context.lineWidth = thicc;
 context.fillRect(0, 0, canvas.width, canvas.height);
@@ -64,6 +65,22 @@ canvas.addEventListener("mouseup", (event)=>{
 }, false);
 document.body.addEventListener("mouseup", (event)=>{
 	canvas.removeEventListener("mousemove",draw,false);
+}, false);
+
+//touch events
+context.fillStyle = "white";
+context.lineWidth = thicc;
+context.fillRect(0, 0, canvas.width, canvas.height);
+canvas.addEventListener("touchstart", (event)=>{
+	context.beginPath();
+	context.moveTo(event.offsetX, event.offsetY);
+	canvas.addEventListener("touchmove",draw,false)
+}, false)
+canvas.addEventListener("touchend", (event)=>{
+	canvas.removeEventListener("touchmove",draw,false);
+}, false);
+document.body.addEventListener("touchend", (event)=>{
+	canvas.removeEventListener("touchmove",draw,false);
 }, false);
 
 const draw = function(event){
