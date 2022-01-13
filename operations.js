@@ -92,8 +92,8 @@ const draw = function(event){
 
 const draw_touch = function(event){
 	context.strokeStyle = ln_color;
-	context.lineTo(event.touches[0].clientX, event.touches[0].clientY);
-	context.moveTo(event.touches[0].clientX, event.touches[0].clientY);
+	context.lineTo(event.touches[0].offsetX, event.touches[0].offsetY);
+	context.moveTo(event.touches[0].offsetX, event.touches[0].offsetY);
 	context.stroke();
 }
 
