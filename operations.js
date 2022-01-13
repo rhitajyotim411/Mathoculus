@@ -73,20 +73,27 @@ context.lineWidth = thicc;
 context.fillRect(0, 0, canvas.width, canvas.height);
 canvas.addEventListener("touchstart", (event)=>{
 	context.beginPath();
-	context.moveTo(event.offsetX, event.offsetY);
-	canvas.addEventListener("touchmove",draw,false)
-}, false)
+	context.moveTo(event.touches[0].clientX, event.touches[0].clientY);
+	canvas.addEventListener("touchmove",draw_touch,false)
+}, false) 
 canvas.addEventListener("touchend", (event)=>{
-	canvas.removeEventListener("touchmove",draw,false);
+	canvas.removeEventListener("touchmove",draw_touch,false);
 }, false);
 document.body.addEventListener("touchend", (event)=>{
-	canvas.removeEventListener("touchmove",draw,false);
+	canvas.removeEventListener("touchmove",draw_touch,false);
 }, false);
 
 const draw = function(event){
 	context.strokeStyle = ln_color;
 	context.lineTo(event.offsetX, event.offsetY);
 	context.moveTo(event.offsetX, event.offsetY);
+	context.stroke();
+}
+
+const draw_touch = function(event){
+	context.strokeStyle = ln_color;
+	context.lineTo(event.touches[0].clientX, event.touches[0].clientY);
+	context.moveTo(event.touches[0].clientX, event.touches[0].clientY);
 	context.stroke();
 }
 
