@@ -6,7 +6,7 @@ const true_labels = ['0','1','2','3','4','5','6','7','8','9','+','-','*','/']
 const canvas = document.getElementById("c");
 const context = canvas.getContext("2d");
 let ln_color = "black";
-const c_top =  canavs.offsetTop;
+const c_top =  canvas.offsetTop;
 const c_left = canvas.offsetLeft;
 
 const webcamElement = document.getElementById('webcam');
