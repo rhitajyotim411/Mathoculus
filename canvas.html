@@ -51,15 +51,15 @@
 		<p>
 			<button onclick="toggle(true)" id="mode">ERASE</button>
 			&emsp;<button onclick="getImg()">EVALUATE</button>
-			&emsp;<button onclick="test()">UPLOAD</button>
-			&emsp;<button onclick="clrCnv()">CLEAR</button>
-			&emsp;<button onclick="start_vdo()">VIDEO</button>
-			&emsp;<button onclick="take_pic()">SNAP</button>
-			&emsp;<button onclick="flip_vdo()">FLIP</button>
-			&emsp;<button onclick="stop_vdo()">STOP</button>
+			<!-- &emsp;<button onclick="test()">UPLOAD</button> -->
+			&emsp;<button onclick="clrCnv()" touchend="clrCnv()">CLEAR</button>
+			&emsp;<button onclick="start_vdo()" touchend="start_vdo()">VIDEO</button>
+			&emsp;<button onclick="take_pic()" touchend="take_pic()">SNAP</button>
+			&emsp;<button onclick="flip_vdo()" touchend="flip_vdo()">FLIP</button>
+			&emsp;<button onclick="stop_vdo()" touchend="stop_vdo()">STOP</button>
 		</p>
 		<video id="webcam" autoplay playsinline width="1000" height="400" style="display: none;"></video> <br>
-		<img id="test" width="500" height="300" src="test.png" alt="The test" style="display: none; border : 2px solid black">
+		<!-- <img id="test" width="500" height="300" src="test.png" alt="The test" style="display: none; border : 2px solid black"> -->
 	</div>
 
 </center>

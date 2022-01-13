@@ -59,11 +59,11 @@ const server = http.createServer(function (request, response) {
         response.writeHead(200,{'Content-type': 'text/javascript'});
         response.end(data)
     }
-    if(request.url == '/test.png'){
-        const data = fs.readFileSync("test.png")
-        response.writeHead(200,{'Content-type': 'image/png'});
-        response.end(data)
-    }
+    // if(request.url == '/test.png'){
+    //     const data = fs.readFileSync("test.png")
+    //     response.writeHead(200,{'Content-type': 'image/png'});
+    //     response.end(data)
+    // }
     //main
     if (request.method == 'POST' && request.url=="/convert") {
         let body = '';
