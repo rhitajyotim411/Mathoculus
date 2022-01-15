@@ -6,6 +6,7 @@ const true_labels = ['0','1','2','3','4','5','6','7','8','9','+','-','*','/']
 const canvas = document.getElementById("c");
 const context = canvas.getContext("2d");
 let ln_color = "black";
+let canvas_color = "#fafafa";
 
 const webcamElement = document.getElementById('webcam');
 const canvasElement = canvas;
@@ -53,7 +54,7 @@ async function loadModel() {
 loadModel()
 
 //mouse events
-context.fillStyle = "white";
+context.fillStyle = canvas_color;
 context.lineWidth = thicc;
 context.fillRect(0, 0, canvas.width, canvas.height);
 canvas.addEventListener("mousedown", (event)=>{
@@ -69,8 +70,6 @@ document.body.addEventListener("mouseup", (event)=>{
 }, false);
 
 //touch events
-context.fillStyle = "white";
-context.lineWidth = thicc;
 context.fillRect(0, 0, canvas.width, canvas.height);
 canvas.addEventListener("touchstart", (event)=>{
 	context.beginPath();
@@ -98,14 +97,26 @@ const draw_touch = function(event){
 	context.stroke();
 }
 
+function clrCnv()
+{
+	context.clearRect(0, 0, canvas.width, canvas.height);
+	context.fillStyle = canvas_color;
+	context.lineWidth = thicc;
+	context.fillRect(0, 0, canvas.width, canvas.height);
+	document.getElementById("xp").value= ''
+	toggle(false)
+}
+
 const toggle = function(flag){
 	let toggle_but = document.getElementById("mode")
 	if(toggle_but.innerHTML == "ERASE" && flag){
-		ln_color = "white";
+		canvas.style.border = "2px solid red";
+		ln_color = canvas_color;
 		context.lineWidth = 30;
 		toggle_but.innerHTML = "WRITE";
 	}
 	else if(toggle_but.innerHTML == "WRITE"){
+		canvas.style.border = "0px solid black";
 		ln_color = "black";
 		context.lineWidth = thicc;
 		toggle_but.innerHTML = "ERASE";
@@ -150,15 +161,6 @@ function getImg()	//reads image from canvas
   });
 }
 
-function clrCnv()
-{
-	context.clearRect(0, 0, canvas.width, canvas.height);
-	context.fillStyle = "white";
-	context.lineWidth = thicc;
-	context.fillRect(0, 0, canvas.width, canvas.height);
-	document.getElementById("xp").value= ''
-	toggle(false)
-}
 
 const convert = function()
 {

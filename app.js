@@ -84,33 +84,33 @@ const server = http.createServer(function (request, response) {
 
 //----------saving image to server side folder
 
-    function writeFileToSystem(buffer, response){
-        fsp.readdir(p)
-            .then((data)=>{
-                for(i of data){
-                  if(i==".dummy") continue
-                  fsp.unlink(path.join(p,i))
-                    .then(()=>{})
-                    .catch((e)=>{
-                      console.log(e)
-                    })
-                }
-                fs.writeFile(`${p}/image.png`, buffer, function(err) {
-                    if(err)
-                        console.log(err);
-                    runScript(response)
-                });
-            })
-            .catch((e)=>{
-                console.log(e)
-            })
-    }
+function writeFileToSystem(buffer, response){
+    fsp.readdir(p)
+        .then((data)=>{
+            for(i of data){
+              if(i==".dummy") continue
+              fsp.unlink(path.join(p,i))
+                .then(()=>{})
+                .catch((e)=>{
+                  console.log(e)
+                })
+            }
+            fs.writeFile(`${p}/image.png`, buffer, function(err) {
+                if(err)
+                    console.log(err);
+                runScript(response)
+            });
+        })
+        .catch((e)=>{
+            console.log(e)
+        })
+}
     function runScript(response){
         pyshell.PythonShell.run("segri.py", null, function(err, result){
             if(!err){
                 console.log("script ran successfully...")
                 console.log(result.length)
-                getResult(result.length, response)
+                getResult(result.length-1, response)
             }
             else
                 console.log(err);

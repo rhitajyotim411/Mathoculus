@@ -38,35 +38,42 @@ def pad(img):
 #     f.write("\n\n")
 #     f.close()
 
-imarr = cv2.imread("./images/image.png", 0)
-imarr = cv2.GaussianBlur(imarr, (7, 7), 0)  #removes noise for smooth thresholding
-#plt.imshow(imarr, cmap="gray")
 
-imarr = cv2.adaptiveThreshold(imarr, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 21, 4)
+try:
+    imarr = cv2.imread("./images/image.png", 0)
+    imarr = cv2.GaussianBlur(imarr, (7, 7), 0)  #removes noise for smooth thresholding
+    #plt.imshow(imarr, cmap="gray")
 
-imarr = cv2.threshold(imarr, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
+    imarr = cv2.adaptiveThreshold(imarr, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 21, 4)
 
-cons = cv2.findContours(imarr, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[0]
+    imarr = cv2.threshold(imarr, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
 
-cons, _ = contours.sort_contours(cons, method="left-to-right")
+    cons = cv2.findContours(imarr, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[0]
 
-# plt.imshow(imarr, cmap="gray")
+    cons, _ = contours.sort_contours(cons, method="left-to-right")
 
-ROI_number = 0
-for c in cons:
-    area = cv2.contourArea(c)
-    if area > 100:
-        x,y,w,h = cv2.boundingRect(c)
-        ROI = imarr[y:y+h, x:x+w]
-        #ROI = cv2.resize(ROI, (64,64))
-        res = f'./images/ROI_{ROI_number}.png'
-        # print(res)
-        sv = pad(ROI)
-        cv2.imwrite(res, sv)
-        # store(sv.flatten())
-        print(sv.flatten())
-        # cv2.rectangle(imarr, (x, y), (x + w, y + h), (255,0,0), 1)
-        ROI_number += 1
+    # plt.imshow(imarr, cmap="gray")
+
+    ROI_number = 0
+    for c in cons:
+        area = cv2.contourArea(c)
+        if area > 100:
+            x,y,w,h = cv2.boundingRect(c)
+            ROI = imarr[y:y+h, x:x+w]
+            #ROI = cv2.resize(ROI, (64,64))
+            res = f'./images/ROI_{ROI_number}.png'
+            # print(res)
+            sv = pad(ROI)
+            cv2.imwrite(res, sv)
+            # store(sv.flatten())
+            print(sv.flatten())
+            # cv2.rectangle(imarr, (x, y), (x + w, y + h), (255,0,0), 1)
+            ROI_number += 1
+except:
+    print("An error occured",end=" ")
+finally:
+    print("code ran...")
+
 
 # plt.imshow(imarr , cmap="gray")
 #end
