@@ -2,11 +2,9 @@ import cv2
 from imutils import contours
 import numpy as np
 
-# f = open("img.txt", "w")
-# f.close()
+imgSz = 64
 
 #padding function
-imgSz = 64
 def pad(img):
     h,w = img.shape
 
@@ -31,18 +29,12 @@ def pad(img):
     return cv2.resize(pd, (imgSz, imgSz), interpolation=cv2.INTER_AREA) # 64,64
 #End of Function
 
-# def store(img):
-#     f=open("img.txt", "a")
-#     for i in img:
-#         f.write(str(i)+",")
-#     f.write("\n\n")
-#     f.close()
 
-
+#Image processing
 try:
     imarr = cv2.imread("./images/image.png", 0)
+
     imarr = cv2.GaussianBlur(imarr, (7, 7), 0)  #removes noise for smooth thresholding
-    #plt.imshow(imarr, cmap="gray")
 
     imarr = cv2.adaptiveThreshold(imarr, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 21, 4)
 
@@ -52,7 +44,7 @@ try:
 
     cons, _ = contours.sort_contours(cons, method="left-to-right")
 
-    # plt.imshow(imarr, cmap="gray")
+
 
     ROI_number = 0
     for c in cons:
@@ -60,20 +52,16 @@ try:
         if area > 100:
             x,y,w,h = cv2.boundingRect(c)
             ROI = imarr[y:y+h, x:x+w]
-            #ROI = cv2.resize(ROI, (64,64))
             res = f'./images/ROI_{ROI_number}.png'
             # print(res)
             sv = pad(ROI)
             cv2.imwrite(res, sv)
             # store(sv.flatten())
             print(sv.flatten())
-            # cv2.rectangle(imarr, (x, y), (x + w, y + h), (255,0,0), 1)
             ROI_number += 1
 except:
     print("An error occured",end=" ")
 finally:
     print("code ran...")
 
-
-# plt.imshow(imarr , cmap="gray")
 #end

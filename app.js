@@ -86,9 +86,6 @@ function writeFileToSystem(buffer){
     //deletes previous files
 
     return new Promise((resolve, reject)=>{
-
-
-
         fsp.readdir(p)
             .then((data)=>{
                 for(i of data){
@@ -109,9 +106,6 @@ function writeFileToSystem(buffer){
             .catch((e)=>{
                 console.log(e)
             })
-
-
-
     })
     fsp.readdir(p)
     .then((data)=>{

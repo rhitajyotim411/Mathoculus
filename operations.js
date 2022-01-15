@@ -26,7 +26,6 @@ const start_vdo = function(){
 
 const take_pic = function(){
 	var picture = webcam.snap();
-	//var img = document.getElementById("test");
   	context.drawImage(picture, 0, 0);
 
 }
@@ -56,6 +55,9 @@ async function loadModel() {
   	document.getElementById('work').style.display="block"
 }
 loadModel()
+
+
+
 
 //MOUSE EVENTS
 context.fillStyle = canvas_color;
@@ -105,6 +107,9 @@ const draw_touch = function(event){
 }
 
 
+
+
+
 //CLEARING THE CANVAS
 function clrCnv(){
 	context.clearRect(0, 0, canvas.width, canvas.height);
@@ -114,6 +119,8 @@ function clrCnv(){
 	document.getElementById("xp").value= ''
 	toggle(false)
 }
+
+
 
 
 //ERASER
