@@ -1,113 +1,113 @@
 <!DOCTYPE html>
 <html>
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"> </script>
-<script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"> </script>
-<script src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"> </script>
+	<script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"> </script>
+	<script src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
 
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" type="image/x-icon" href="favicon.ico" />
-	<title>canvas</title>
-	<style type="text/css">
-		html,body{
-			height: 90%;
-			padding: 0px;
-			margin:  0px;
-			background: #91D1D3;
-		}
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="icon" type="image/x-icon" href="favicon.ico" />
+		<title>canvas</title>
+		<style type="text/css">
+			html,body{
+				height: 90%;
+				padding: 0px;
+				margin:  0px;
+				background: #91D1D3;
+			}
+	
+			#xp{
+				border: none;
+				padding: 3px;
+			  outline: none;
+			  font-size: 30px;
+				text-align: center;
+				background: #91D1D3;
+				width: 1000px;
+				color : #111;
+			}
+	
+			#wait{
+	      position: fixed;
+	      left: 50%;		top: 40%;
+	      transform: translate(-50%,-40%);
+	    }
+	
+			input[type="text"]::placeholder {
+				 text-align: center; 
+				 font-size: 30px ;
+				 color : #555;
+			}
+	
+			.paper {
+	       position: relative;
+	       width: 90%;
+	       max-width: 1100px;
+	       min-width: 400px;
+	       height: 480px;
+	       margin: 0 auto;
+	       background: #fafafa;
+	       border-radius: 20px;
+	       box-shadow: 0 2px 8px rgba(0,0,0,.3);
+	       overflow: hidden;
+	    }
+	
+	    .paper:before {
+	       content: '';
+	       position: absolute;
+	       top: 0; bottom: 0; left: 0;
+	       width: 60px;
+	       background: radial-gradient(#575450 6px, transparent 7px) repeat-y;
+	       background-size: 30px 30px;
+	       border-right: 3px solid #D44147;
+	       box-sizing: border-box;
+	    }
+	
+	   .paper-content {
+	       position: absolute;
+	       top: 10px; right: 0; bottom: 30px; left: 60px;
+	       background-size: 130px 130px;
+	   }
+		</style>
+	</head>
 
-		#xp{
-			border: none;
-			padding: 3px;
-		  outline: none;
-		  font-size: 30px;
-			text-align: center;
-			background: #91D1D3;
-			width: 1000px;
-			color : #111;
-		}
-
-		#wait{
-      position: fixed;
-      left: 50%;		top: 40%;
-      transform: translate(-50%,-40%);
-    }
-
-		input[type="text"]::placeholder {
-			 text-align: center; 
-			 font-size: 30px ;
-			 color : #555;
-		}
-
-		.paper {
-       position: relative;
-       width: 90%;
-       max-width: 1100px;
-       min-width: 400px;
-       height: 480px;
-       margin: 0 auto;
-       background: #fafafa;
-       border-radius: 20px;
-       box-shadow: 0 2px 8px rgba(0,0,0,.3);
-       overflow: hidden;
-    }
-
-    .paper:before {
-       content: '';
-       position: absolute;
-       top: 0; bottom: 0; left: 0;
-       width: 60px;
-       background: radial-gradient(#575450 6px, transparent 7px) repeat-y;
-       background-size: 30px 30px;
-       border-right: 3px solid #D44147;
-       box-sizing: border-box;
-    }
-
-   .paper-content {
-       position: absolute;
-       top: 10px; right: 0; bottom: 30px; left: 60px;
-       background-size: 130px 130px;
-   }
-	</style>
-</head>
-
-<body>
-	<p id="imgRd" style="display: block;"></p>
-	<br>
-
-	<div id="wait"><center>
-		<h1>Please Wait... <br> Getting Things Ready !!</h1>
-	</center></div>
-
-	<center><div id="work" style="display: none;">
-		<p><br><input id="xp" type="text" readonly placeholder="Result">
-			<br><br></p>
-		<!-- <canvas width="1000" height="400" id="c" style="border: 2px solid black;"></canvas> -->
-		<div class="paper">
-        <div class="paper-content">        
-            <canvas width="1000" height="455" id="c" style="border: 0px solid black;">
-            </canvas>
-        </div>
-    </div>
-		<br>
-
-		<p>
-			<button onclick="toggle(true)" id="mode">ERASE</button>
-			&emsp;<button onclick="getImg()">EVALUATE</button>
-			<!-- &emsp;<button onclick="test()">UPLOAD</button> -->
-			&emsp;<button onclick="clrCnv()" touchend="clrCnv()">CLEAR</button>
-			&emsp;<button onclick="start_vdo()" touchend="start_vdo()">VIDEO</button>
-			&emsp;<button onclick="take_pic()" touchend="take_pic()">SNAP</button>
-			&emsp;<button onclick="flip_vdo()" touchend="flip_vdo()">FLIP</button>
-			&emsp;<button onclick="stop_vdo()" touchend="stop_vdo()">STOP</button>
-		</p>
-		<video id="webcam" autoplay playsinline style="display: none;"></video> <br>
-		<!-- <img id="test" width="500" height="300" src="test.png" alt="The test" style="display: none; border : 2px solid black"> -->
-	</div>
-
-</center>
-
-	<script src="operations.js" type="text/javascript"></script>
-</body>
+	<body>
+		<p id="imgRd" style="display: block;"></p><br>
+	
+		<div id="wait">
+			<center>
+				<h1>Please Wait... <br> Getting Things Ready !!</h1>
+			</center>
+		</div>
+	
+		<center>
+			<div id="work" style="display: none;">
+				<br>
+				<p><input id="xp" type="text" readonly placeholder="Result"><br><br></p>
+	
+				<div class="paper">
+	        <div class="paper-content">        
+	            <canvas width="1000" height="455" id="c" style="border: 0px solid black;"></canvas>
+	        </div>
+	    	</div>
+				<br>
+		
+				<p>
+					<button onclick="toggle(true)" id="mode">ERASE</button>
+					&emsp;<button onclick="getResult()">EVALUATE</button>
+					<!-- &emsp;<button onclick="test()">UPLOAD</button> -->
+					&emsp;<button onclick="clrCnv()" touchend="clrCnv()">CLEAR</button>
+					&emsp;<button onclick="start_vdo()" touchend="start_vdo()">VIDEO</button>
+					&emsp;<button onclick="take_pic()" touchend="take_pic()">SNAP</button>
+					&emsp;<button onclick="flip_vdo()" touchend="flip_vdo()">FLIP</button>
+					&emsp;<button onclick="stop_vdo()" touchend="stop_vdo()">STOP</button>
+				</p>
+	
+				<video id="webcam" autoplay playsinline style="display: none;"></video> <br>
+			</div>
+		</center>
+	
+		<script src="operations.js" type="text/javascript"></script>
+	</body>
 </html>

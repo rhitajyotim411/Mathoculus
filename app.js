@@ -33,22 +33,10 @@ async function loadLocalImage (filename) {
   }
 }
 
-async function getResult(n, response)
-{
-  try
-  {
-    for (i=0; i<n; i++)
-    {
-      img = await loadLocalImage(`${p}ROI_${i}.png`)
-      response.write(`<img id="img${i}" src="` + canvas.toDataURL() + '" />\n')
-    }
-    response.end()
-  } catch (error) {
-    console.log(error);
-  }
-}
 
-const server = http.createServer(function (request, response) {
+const server = http.createServer(server_func);
+
+function server_func(request, response) {
     let post='';
     if(request.url == "/"){
         const data = fs.readFileSync("canvas.html","utf-8")
@@ -71,52 +59,109 @@ const server = http.createServer(function (request, response) {
             body += data;
         });
         request.on('end', function () {
-
-//-------------parsing data from json to string
-
             post = JSON.parse(body);
             var data = post.replace(/^data:image\/\w+;base64,/, "");
             var buffer = Buffer.from(data, 'base64');
-            writeFileToSystem(buffer, response);
+            writeFileToSystem(buffer)
+                .then((flag)=>{
+                    if(flag)
+                      return runScript()
+                })
+                .then((length)=>{
+                    console.log("In promise: "+length)
+                    getResult(length, response)
+                })
+                .catch((err)=>{
+                    console.log(err)
+                })
         });
 
     }
-
-//----------saving image to server side folder
-
-function writeFileToSystem(buffer, response){
-    fsp.readdir(p)
-        .then((data)=>{
-            for(i of data){
-              if(i==".dummy") continue
-              fsp.unlink(path.join(p,i))
-                .then(()=>{})
-                .catch((e)=>{
-                  console.log(e)
-                })
-            }
-            fs.writeFile(`${p}/image.png`, buffer, function(err) {
-                if(err)
-                    console.log(err);
-                runScript(response)
-            });
-        })
-        .catch((e)=>{
-            console.log(e)
-        })
 }
-    function runScript(response){
-        pyshell.PythonShell.run("segri.py", null, function(err, result){
-            if(!err){
-                console.log("script ran successfully...")
-                console.log(result.length)
-                getResult(result.length-1, response)
-            }
-            else
+
+
+
+
+function writeFileToSystem(buffer){
+    //deletes previous files
+
+    return new Promise((resolve, reject)=>{
+
+
+
+        fsp.readdir(p)
+            .then((data)=>{
+                for(i of data){
+                    if(i==".dummy") 
+                        continue
+                fsp.unlink(path.join(p,i))
+                    .catch((e)=>{
+                        console.log(e)
+                    })
+                }
+                fs.writeFile(`${p}/image.png`, buffer, function(err) {
+                    if(err)
+                        reject(err)
+                    resolve(true);
+                    //runScript(response)
+                });
+            })
+            .catch((e)=>{
+                console.log(e)
+            })
+
+
+
+    })
+    fsp.readdir(p)
+    .then((data)=>{
+        for(i of data){
+          if(i==".dummy") 
+            continue
+          fsp.unlink(path.join(p,i))
+            .catch((e)=>{
+              console.log(e)
+            })
+        }
+        fs.writeFile(`${p}/image.png`, buffer, function(err) {
+            if(err)
                 console.log(err);
+            runScript(response)
+        });
+    })
+    .catch((e)=>{
+        console.log(e)
+    })
+}
+
+
+async function runScript(){
+    return new Promise((resolve, reject)=>{
+        pyshell.PythonShell.run("segri.py", null, function(err, result){
+        if(!err){
+            console.log("script ran successfully...")
+            console.log("In runscript "+result.length)
+            resolve(result.length-1);
+            //getResult(result.length-1, response)
+        }
+        else
+            console.log(err);
+            reject(err)
         })
+    })  
+}
+
+async function getResult(n, response){
+    try{
+        for (i=0; i<n; i++){
+          img = await loadLocalImage(`${p}ROI_${i}.png`)
+          response.write(`<img id="img${i}" src="` + canvas.toDataURL() + '" />\n')
+        }
+        response.end()
+    } catch (error) {
+      console.log(error);
     }
-})
+}
 
 server.listen(port,host,()=>{
     console.log(`listening to ${host}:${port}`)

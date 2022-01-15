@@ -12,7 +12,7 @@ const webcamElement = document.getElementById('webcam');
 const canvasElement = canvas;
 const webcam = new Webcam(webcamElement, 'enviroment', canvasElement);  //user or enviroment
 
-
+//VIDEO REALTED OPERATIONS
 const start_vdo = function(){
 	webcamElement.style.display = "block";
 	webcam.start()
@@ -41,6 +41,10 @@ const stop_vdo = function(){
 }
 
 
+
+
+
+//LOADING MODEL
 async function loadModel() {
     model = undefined;
 		url = "https://raw.githubusercontent.com/SXCSEM6-project/ModelStore/main/model.json"
@@ -53,7 +57,7 @@ async function loadModel() {
 }
 loadModel()
 
-//mouse events
+//MOUSE EVENTS
 context.fillStyle = canvas_color;
 context.lineWidth = thicc;
 context.fillRect(0, 0, canvas.width, canvas.height);
@@ -69,7 +73,10 @@ document.body.addEventListener("mouseup", (event)=>{
 	canvas.removeEventListener("mousemove",draw,false);
 }, false);
 
-//touch events
+
+
+
+//TOUCH EVENTS
 context.fillRect(0, 0, canvas.width, canvas.height);
 canvas.addEventListener("touchstart", (event)=>{
 	context.beginPath();
@@ -97,8 +104,9 @@ const draw_touch = function(event){
 	context.stroke();
 }
 
-function clrCnv()
-{
+
+//CLEARING THE CANVAS
+function clrCnv(){
 	context.clearRect(0, 0, canvas.width, canvas.height);
 	context.fillStyle = canvas_color;
 	context.lineWidth = thicc;
@@ -107,6 +115,8 @@ function clrCnv()
 	toggle(false)
 }
 
+
+//ERASER
 const toggle = function(flag){
 	let toggle_but = document.getElementById("mode")
 	if(toggle_but.innerHTML == "ERASE" && flag){
@@ -123,13 +133,29 @@ const toggle = function(flag){
 	}
 }
 
-const test = function(){
-	var img = document.getElementById("test");
-  	context.drawImage(img, 0, 0);
+
+
+//SERVER INTARACTION
+const convert = function(){
+	return new Promise(function(resolve, reject){
+		let png = canvas.toDataURL("image/png")
+		var msg = JSON.stringify(png);
+		//console.log(msg)
+  		var xhr = new XMLHttpRequest();
+  		// console.log(xhr.open('POST',"/convert",true));
+		xhr.open('POST',"/convert",true)
+		xhr.send(msg);
+		xhr.onload = (res) => {
+			// console.log(res['target']['response']);
+      		srvRes = res['target']['response'];
+			resolve(srvRes)
+		};
+  		//alert('file is saved');
+	});
 }
 
-function getImg()	//reads image from canvas
-{
+
+function  getResult(){	//reads image from canvas
 	console.clear()
 	toggle(false)
 	document.getElementById("xp").value= 'Calculating...'
@@ -144,9 +170,9 @@ function getImg()	//reads image from canvas
 			for(let i=0;i<l;i++) {
 				var img = document.getElementById(`img${i}`)
 				console.log(img.id);
-				imgT = tf.browser.fromPixels(img,1);
+				imgT = tf.browser.fromPixels(img,1); //reads image to be sent to model
 				// console.log(imgT)
-				ans(imgT,i)
+				ans(imgT,i)	//PREDICT
 			}
 			try{
 				xp_res = Math.round((eval(xp) + Number.EPSILON) * 10000) / 10000
@@ -162,29 +188,8 @@ function getImg()	//reads image from canvas
 }
 
 
-const convert = function()
-{
-	return new Promise(function(resolve, reject){
-	let png = canvas.toDataURL("image/png")
-	var msg = JSON.stringify(png);
-	//console.log(msg)
-  		var xhr = new XMLHttpRequest();
-  		// console.log(xhr.open('POST',"/convert",true));
-		xhr.open('POST',"/convert",true)
-		xhr.onload = (res) => {
-			// console.log(res['target']['response']);
-      	srvRes = res['target']['response'];
-			// document.getElementById('imgRd').innerHTML = message;
-			// getImg()
-			resolve(srvRes)
-		};
-		xhr.send(msg);
-  		//alert('file is saved');
-	});
-}
 
-function ans(img, i) //thiccs img and predicts ans
-{
+function ans(img, i){ //thickens img and predicts ans
 	//pooling
 	cnv = document.createElement("canvas")
 	cnv.id = `cnv${i}`
@@ -194,6 +199,8 @@ function ans(img, i) //thiccs img and predicts ans
 	temp = tf.pool(img, 3, 'max', 'same')		//pooling
 	temp = temp.div(tf.scalar(255))
 	tf.browser.toPixels(temp, document.getElementById(`cnv${i}`))		//visual analysis
+
+
 	//prediction
 	v = model.predict( tf.tensor( [ temp.arraySync() ] ) )
 	res = tf.tensor( v.dataSync() ).argMax().dataSync()
