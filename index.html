@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Homepage</title>
+	<link rel="stylesheet" type="text/css" href="home_style.css">
+	<style>
+	</style>
+</head>
+<body>
+	<div class="bgImage"></div>
+	<div class="bgImage2"></div>
+	<h1>WELCOME</h1>
+	<div class="bgImage3"></div>
+	<div class="box1"><h2>PICTURE &nbsp;CALCULATOR</h2></div>
+	<div class="box2"><h2>Hand Written &nbsp; Calculator</h2></div>
+	<div id="navbar" class="over">
+		<a href="javascript:void(0)" class="nav_close" onclick="closenav()">&times</a>
+		<div class="content">
+			<a href="/draw">Let's draw</a><br>
+    		<a href="#">Take a snap</a><br>
+    		<a href="#">Upload</a><br>
+    	</div>
+    </div>
+		<div class="open" style="cursor: pointer" onclick="opennav()">&#9776; </div>
+		
+
+	<script>
+		function opennav() {
+  			document.getElementById("navbar").style.width = "20%";
+  			document.querySelector(".open").style.display= "none";
+  			document.querySelector(".bgImage2").style.backgroundColor = "rgba(0, 0, 0, 0.9)";
+  			document.querySelector(".box1").style.display= "none";
+  			document.querySelector(".box2").style.display= "block";
+  			document.querySelector(".over").style.backgroundColor = "rgba(145, 209, 211, 0.8)";
+  			document.getElementsByTagName('h1')[0].style.color="white";
+		}
+		function closenav() {
+  			document.getElementById("navbar").style.width = "0%";
+  			document.querySelector(".open").style.display= "block";
+  			document.querySelector(".bgImage2").style.backgroundColor = "rgba(145, 209, 211, 0.8)";
+  			document.querySelector(".bgImage3").style.left = "350px";
+  			document.querySelector(".box1").style.display= "block";
+  			document.querySelector(".box2").style.display= "none";
+  			document.querySelector(".over").style.backgroundColor = "rgba(0,0,0, 0.8)";
+  			document.getElementsByTagName('h1')[0].style.color="black";
+		}
+</script>
+</body>
+</html>

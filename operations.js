@@ -1,7 +1,7 @@
 const imgSz = 64
 var xp = '' 	//stores expresion
 var thicc = 5		//canvas line thiccness (original: 5, dataset_creation: 7)
-const true_labels = ['0','1','2','3','4','5','6','7','8','9','+','-','*','/']
+const true_labels = ['0','1','2','3','4','5','6','7','8','9','+','-','*','/','(',')','^']
 
 const canvas = document.getElementById("c");
 const context = canvas.getContext("2d");
@@ -27,7 +27,6 @@ const start_vdo = function(){
 const take_pic = function(){
 	var picture = webcam.snap();
   	context.drawImage(picture, 0, 0);
-
 }
 
 const flip_vdo = function(){
@@ -46,7 +45,7 @@ const stop_vdo = function(){
 //LOADING MODEL
 async function loadModel() {
     model = undefined;
-		url = "https://raw.githubusercontent.com/SXCSEM6-project/ModelStore/main/model.json"
+	url = "https://raw.githubusercontent.com/SXCSEM6-project/ModelStore/main/model.json"
     model = await tf.loadLayersModel(url);
     console.log("model loaded")
 		// console.log(model.summary())
@@ -182,7 +181,7 @@ function  getResult(){	//reads image from canvas
 				ans(imgT,i)	//PREDICT
 			}
 			try{
-				xp_res = Math.round((eval(xp) + Number.EPSILON) * 10000) / 10000
+				xp_res = Math.round((eval(xp.replaceAll("^","**")) + Number.EPSILON) * 10000) / 10000
 				document.getElementById("xp").value= `${xp} = ${xp_res}`
 			}
 			catch(err){

@@ -39,19 +39,42 @@ const server = http.createServer(server_func);
 function server_func(request, response) {
     let post='';
     if(request.url == "/"){
-        const data = fs.readFileSync("canvas.html","utf-8")
+        const data = fs.readFileSync("index.html","utf-8")
         response.end(data)
     }
-     if (request.url == '/operations.js') {
+    if(request.url == "/home_style.css"){
+        const data = fs.readFileSync("home_style.css","utf-8")
+        response.writeHead(200,{'Content-type': 'text/css'});
+        response.end(data)
+    }
+    if(request.url == "/bg5.jpg"){
+        const data = fs.readFileSync("bg5.jpg")
+        response.writeHead(200,{'Content-type': 'image/jpg'});
+        response.end(data)
+    }
+    if(request.url == "/bg7.jpg"){
+        const data = fs.readFileSync("bg7.jpg")
+        response.writeHead(200,{'Content-type': 'image/jpg'});
+        response.end(data)
+    }
+
+    if(request.url == "/draw"){
+        const data = fs.readFileSync("canvas.html","utf-8")
+        response.writeHead(200,{'Content-type': 'text/html'});
+        response.end(data)
+    }
+    if (request.url == '/operations.js') {
         const data = fs.readFileSync("operations.js","utf-8")
         response.writeHead(200,{'Content-type': 'text/javascript'});
         response.end(data)
     }
+
     if(request.url == '/favicon.ico'){
         const data = fs.readFileSync("favicon.ico")
         response.writeHead(200,{'Content-type': 'image/ico'});
         response.end(data)
     }
+
     //main
     if (request.method == 'POST' && request.url=="/convert") {
         let body = '';
