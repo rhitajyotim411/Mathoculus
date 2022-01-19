@@ -16,6 +16,30 @@
 				margin:  0px;
 				background: #91D1D3;
 			}
+
+			#c{
+				/* width: 1000px;
+				height: 500px; */
+				border: 5px solid black;
+				position: absolute;
+				left: 240px;
+				top : 200px;
+				z-index: 0;
+			}
+
+			#crop{
+				width: 980px;
+				height: 480px;
+				resize: both;
+				border: 3px solid red;
+				overflow: auto;
+				position: absolute;
+				z-index: 1;
+				left: 250px;
+				top: 210px;
+				background: transparent;
+				display: none;
+			}
 	
 			#xp{
 				border: none;
@@ -80,7 +104,7 @@
 				<h1>Please Wait... <br> Getting Things Ready !!</h1>
 			</center>
 		</div>
-	
+		<div id="crop" onclick="func()" draggable="true"></div>
 		<center>
 			<div id="work" style="display: none;">
 				<br>
@@ -91,7 +115,7 @@
 		
 				<p>
 					<!-- <button onclick="toggle(true)" id="mode">ERASE</button> -->
-					&emsp;<button onclick="getResult()">EVALUATE</button>
+					&emsp;<button onclick="crop(); getResult();">EVALUATE</button>
 					<!-- &emsp;<button onclick="clrCnv()" touchend="clrCnv()">CLEAR</button> -->
 					&emsp;<button onclick="start_vdo()">VIDEO</button>
 					&emsp;<button onclick="take_pic()">SNAP</button>
@@ -99,9 +123,9 @@
 					&emsp;<button onclick="stop_vdo()">STOP</button>
 
 				</p>
-	
+				
 				<video id="webcam" autoplay playsinline style="display: none;"></video> <br>
-	           	<canvas width="1000" height="455" id="c" style="display: none; border: 0px solid black;"></canvas>
+	           	<canvas width="1000" height="500" id="c" style="display: none; border: 0px solid black;"></canvas>
 			</div>
 		</center>
 	

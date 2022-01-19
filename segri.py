@@ -76,7 +76,7 @@ try:
 
     cons = cv2.findContours(imarr, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[0]
 
-    cons = sort_cntr( [cv2.boundingRect(c) for c in  cons] ) # Sending binding rect list
+    cons = sort_cntr( [cv2.boundingRect(c) for c in  cons] ) # Sending bounding rect list
 
     ROI_number = 0
     for c in cons:

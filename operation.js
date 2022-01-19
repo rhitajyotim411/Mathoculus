@@ -2,7 +2,7 @@ const imgSz = 64
 var xp = '' 	//stores expresion
 var thicc = 5		//canvas line thiccness (original: 5, dataset_creation: 7)
 const true_labels = ['0','1','2','3','4','5','6','7','8','9','+','-','*','/','(',')','^']
-
+//const canvas = document.getElementById("c");
 
 async function loadModel() {
     model = undefined;
