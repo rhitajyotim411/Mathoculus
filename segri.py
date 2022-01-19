@@ -26,7 +26,18 @@ def pad(img):
 
     pd[h : -h,  w : -w] = img
 
-    return cv2.resize(pd, (imgSz, imgSz), interpolation=cv2.INTER_AREA) # 64,64
+    img = cv2.resize(pd, (imgSz, imgSz), interpolation=cv2.INTER_AREA) # 64,64
+
+    parts = cv2.findContours(img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[0]
+    area = [cv2.contourArea(p) for p in  parts]
+
+    for i in range(len(parts)):
+        if i==area.index(max(area)):
+            continue
+        x,y,w,h = cv2.boundingRect(parts[i])
+        img[y:y+h, x:x+w]=0
+
+    return img
 #End of Function
 
 
