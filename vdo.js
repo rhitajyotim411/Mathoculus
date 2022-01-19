@@ -46,13 +46,13 @@ const take_pic = function(){
   	catch(e){
   		console.log("...")
   	}
-  	d_t	= "210px"
-	d_l = "250px"
+		d.style.left = d_l
+		d.style.top = d_t
   	d.style.height = `${Number(canvas.height) - 20}px`;
   	d.style.width = `${Number(canvas.width) - 20}px`;
   	d.style.display = "block";
-  	d_h = `${Number(canvas.height) - 20}px`;
-	d_w = `${Number(canvas.width) - 20}px`;
+		d_h = `${Number(canvas.height) - 20}px`;
+		d_w = `${Number(canvas.width) - 20}px`;
 }
 
 const flip_vdo = function(){
@@ -71,16 +71,16 @@ const stop_vdo = function(){
 function crop(){
 	a = Number(getComputedStyle(d).getPropertyValue("top").slice(0,-2))
 	b = Number(getComputedStyle(d).getPropertyValue("height").slice(0,-2))
-	
+
 	g = Number(getComputedStyle(d).getPropertyValue("left").slice(0,-2))
-	h = Number(getComputedStyle(d).getPropertyValue("width").slice(0,-2)) 
-	
+	h = Number(getComputedStyle(d).getPropertyValue("width").slice(0,-2))
+
 	c_a = Number(getComputedStyle(canvas).getPropertyValue("top").slice(0,-2))
 	c_b = Number(getComputedStyle(canvas).getPropertyValue("height").slice(0,-2))
-	
+
 	c_g = Number(getComputedStyle(canvas).getPropertyValue("left").slice(0,-2))
 	c_h = Number(getComputedStyle(canvas).getPropertyValue("width").slice(0,-2))
-	
+
 	c_x =  g - c_g;
 	c_y = a - c_a;
 	// c_x = d.offsetLeft - c.offsetLeft;
@@ -109,14 +109,14 @@ function crop(){
 		b = Number(getComputedStyle(d).getPropertyValue("height").slice(0,-2))
 
 		g = Number(getComputedStyle(d).getPropertyValue("left").slice(0,-2))
-		h = Number(getComputedStyle(d).getPropertyValue("width").slice(0,-2)) 
+		h = Number(getComputedStyle(d).getPropertyValue("width").slice(0,-2))
 
 		c_a = Number(getComputedStyle(c).getPropertyValue("top").slice(0,-2))
 		c_b = Number(getComputedStyle(c).getPropertyValue("height").slice(0,-2))
 
 		c_g = Number(getComputedStyle(c).getPropertyValue("left").slice(0,-2))
 		c_h = Number(getComputedStyle(c).getPropertyValue("width").slice(0,-2))
-		
+
 		console.log(c_g+" "+c_h)
 		if((a+b > c_a+c_b) || (g+h > c_g+c_h)){
 			d.style.width = d_w;
@@ -125,7 +125,7 @@ function crop(){
 			d.style.left = d_l;
 		}
 	}
-	
+
 
 	d.ondragstart = function(event){
 		// console.log("dragging");
@@ -143,7 +143,7 @@ function crop(){
 		b = Number(getComputedStyle(d).getPropertyValue("height").slice(0,-2))
 
 		g = Number(getComputedStyle(d).getPropertyValue("left").slice(0,-2))
-		h = Number(getComputedStyle(d).getPropertyValue("width").slice(0,-2)) 
+		h = Number(getComputedStyle(d).getPropertyValue("width").slice(0,-2))
 
 		c_a = Number(getComputedStyle(c).getPropertyValue("top").slice(0,-2))
 		c_b = Number(getComputedStyle(c).getPropertyValue("height").slice(0,-2))
@@ -203,7 +203,7 @@ function crop(){
 // 	context.beginPath();
 // 	context.moveTo(event.touches[0].clientX - canvas.offsetLeft, event.touches[0].clientY - canvas.offsetTop);
 // 	canvas.addEventListener("touchmove",draw_touch,false)
-// }, false) 
+// }, false)
 // canvas.addEventListener("touchend", (event)=>{
 // 	canvas.removeEventListener("touchmove",draw_touch,false);
 // }, false);
