@@ -63,8 +63,24 @@ function server_func(request, response) {
         response.writeHead(200,{'Content-type': 'text/html'});
         response.end(data)
     }
-    if (request.url == '/operations.js') {
-        const data = fs.readFileSync("operations.js","utf-8")
+    
+    if(request.url == "/snap"){
+        const data = fs.readFileSync("vdo.html","utf-8")
+        response.writeHead(200,{'Content-type': 'text/html'});
+        response.end(data)
+    }
+    if (request.url == '/operation.js') {
+        const data = fs.readFileSync("operation.js","utf-8")
+        response.writeHead(200,{'Content-type': 'text/javascript'});
+        response.end(data)
+    }
+    if (request.url == '/vdo.js') {
+        const data = fs.readFileSync("vdo.js","utf-8")
+        response.writeHead(200,{'Content-type': 'text/javascript'});
+        response.end(data)
+    }
+    if (request.url == '/canvas.js') {
+        const data = fs.readFileSync("canvas.js","utf-8")
         response.writeHead(200,{'Content-type': 'text/javascript'});
         response.end(data)
     }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"> </script>
-	<script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"> </script>
+	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"></script>
+	<script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
 	<script src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
 
 	<head>
@@ -20,8 +20,8 @@
 			#xp{
 				border: none;
 				padding: 3px;
-			  outline: none;
-			  font-size: 30px;
+			  	outline: none;
+			  	font-size: 30px;
 				text-align: center;
 				background: #91D1D3;
 				width: 1000px;
@@ -29,29 +29,29 @@
 			}
 	
 			#wait{
-	      position: fixed;
-	      left: 50%;		top: 40%;
-	      transform: translate(-50%,-40%);
-	    }
+	      		position: fixed;
+	      		left: 50%;		top: 40%;
+	      		transform: translate(-50%,-40%);
+	    	}
 	
 			input[type="text"]::placeholder {
-				 text-align: center; 
-				 font-size: 30px ;
-				 color : #555;
+				text-align: center; 
+				font-size: 30px ;
+				color : #555;
 			}
 	
-			.paper {
-	       position: relative;
-	       width: 90%;
-	       max-width: 1100px;
-	       min-width: 400px;
-	       height: 480px;
-	       margin: 0 auto;
-	       background: #fafafa;
-	       border-radius: 20px;
-	       box-shadow: 0 2px 8px rgba(0,0,0,.3);
-	       overflow: hidden;
-	    }
+			/*.paper {
+	       		position: relative;
+	       		width: 90%;
+	       		max-width: 1100px;
+	       		min-width: 400px;
+	       		height: 480px;
+	       		margin: 0 auto;
+	       		background: #fafafa;
+	       		border-radius: 20px;
+	       		box-shadow: 0 2px 8px rgba(0,0,0,.3);
+	       		overflow: hidden;
+	    	}
 	
 	    .paper:before {
 	       content: '';
@@ -68,7 +68,7 @@
 	       position: absolute;
 	       top: 10px; right: 0; bottom: 30px; left: 60px;
 	       background-size: 130px 130px;
-	   }
+	   }*/
 		</style>
 	</head>
 
@@ -86,30 +86,26 @@
 				<br>
 				<div align="left"> &emsp;<a href="/" style="text-decoration: none; font-size: 20px;  color: black;">HOME</a></div>
 				<p><input id="xp" type="text" readonly placeholder="Result"><br><br></p>
-	
-				<div class="paper">
-	        <div class="paper-content">        
-	            <canvas width="1000" height="455" id="c" style="border: 0px solid black;"></canvas>
-	        </div>
-	    	</div>
+ 
 				<br>
 		
 				<p>
-					<button onclick="toggle(true)" id="mode">ERASE</button>
+					<!-- <button onclick="toggle(true)" id="mode">ERASE</button> -->
 					&emsp;<button onclick="getResult()">EVALUATE</button>
-					&emsp;<button onclick="clrCnv()">CLEAR</button>
-					<!-- &emsp;<button onclick="start_vdo()" touchend="start_vdo()">VIDEO</button>
-					&emsp;<button onclick="take_pic()" touchend="take_pic()">SNAP</button>
-					&emsp;<button onclick="flip_vdo()" touchend="flip_vdo()">FLIP</button>
-					&emsp;<button onclick="stop_vdo()" touchend="stop_vdo()">STOP</button>
- -->
+					<!-- &emsp;<button onclick="clrCnv()" touchend="clrCnv()">CLEAR</button> -->
+					&emsp;<button onclick="start_vdo()">VIDEO</button>
+					&emsp;<button onclick="take_pic()">SNAP</button>
+					&emsp;<button onclick="flip_vdo()">FLIP</button>
+					&emsp;<button onclick="stop_vdo()">STOP</button>
+
 				</p>
 	
-				<!-- <video id="webcam" autoplay playsinline style="display: none;"></video> <br> -->
+				<video id="webcam" autoplay playsinline style="display: none;"></video> <br>
+	           	<canvas width="1000" height="455" id="c" style="display: none; border: 0px solid black;"></canvas>
 			</div>
 		</center>
 	
 		<script src="operation.js" type="text/javascript"></script>
-		<script src="canvas.js" type="text/javascript"></script>
+		<script src="vdo.js" type="text/javascript"></script>
 	</body>
 </html>
