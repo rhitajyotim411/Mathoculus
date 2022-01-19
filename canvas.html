@@ -96,8 +96,8 @@
 
 				<p>
 					<button onclick="toggle(true)" id="mode">ERASE</button>
-					&emsp;<button onclick="getResult()">EVALUATE</button>
-					&emsp;<button onclick="clrCnv()">CLEAR</button>
+					&emsp;<button onclick="toggle(false); getResult();">EVALUATE</button>
+					&emsp;<button onclick="clrCnv(); toggle(false);">CLEAR</button>
 					<!-- &emsp;<button onclick="start_vdo()" touchend="start_vdo()">VIDEO</button>
 					&emsp;<button onclick="take_pic()" touchend="take_pic()">SNAP</button>
 					&emsp;<button onclick="flip_vdo()" touchend="flip_vdo()">FLIP</button>

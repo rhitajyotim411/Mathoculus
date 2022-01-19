@@ -28,6 +28,7 @@ def pad(img):
 
     img = cv2.resize(pd, (imgSz, imgSz), interpolation=cv2.INTER_AREA) # 64,64
 
+    # Removal of noise
     parts = cv2.findContours(img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[0]
     area = [cv2.contourArea(p) for p in  parts]
 
@@ -40,6 +41,28 @@ def pad(img):
     return img
 #End of Function
 
+# Sort contours
+def sort_cntr(points):
+    c = len(points)
+    cp = np.array(points, dtype=object)
+    k = []
+
+    while c>0:
+        lfx = cp[np.argsort(cp[::, 0])] # sorted according to x
+        tpy = cp[np.argsort(cp[::, 1])] # sorted accordxing to y
+
+        i=0
+        while True and i<len(lfx)-1:
+            if lfx[i][1] < (tpy[0][1] + tpy[0][3]*0.9):
+                 break
+            i+=1
+
+        k.append(tuple(lfx[i]))
+        cp = np.delete(lfx, i, 0)
+        c-=1
+
+    return k
+#End of Function
 
 #Image processing
 try:
@@ -53,26 +76,21 @@ try:
 
     cons = cv2.findContours(imarr, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[0]
 
-    cons, _ = contours.sort_contours(cons, method="left-to-right")
-
-
+    cons = sort_cntr( [cv2.boundingRect(c) for c in  cons] ) # Sending binding rect list
 
     ROI_number = 0
     for c in cons:
-        area = cv2.contourArea(c)
+        area = c[2] * c[3]  # Width * Height
         if area > 100:
-            x,y,w,h = cv2.boundingRect(c)
+            x,y,w,h = c
             ROI = imarr[y:y+h, x:x+w]
             res = f'./images/ROI_{ROI_number}.png'
-            # print(res)
             sv = pad(ROI)
             cv2.imwrite(res, sv)
-            # store(sv.flatten())
             print(sv.flatten())
             ROI_number += 1
 except:
     print("An error occured",end=" ")
 finally:
     print("code ran...")
-
 #end

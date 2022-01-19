@@ -78,32 +78,32 @@ document.body.addEventListener("mouseup", (event)=>{
 
 
 //TOUCH EVENTS
-context.fillRect(0, 0, canvas.width, canvas.height);
-canvas.addEventListener("touchstart", (event)=>{
-	context.beginPath();
-	context.moveTo(event.touches[0].clientX - canvas.offsetLeft, event.touches[0].clientY - canvas.offsetTop);
-	canvas.addEventListener("touchmove",draw_touch,false)
-}, false) 
-canvas.addEventListener("touchend", (event)=>{
-	canvas.removeEventListener("touchmove",draw_touch,false);
-}, false);
-document.body.addEventListener("touchend", (event)=>{
-	canvas.removeEventListener("touchmove",draw_touch,false);
-}, false);
-
+// context.fillRect(0, 0, canvas.width, canvas.height);
+// canvas.addEventListener("touchstart", (event)=>{
+// 	context.beginPath();
+// 	context.moveTo(event.touches[0].clientX - canvas.offsetLeft, event.touches[0].clientY - canvas.offsetTop);
+// 	canvas.addEventListener("touchmove",draw_touch,false)
+// }, false)
+// canvas.addEventListener("touchend", (event)=>{
+// 	canvas.removeEventListener("touchmove",draw_touch,false);
+// }, false);
+// document.body.addEventListener("touchend", (event)=>{
+// 	canvas.removeEventListener("touchmove",draw_touch,false);
+// }, false);
+//
 const draw = function(event){
 	context.strokeStyle = ln_color;
 	context.lineTo(event.offsetX, event.offsetY);
 	context.moveTo(event.offsetX, event.offsetY);
 	context.stroke();
 }
-
-const draw_touch = function(event){
-	context.strokeStyle = ln_color;
-	context.lineTo(event.touches[0].clientX - canvas.offsetLeft, event.touches[0].clientY - canvas.offsetTop);
-	context.moveTo(event.touches[0].clientX - canvas.offsetLeft, event.touches[0].clientY - canvas.offsetTop);
-	context.stroke();
-}
+//
+// const draw_touch = function(event){
+// 	context.strokeStyle = ln_color;
+// 	context.lineTo(event.touches[0].clientX - canvas.offsetLeft, event.touches[0].clientY - canvas.offsetTop);
+// 	context.moveTo(event.touches[0].clientX - canvas.offsetLeft, event.touches[0].clientY - canvas.offsetTop);
+// 	context.stroke();
+// }
 
 
 
@@ -116,7 +116,6 @@ function clrCnv(){
 	context.lineWidth = thicc;
 	context.fillRect(0, 0, canvas.width, canvas.height);
 	document.getElementById("xp").value= ''
-	toggle(false)
 }
 
 
