@@ -46,14 +46,21 @@ def sort_cntr(points):
     c = len(points)
     cp = np.array(points, dtype=object)
     k = []
+    avg_ht = np.sum(cp[::, 3])/len(points)
 
     while c>0:
         lfx = cp[np.argsort(cp[::, 0])] # sorted according to x
         tpy = cp[np.argsort(cp[::, 1])] # sorted accordxing to y
 
+        j=0
+        while j<len(tpy)-1:
+            if not (tpy[j][3] < avg_ht and abs(tpy[j][1] - tpy[j+1][1]) < avg_ht):
+                break
+            j+=1
+
         i=0
-        while True and i<len(lfx)-1:
-            if lfx[i][1] < (tpy[0][1] + tpy[0][3]*0.9):
+        while i<len(lfx)-1:
+            if lfx[i][1] < (tpy[j][1] + tpy[j][3]*0.9):
                  break
             i+=1
 

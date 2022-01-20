@@ -56,10 +56,10 @@ function  getResult(){	//reads image from canvas
 			}
 			try{
 				xp_res = Math.round((eval(xp.replaceAll("^","**")) + Number.EPSILON) * 10000) / 10000
-				document.getElementById("xp").value= `${xp} = ${xp_res}`
+				document.getElementById("xp").value= `${xp.replaceAll("*","x")} = ${xp_res}`
 			}
 			catch(err){
-				document.getElementById("xp").value= "Erroneous expression: " + xp
+				document.getElementById("xp").value= "Erroneous expression: " + xp.replaceAll("*","x")
 			}
 		}
 	}).catch (function(err) {
