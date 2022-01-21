@@ -47,44 +47,41 @@ def sort_cntr(points):
     cp = np.array(points, dtype=object)
     k = []
     avg_ht = np.sum(cp[::, 3])/len(points)
-
+    lfx = cp[np.argsort(cp[::, 0])] # sorted according to x
+    tpy = cp[np.argsort(cp[::, 1])] # sorted accordxing to y
     while c>0:
-        lfx = cp[np.argsort(cp[::, 0])] # sorted according to x
-        tpy = cp[np.argsort(cp[::, 1])] # sorted accordxing to y
-
         j=0
         while j<len(tpy)-1:
-            if not (tpy[j][3] < avg_ht and abs(tpy[j][1] - tpy[j+1][1]) < avg_ht):
+            if not (tpy[j,3] < avg_ht and abs(tpy[j,1] - tpy[j+1,1]) < avg_ht):
                 break
             j+=1
 
         i=0
         while i<len(lfx)-1:
-            if lfx[i][1] < (tpy[j][1] + tpy[j][3]*0.9):
-                 break
+            if lfx[i,1] < (tpy[j,1] + tpy[j,3]*0.9):
+                break
             i+=1
-
         k.append(tuple(lfx[i]))
-        cp = np.delete(lfx, i, 0)
+        if i >= 0:
+            d = list(np.all(lfx[i] == tpy, axis = 1))
+            x = d.index(True)
+            tpy = np.delete(tpy, x, axis = 0)
+        lfx = np.delete(lfx, i, axis = 0)
         c-=1
-
     return k
 #End of Function
+
+
+
 
 #Image processing
 try:
     imarr = cv2.imread("./images/image.png", 0)
-
     imarr = cv2.GaussianBlur(imarr, (7, 7), 0)  #removes noise for smooth thresholding
-
     imarr = cv2.adaptiveThreshold(imarr, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 21, 4)
-
     imarr = cv2.threshold(imarr, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
-
     cons = cv2.findContours(imarr, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[0]
-
     cons = sort_cntr( [cv2.boundingRect(c) for c in  cons] ) # Sending bounding rect list
-
     ROI_number = 0
     for c in cons:
         area = c[2] * c[3]  # Width * Height

@@ -18,7 +18,7 @@ let d = document.getElementById("crop");
 let x, y
 let d_h = "480px"
 let d_w = "980px"
-let d_t	= "210px"
+let d_t	= "170px"
 let d_l = "250px"
 
 //VIDEO REALTED OPERATIONS
@@ -41,16 +41,17 @@ const take_pic = function(){
 		i.src = picture;
 		webcamElement.style.display = "none";
 		canvas.style.display = "block";
-  		context.drawImage(i, 0, 0);
+		context.drawImage(i, 0, 0);
+  		webcam.stop();
   	}
   	catch(e){
   		console.log("...")
   	}
 		d.style.left = d_l
 		d.style.top = d_t
-  	d.style.height = `${Number(canvas.height) - 20}px`;
-  	d.style.width = `${Number(canvas.width) - 20}px`;
-  	d.style.display = "block";
+  		d.style.height = `${Number(canvas.height) - 20}px`;
+  		d.style.width = `${Number(canvas.width) - 20}px`;
+  		d.style.display = "block";
 		d_h = `${Number(canvas.height) - 20}px`;
 		d_w = `${Number(canvas.width) - 20}px`;
 }
