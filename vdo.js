@@ -336,3 +336,4 @@ function crop(){
 // 	console.log( v.arraySync()[0] )
 // 	xp+=true_labels[ res[0] ];
 // }
+//
