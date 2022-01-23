@@ -15,12 +15,13 @@
 	<div class="bgImage3"></div>
 	<div class="box1"><h2>PICTURE &nbsp;CALCULATOR</h2></div>
 	<div class="box2"><h2>Hand Written &nbsp; Calculator</h2></div>
+	<div class="box3"><h2>Get a Canvas to &nbsp; Calculate</h2></div>
+	<div class="box4"><h2>Take a snap and &nbsp; Calculate</h2></div>
 	<div id="navbar" class="over">
 		<a href="javascript:void(0)" class="nav_close" onclick="closenav()">&times</a>
 		<div class="content">
-			<a href="/draw">Let's draw</a><br>
-    		<a href="/snap">Take a snap</a><br>
-    		<a href="#">Upload</a><br>
+			<a href="/draw" onmouseover="change_text1()" onmouseout="normal()">Let's draw</a><br>
+    		<a href="/snap" onmouseover="change_text2()" onmouseout="normal()">Take a snap</a><br>
     	</div>
     </div>
 		<div class="open" style="cursor: pointer" onclick="opennav()">&#9776; </div>
@@ -45,6 +46,25 @@
   			document.querySelector(".box2").style.display= "none";
   			document.querySelector(".over").style.backgroundColor = "rgba(0,0,0, 0.8)";
   			document.getElementsByTagName('h1')[0].style.color="black";
+		}
+		function change_text1(){
+  			document.querySelector(".box2").style.display= "none";
+  			document.querySelector(".box3").style.display= "block";
+  			document.querySelector(".bgImage3").style.backgroundImage= "url('./bg_1.jpg')";
+  			document.querySelector(".bgImage3").style.animation ="fadeInAnimation2 2s ease";
+		}
+		function change_text2(){
+  			document.querySelector(".box2").style.display= "none";
+  			document.querySelector(".box4").style.display= "block";
+  			document.querySelector(".bgImage3").style.backgroundImage= "url('./bg_2.jpg')";
+  			document.querySelector(".bgImage3").style.animation ="fadeInAnimation2 2s ease";
+		}
+		function normal(){
+			document.querySelector(".box2").style.display= "block";
+  			document.querySelector(".box3").style.display= "none";
+  			document.querySelector(".box4").style.display= "none";
+  			document.querySelector(".bgImage3").style.backgroundImage= "url('./bg7.jpg')";
+  			document.querySelector(".bgImage3").style.animation ="fadeInAnimation2 2s ease";
 		}
 </script>
 </body>

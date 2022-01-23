@@ -57,6 +57,21 @@ function server_func(request, response) {
         response.writeHead(200,{'Content-type': 'image/jpg'});
         response.end(data)
     }
+    if(request.url == "/bg_1.jpg"){
+        const data = fs.readFileSync("bg_1.jpg")
+        response.writeHead(200,{'Content-type': 'image/jpg'});
+        response.end(data)
+    }
+    if(request.url == "/bg_2.jpg"){
+        const data = fs.readFileSync("bg_2.jpg")
+        response.writeHead(200,{'Content-type': 'image/jpg'});
+        response.end(data)
+    }
+    if(request.url == "/bg_9_2.png"){
+        const data = fs.readFileSync("bg_9_2.png")
+        response.writeHead(200,{'Content-type': 'image/png'});
+        response.end(data)
+    }
 
     if(request.url == "/draw"){
         const data = fs.readFileSync("canvas.html","utf-8")

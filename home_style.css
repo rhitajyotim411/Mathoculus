@@ -83,6 +83,17 @@
       	        opacity: 1;
       	    }
       	}
+      	@keyframes fadeInAnimation2{
+        	0%{
+        		opacity: 0;
+        	}
+        	50%{
+        		opacity: 0.4;
+        	}
+        	100%{
+        		opacity: 1;
+        	}
+        }
 	.box1{
 		position: absolute;
 		z-index: 2;
@@ -135,7 +146,32 @@
 	    90%{  opacity: 1.0; }
 	    100% { opacity: 1;margin-left:0px; }
 	}
-
+	.box3, .box4{
+		position: absolute;
+		z-index: 2;
+		left: 780px;
+		top: 190px;
+		font-size: 300%;
+		font-family: 'Mochiy Pop P One', sans-serif;
+		line-height: 100px;
+      	display: none;
+      	overflow: hidden;
+      	animation: slidein3 1s;
+      	color: white;
+	}
+	@keyframes slidein3 {
+	    0% { opacity: 0; left: 700px; }
+	    10%{  opacity: 0; }
+	    20%{  opacity: 0; }
+	    30%{  opacity: 0; }
+	    40%{  opacity: 0.1; }
+	    40%{  opacity: 0.2; }
+	    60%{  opacity: 0.4; }
+	    70%{  opacity: 0.6; }
+	    80%{  opacity: 0.8; }
+	    90%{  opacity: 1.0; }
+	    100% { opacity: 1;margin-left:0px; }
+	}
 	.open{
 		background-color: black;
 		color: white;

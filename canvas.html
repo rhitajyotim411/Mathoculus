@@ -9,12 +9,76 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="icon" type="image/x-icon" href="favicon.ico" />
 		<title>canvas</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<style type="text/css">
+			@import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&display=swap');
 			html,body{
-				height: 90%;
+				/*height: 90%;*/
 				padding: 0px;
 				margin:  0px;
 				background: #91D1D3;
+				position: relative;
+			}
+			#sidenav a{
+			position: absolute;
+			left: -80px;
+			transition: 0.3s;
+			padding: 15px;
+			width: 100px;
+			text-decoration: none;
+			font-size: 30px;
+			color: white;
+			text-align: right;
+			border-radius: 0 5px 5px 0;
+			line-height: 4px;
+			}
+			#sidenav a:hover {
+	  			left: -10px;
+			}
+			#Home {
+	  			top: 30px;
+	  			background-color: #f44336;
+			}
+
+			#Snap {
+	  			top: 95px;
+	  			background-color: #555;
+			}
+			/*#Paint {
+	  			top: 140px;
+	  			background-color: #555;
+			}*/
+			h1{
+				font-family: 'Mochiy Pop P One', sans-serif;
+				text-align: center;
+				color: black;
+				margin-top: 0px;
+				padding-top: 0px;
+				
+			}
+			.button {
+	  			display: inline-block;
+	  			padding: 15px 25px;
+				font-size: 24px;
+				cursor: pointer;
+				text-decoration: none;
+				color: black;
+				background-color: pink;
+				border: none;
+				border-radius: 15px;
+				box-shadow: 0 9px #999;
+			}
+
+			.button:hover {
+				background-color: #ff1493;
+				color: white;
+			}
+
+			.button:active {
+			  background-color: #ff1493;
+			  box-shadow: 0 5px #666;
+			  transform: translateY(4px);
+			  color: white;
 			}
 
 			#xp{
@@ -84,7 +148,11 @@
 		<center>
 			<div id="work" style="display: none;">
 				<br>
-				<div align="left"> &emsp;<a href="/" style="text-decoration: none; font-size: 20px;  color: black;">HOME</a></div>
+				<h1>Let's draw and Calculate</h1>
+				<div id="sidenav" class="side_nav">
+					<a href="/" id="Home"><i class="fa fa-home"></i></a>
+					<a href="/snap" id="Snap"><i class="fa fa-camera"></i></a>
+				</div>
 				<p><input id="xp" type="text" readonly placeholder="Result"><br><br></p>
 
 				<div class="paper">
@@ -95,9 +163,9 @@
 				<br>
 
 				<p>
-					<button onclick="toggle(true)" id="mode">ERASE</button>
-					&emsp;<button onclick="toggle(false); getResult();">EVALUATE</button>
-					&emsp;<button onclick="clrCnv(); toggle(false);">CLEAR</button>
+					<button class="button" onclick="toggle(true)" id="mode">ERASE</button>
+					&emsp;<button class="button" onclick="toggle(false); getResult();">EVALUATE</button>
+					&emsp;<button class="button" onclick="clrCnv(); toggle(false);">CLEAR</button>
 					<!-- &emsp;<button onclick="start_vdo()" touchend="start_vdo()">VIDEO</button>
 					&emsp;<button onclick="take_pic()" touchend="take_pic()">SNAP</button>
 					&emsp;<button onclick="flip_vdo()" touchend="flip_vdo()">FLIP</button>
