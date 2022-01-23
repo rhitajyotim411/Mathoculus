@@ -71,8 +71,6 @@ def sort_cntr(points):
 #End of Function
 
 
-
-
 #Image processing
 try:
     imarr = cv2.imread("./images/image.png", 0)
