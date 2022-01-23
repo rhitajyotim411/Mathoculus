@@ -71,17 +71,18 @@ function  getResult(){	//reads image from canvas
 
 function ans(img, i){ //thickens img and predicts ans
 	//pooling
-	cnv = document.createElement("canvas")
-	cnv.id = `cnv${i}`
-	cnv.height = imgSz
-	cnv.width = imgSz
-	document.getElementById('imgRd').appendChild(cnv)
-	temp = tf.pool(img, 3, 'max', 'same')		//pooling
-	temp = temp.div(tf.scalar(255))
-	tf.browser.toPixels(temp, document.getElementById(`cnv${i}`))		//visual analysis
+	// cnv = document.createElement("canvas")
+	// cnv.id = `cnv${i}`
+	// cnv.height = imgSz
+	// cnv.width = imgSz
+	// document.getElementById('imgRd').appendChild(cnv)
+	// temp = tf.pool(img, 3, 'max', 'same')		//pooling
+	// temp = temp.div(tf.scalar(255))
+	// tf.browser.toPixels(temp, document.getElementById(`cnv${i}`))		//visual analysis
 
 
 	//prediction
+  temp = img.div(tf.scalar(255))
 	v = model.predict( tf.tensor( [ temp.arraySync() ] ) )
 	res = tf.tensor( v.dataSync() ).argMax().dataSync()
 	console.log( true_labels[ res[0] ] )

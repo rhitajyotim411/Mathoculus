@@ -7,7 +7,7 @@ imgSz = 64 #img size
 def pad(img):
     h,w = img.shape
 
-    if h%2==1: 
+    if h%2==1:
         img = np.vstack([img, np.zeros(w, dtype=np.uint8)])
         h += 1
 
@@ -76,9 +76,10 @@ def sort_cntr(points):
 #Image processing
 try:
     imarr = cv2.imread("./images/image.png", 0)
-    imarr = cv2.GaussianBlur(imarr, (7, 7), 0)  #removes noise for smooth thresholding
-    imarr = cv2.adaptiveThreshold(imarr, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 21, 4)
-    imarr = cv2.threshold(imarr, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
+    kernel = np.ones((3,3), np.uint8)
+    imarr = cv2.GaussianBlur(imarr, (9, 9), 0)  #removes noise for smooth thresholding
+    imarr = cv2.adaptiveThreshold(imarr, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 21, 4)
+    imarr = cv2.dilate(imarr, kernel, iterations=1) #dilates images
     cons = cv2.findContours(imarr, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[0]
     cons = sort_cntr( [cv2.boundingRect(c) for c in  cons] ) # Sending bounding rect list
     ROI_number = 0
