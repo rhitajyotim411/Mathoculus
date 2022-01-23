@@ -1,13 +1,13 @@
 import cv2
 import numpy as np
 
-imgSz = 64
+imgSz = 64 #img size
 
 #padding function
 def pad(img):
     h,w = img.shape
 
-    if h%2==1:
+    if h%2==1: 
         img = np.vstack([img, np.zeros(w, dtype=np.uint8)])
         h += 1
 
