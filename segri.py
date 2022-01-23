@@ -98,5 +98,9 @@ except:
 finally:
     print("code ran...")
 #end
+<<<<<<< Updated upstream
 #ITS A COMMENT....
 print("srirup")
+=======
+# Rhitajyoti Mandal
+>>>>>>> Stashed changes
