@@ -1,5 +1,4 @@
 import cv2
-from imutils import contours
 import numpy as np
 
 imgSz = 64
@@ -98,4 +97,3 @@ except:
 finally:
     print("code ran...")
 #end
-
