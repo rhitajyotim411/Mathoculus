@@ -54,7 +54,7 @@ function server_func(request, response) {
         response.writeHead(200,{'Content-type': 'text/javascript'});
         response.end(data)
     }
-     
+
     // Canvas
     if(request.url == "/draw"){
         const data = fs.readFileSync("web/canvas.html","utf-8")
@@ -117,8 +117,8 @@ function server_func(request, response) {
         response.writeHead(200,{'Content-type': 'image/jpg'});
         response.end(data)
     }
-    if(request.url == "/camT.png"){
-        const data = fs.readFileSync("res/camT.png")
+    if(request.url == "/snap.png"){
+        const data = fs.readFileSync("res/snap.png")
         response.writeHead(200,{'Content-type': 'image/png'});
         response.end(data)
     }
