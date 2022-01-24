@@ -28,7 +28,7 @@
 	.bgImage{
 		top: 0;
 		left: 0;
-		background-image: url("./bg5.jpg");
+		background-image: url("./home_bg.jpg");
 		background-size: cover;
 		background-repeat: no-repeat;
 		width: 100%;
@@ -53,12 +53,12 @@
 		position: fixed;
 		z-index: 2;
 		border-radius: 20px;
-		background-image: url("./bg7.jpg");
+		background-image: url("./calc.jpg");
 		background-size: cover;
 		background-repeat: no-repeat;
 		animation: fadeInAnimation ease 3s;
       	animation-iteration-count: 1;
-      	animation-fill-mode: forwards	
+      	animation-fill-mode: forwards
 	}
 	@keyframes fadeInAnimation {
       	    0% {
@@ -196,15 +196,15 @@
 		font-size: 220%;
 		background-color: white;
 		color: black;
-		font-weight: bold	
+		font-weight: bold
 	}
-	.over{  
+	.over{
 		height: 100%;
 		width: 0;
 		z-index: 4;
 		top: 0;
 		left: 0;
-		background-color: rgba(0,0,0, 0.8); 
+		background-color: rgba(0,0,0, 0.8);
 		overflow-x: hidden;
 		transition: 0.5s;
 		position: fixed;

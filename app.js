@@ -38,68 +38,78 @@ const server = http.createServer(server_func);
 
 function server_func(request, response) {
     let post='';
+
+    // Index
     if(request.url == "/"){
-        const data = fs.readFileSync("index.html","utf-8")
+        const data = fs.readFileSync("web/index.html","utf-8")
         response.end(data)
     }
     if(request.url == "/home_style.css"){
-        const data = fs.readFileSync("home_style.css","utf-8")
+        const data = fs.readFileSync("styles/home_style.css","utf-8")
         response.writeHead(200,{'Content-type': 'text/css'});
         response.end(data)
     }
-    if(request.url == "/bg5.jpg"){
-        const data = fs.readFileSync("bg5.jpg")
+
+    // Canvas
+    if(request.url == "/draw"){
+        const data = fs.readFileSync("web/canvas.html","utf-8")
+        response.writeHead(200,{'Content-type': 'text/html'});
+        response.end(data)
+    }
+
+    if (request.url == '/canvas.js') {
+        const data = fs.readFileSync("client/canvas.js","utf-8")
+        response.writeHead(200,{'Content-type': 'text/javascript'});
+        response.end(data)
+    }
+
+    // Video
+    if(request.url == "/snap"){
+        const data = fs.readFileSync("web/vdo.html","utf-8")
+        response.writeHead(200,{'Content-type': 'text/html'});
+        response.end(data)
+    }
+    if (request.url == '/vdo.js') {
+        const data = fs.readFileSync("client/vdo.js","utf-8")
+        response.writeHead(200,{'Content-type': 'text/javascript'});
+        response.end(data)
+    }
+
+    // Operation JS
+    if (request.url == '/operation.js') {
+        const data = fs.readFileSync("client/operation.js","utf-8")
+        response.writeHead(200,{'Content-type': 'text/javascript'});
+        response.end(data)
+    }
+
+    // Images
+    if(request.url == "/home_bg.jpg"){
+        const data = fs.readFileSync("res/home_bg.jpg")
         response.writeHead(200,{'Content-type': 'image/jpg'});
         response.end(data)
     }
-    if(request.url == "/bg7.jpg"){
-        const data = fs.readFileSync("bg7.jpg")
+    if(request.url == "/calc.jpg"){
+        const data = fs.readFileSync("res/calc.jpg")
         response.writeHead(200,{'Content-type': 'image/jpg'});
         response.end(data)
     }
-    if(request.url == "/bg_1.jpg"){
-        const data = fs.readFileSync("bg_1.jpg")
+    if(request.url == "/brush.jpg"){
+        const data = fs.readFileSync("res/brush.jpg")
         response.writeHead(200,{'Content-type': 'image/jpg'});
         response.end(data)
     }
-    if(request.url == "/bg_2.jpg"){
-        const data = fs.readFileSync("bg_2.jpg")
+    if(request.url == "/cam.jpg"){
+        const data = fs.readFileSync("res/cam.jpg")
         response.writeHead(200,{'Content-type': 'image/jpg'});
         response.end(data)
     }
-    if(request.url == "/bg_9_2.png"){
-        const data = fs.readFileSync("bg_9_2.png")
+    if(request.url == "/draw.png"){
+        const data = fs.readFileSync("res/draw.png")
         response.writeHead(200,{'Content-type': 'image/png'});
         response.end(data)
     }
 
-    if(request.url == "/draw"){
-        const data = fs.readFileSync("canvas.html","utf-8")
-        response.writeHead(200,{'Content-type': 'text/html'});
-        response.end(data)
-    }
-    
-    if(request.url == "/snap"){
-        const data = fs.readFileSync("vdo.html","utf-8")
-        response.writeHead(200,{'Content-type': 'text/html'});
-        response.end(data)
-    }
-    if (request.url == '/operation.js') {
-        const data = fs.readFileSync("operation.js","utf-8")
-        response.writeHead(200,{'Content-type': 'text/javascript'});
-        response.end(data)
-    }
-    if (request.url == '/vdo.js') {
-        const data = fs.readFileSync("vdo.js","utf-8")
-        response.writeHead(200,{'Content-type': 'text/javascript'});
-        response.end(data)
-    }
-    if (request.url == '/canvas.js') {
-        const data = fs.readFileSync("canvas.js","utf-8")
-        response.writeHead(200,{'Content-type': 'text/javascript'});
-        response.end(data)
-    }
-
+    // Icon
     if(request.url == '/favicon.ico'){
         const data = fs.readFileSync("favicon.ico")
         response.writeHead(200,{'Content-type': 'image/ico'});
@@ -143,7 +153,7 @@ function writeFileToSystem(buffer){
         fsp.readdir(p)
             .then((data)=>{
                 for(i of data){
-                    if(i==".dummy") 
+                    if(i==".dummy")
                         continue
                 fsp.unlink(path.join(p,i))
                     .catch((e)=>{
@@ -161,25 +171,6 @@ function writeFileToSystem(buffer){
                 console.log(e)
             })
     })
-    fsp.readdir(p)
-    .then((data)=>{
-        for(i of data){
-          if(i==".dummy") 
-            continue
-          fsp.unlink(path.join(p,i))
-            .catch((e)=>{
-              console.log(e)
-            })
-        }
-        fs.writeFile(`${p}/image.png`, buffer, function(err) {
-            if(err)
-                console.log(err);
-            runScript(response)
-        });
-    })
-    .catch((e)=>{
-        console.log(e)
-    })
 }
 
 
@@ -196,7 +187,7 @@ async function runScript(){
             console.log(err);
             reject(err)
         })
-    })  
+    })
 }
 
 async function getResult(n, response){
