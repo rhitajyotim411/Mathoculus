@@ -44,19 +44,28 @@ function server_func(request, response) {
         const data = fs.readFileSync("web/index.html","utf-8")
         response.end(data)
     }
-    if(request.url == "/home_style.css"){
-        const data = fs.readFileSync("styles/home_style.css","utf-8")
+    if(request.url == "/home.css"){
+        const data = fs.readFileSync("styles/home.css","utf-8")
         response.writeHead(200,{'Content-type': 'text/css'});
         response.end(data)
     }
-
+    if (request.url == '/home.js') {
+        const data = fs.readFileSync("client/home.js","utf-8")
+        response.writeHead(200,{'Content-type': 'text/javascript'});
+        response.end(data)
+    }
+     
     // Canvas
     if(request.url == "/draw"){
         const data = fs.readFileSync("web/canvas.html","utf-8")
         response.writeHead(200,{'Content-type': 'text/html'});
         response.end(data)
     }
-
+    if(request.url == "/canvas.css"){
+        const data = fs.readFileSync("styles/canvas.css","utf-8")
+        response.writeHead(200,{'Content-type': 'text/css'});
+        response.end(data)
+    }
     if (request.url == '/canvas.js') {
         const data = fs.readFileSync("client/canvas.js","utf-8")
         response.writeHead(200,{'Content-type': 'text/javascript'});
@@ -67,6 +76,11 @@ function server_func(request, response) {
     if(request.url == "/snap"){
         const data = fs.readFileSync("web/vdo.html","utf-8")
         response.writeHead(200,{'Content-type': 'text/html'});
+        response.end(data)
+    }
+    if(request.url == "/vdo.css"){
+        const data = fs.readFileSync("styles/vdo.css","utf-8")
+        response.writeHead(200,{'Content-type': 'text/css'});
         response.end(data)
     }
     if (request.url == '/vdo.js') {

@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&display=swap');
+	html,body{
+		padding: 0px;
+		margin:  0px;
+		background: #91D1D3;
+		position: relative;
+	}
+	#sidenav a{
+		position: absolute;
+		left: -80px;
+		transition: 0.3s;
+		padding: 15px;
+		width: 100px;
+		text-decoration: none;
+		font-size: 30px;
+		color: white;
+		text-align: right;
+		border-radius: 0 5px 5px 0;
+		line-height: 4px;
+	}
+	#sidenav a:hover {
+	  	left: -10px;
+	}
+	#Home {
+	  	top: 20px;
+	  	background-color: #f44336;
+	  }
+	#Paint {
+	  	top: 85px;
+	  	background-color: #555;
+	}
+	h1{
+		font-family: 'Mochiy Pop P One', sans-serif;
+		text-align: center;
+		color: black
+	}
+	.button {
+	  	display: inline-block;
+	  	padding: 15px 25px;
+		font-size: 24px;
+		cursor: pointer;
+		text-decoration: none;
+		color: black;
+		background-color: pink;
+		border: none;
+		border-radius: 15px;
+		box-shadow: 0 9px #999;
+	}
+	
+	.button:hover {
+		background-color: #ff1493;
+	}
+	.button:active {
+	  background-color: #ff1493;
+	  box-shadow: 0 5px #666;
+	  transform: translateY(4px);
+	}
+	#c{
+		border: 5px solid black;
+		position: absolute;
+		left: 240px;
+		top : 160px;
+		z-index: 0;
+	}
+	#crop{
+		width: 980px;
+		height: 480px;
+		resize: both;
+		border: 3px solid red;
+		overflow: auto;
+		position: absolute;
+		z-index: 1;
+		left: 250px;
+		top: 210px;
+		background: transparent;
+		display: none;
+	}
+	#xp{
+		border: none;
+		padding: 3px;
+	  	outline: none;
+	  	font-size: 25px;
+		text-align: center;
+		background: #91D1D3;
+		/*border:  2px solid red;*/
+		width: 1000px;
+		color : #111;
+	}
+	#wait{
+	     position: fixed;
+	     left: 50%;		
+	     top: 40%;
+	     transform: translate(-50%,-40%);
+	} 
+	input[type="text"]::placeholder {
+		text-align: center;
+		font-size: 30px ;
+		color : #555;
+	}

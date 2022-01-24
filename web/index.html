@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Homepage</title>
-	<link rel="stylesheet" type="text/css" href="home_style.css">
+	<link rel="stylesheet" type="text/css" href="home.css">
 	<style>
 	</style>
 </head>
@@ -13,10 +13,22 @@
 	<div class="bgImage2"></div>
 	<h1>WELCOME</h1>
 	<div class="bgImage3"></div>
-	<div class="box1"><h2>PICTURE &nbsp;CALCULATOR</h2></div>
-	<div class="box2"><h2>Hand Written &nbsp; Calculator</h2></div>
-	<div class="box3"><h2>Get a Canvas to &nbsp; Calculate</h2></div>
-	<div class="box4"><h2>Take a snap and &nbsp; Calculate</h2></div>
+	<div class="box1">
+		<h2>PICTURE</h2><br>
+		<h2>CALCULATOR</h2>
+	</div>
+	<div class="box2">
+		<h2>Hand Written</h2><br>
+		<h2>Calculator</h2>
+	</div>
+	<div class="box3">
+		<h2>Get a Canvas to</h2><br>
+		<h2>Calculator</h2>
+	</div>
+	<div class="box4">
+		<h2>Take a snap and</h2><br>
+		<h2>Calculator</h2>
+	</div>
 	<div id="navbar" class="over">
 		<a href="javascript:void(0)" class="nav_close" onclick="closenav()">&times</a>
 		<div class="content">
@@ -26,46 +38,6 @@
     </div>
 		<div class="open" style="cursor: pointer" onclick="opennav()">&#9776; </div>
 
-
-	<script>
-		function opennav() {
-  			document.getElementById("navbar").style.width = "20%";
-  			document.querySelector(".open").style.display= "none";
-  			document.querySelector(".bgImage2").style.backgroundColor = "rgba(0, 0, 0, 0.9)";
-  			document.querySelector(".box1").style.display= "none";
-  			document.querySelector(".box2").style.display= "block";
-  			document.querySelector(".over").style.backgroundColor = "rgba(145, 209, 211, 0.8)";
-  			document.getElementsByTagName('h1')[0].style.color="white";
-		}
-		function closenav() {
-  			document.getElementById("navbar").style.width = "0%";
-  			document.querySelector(".open").style.display= "block";
-  			document.querySelector(".bgImage2").style.backgroundColor = "rgba(145, 209, 211, 0.8)";
-  			document.querySelector(".bgImage3").style.left = "350px";
-  			document.querySelector(".box1").style.display= "block";
-  			document.querySelector(".box2").style.display= "none";
-  			document.querySelector(".over").style.backgroundColor = "rgba(0,0,0, 0.8)";
-  			document.getElementsByTagName('h1')[0].style.color="black";
-		}
-		function change_text1(){
-  			document.querySelector(".box2").style.display= "none";
-  			document.querySelector(".box3").style.display= "block";
-  			document.querySelector(".bgImage3").style.backgroundImage= "url('./brush.jpg')";
-  			document.querySelector(".bgImage3").style.animation ="fadeInAnimation2 2s ease";
-		}
-		function change_text2(){
-  			document.querySelector(".box2").style.display= "none";
-  			document.querySelector(".box4").style.display= "block";
-  			document.querySelector(".bgImage3").style.backgroundImage= "url('./cam.jpg')";
-  			document.querySelector(".bgImage3").style.animation ="fadeInAnimation2 2s ease";
-		}
-		function normal(){
-			document.querySelector(".box2").style.display= "block";
-  			document.querySelector(".box3").style.display= "none";
-  			document.querySelector(".box4").style.display= "none";
-  			document.querySelector(".bgImage3").style.backgroundImage= "url('./calc.jpg')";
-  			document.querySelector(".bgImage3").style.animation ="fadeInAnimation2 2s ease";
-		}
-</script>
+		<script src="home.js" type="text/javascript"></script>
 </body>
 </html>
