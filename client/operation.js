@@ -37,7 +37,8 @@ const convert = function(){
 
 function  getResult(){	//reads image from canvas
 	console.clear()
-	// toggle(false)
+	document.getElementById("heading").style.display= "none"
+	document.getElementById("xp").style.display= "block"
 	document.getElementById("xp").value= 'Calculating...'
 
 	convert().then(function(res) {

@@ -64,6 +64,7 @@
 	}
 
 	#xp{
+		display: none;
 		border: none;
 		padding: 3px;
 		outline: none;
@@ -71,6 +72,7 @@
 		text-align: center;
 		background: #91D1D3;
 		width: 1000px;
+		height: 61px;
 		color : #111;
 	}
 

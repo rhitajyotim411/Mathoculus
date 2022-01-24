@@ -21,32 +21,46 @@
 				<h1>Please Wait... <br> Getting Things Ready !!</h1>
 			</center>
 		</div>
+		<div id="work" align="center" style="display: none;">
 		<div id="crop" onclick="func()" draggable="true"></div>
-
-			<div id="work" align="center" style="display: none;">
-				<br>
-				<h1>Take a snap and Calculate</h1>
-				<div id="sidenav" class="side_nav">
-					<a href="/" id="Home"><i class="fa fa-home"></i></a>
-					<a href="/draw" id="Paint"><img src="./draw.png" width="30px" height="30px"></a>
-				</div>
-				<p><input id="xp" type="text" readonly placeholder="Result"><br><br></p>
-
-				<br><br>
-
-				<div>
-
+		<video id="webcam" autoplay playsinline style="display: none;" width="480" height="360"></video>
+	    <canvas width="1000" height="500" id="c" style="display: none; border: 0px solid black;"></canvas>
+		<table width="100%" height="100%" border="0" cellpadding="2" cellspacing="2">
+			<tr>
+				<th colspan="2" align="center" style=" height: 132px;">
+					<h1 id="heading">Take a snap and Calculate</h1>
+					<div id="sidenav" class="side_nav">
+						<a href="/" id="Home"><i class="fa fa-home"></i></a>
+						<a href="/draw" id="Paint"><img src="./draw.png" width="30px" height="30px"></a>
+					</div>
+					<input id="xp" type="text" readonly placeholder="Result"><br>
+				</th>
+			</tr>
+			<tr>
+				<th width="85%" rowspan="5">
+					<div id="bg" align="center">
+						<img src="camT.png" width="200px" height="200px">
+						<h2 style="font-size: 32px;">Click on Start
+						<br>to capture Image</h2>
+					</div>
+				</th>
+				<th align="center">
 					<button class="button" onclick="crop(); getResult();">EVALUATE</button>
-					&emsp;<button class="button" onclick="start_vdo()">VIDEO</button>
-					&emsp;<button class="button" onclick="take_pic()">SNAP</button>
-					&emsp;<button class="button" onclick="flip_vdo()">FLIP</button>
-					&emsp;<button class="button" onclick="stop_vdo()">STOP</button>
-
-				</div>
-				<br><br>
-
-				<video id="webcam" autoplay playsinline style="display: none;" width="480" height="360"></video> <br>
-	           	<canvas width="1000" height="500" id="c" style="display: none; border: 0px solid black;"></canvas>
+				</th>
+			</tr>
+			<tr>
+				<th><button class="button" onclick="start_vdo()">START</button></th>
+			</tr>
+			<tr>
+				<th><button class="button" onclick="take_pic()">SNAP</button></th>
+			</tr>
+			<tr>
+				<th><button class="button" onclick="flip_vdo()">FLIP</button></th>
+			</tr>
+			<tr>
+				<th><button class="button" onclick="stop_vdo()">STOP</button></th>
+			</tr>
+		</table>
 			</div>
 
 		<script src="operation.js" type="text/javascript"></script>

@@ -117,6 +117,11 @@ function server_func(request, response) {
         response.writeHead(200,{'Content-type': 'image/jpg'});
         response.end(data)
     }
+    if(request.url == "/camT.png"){
+        const data = fs.readFileSync("res/camT.png")
+        response.writeHead(200,{'Content-type': 'image/png'});
+        response.end(data)
+    }
     if(request.url == "/draw.png"){
         const data = fs.readFileSync("res/draw.png")
         response.writeHead(200,{'Content-type': 'image/png'});

@@ -6,14 +6,15 @@ var picture;
 var i = new Image();
 let d = document.getElementById("crop");
 let x, y
-let d_h = "480px"
-let d_w = "980px"
-let d_t	= "170px"
-let d_l = "250px"
+let d_h = "485px"
+let d_w = "985px"
+let d_t	= "235px"
+let d_l = "505px"
 
 //VIDEO REALTED OPERATIONS
 const start_vdo = function(){
 	d.style.display = "none";
+	bg.style.display = "none";
 	webcamElement.style.display = "block";
 	canvas.style.display = "none";
 	webcam.start()
@@ -39,11 +40,11 @@ const take_pic = function(){
   	}
 		d.style.left = d_l
 		d.style.top = d_t
-  		d.style.height = `${Number(canvas.height) - 20}px`;
-  		d.style.width = `${Number(canvas.width) - 20}px`;
+		d_h = `${Number(canvas.height) - 15}px`;
+		d_w = `${Number(canvas.width) - 15}px`;
+  		d.style.height = d_h
+  		d.style.width = d_w
   		d.style.display = "block";
-		d_h = `${Number(canvas.height) - 20}px`;
-		d_w = `${Number(canvas.width) - 20}px`;
 }
 
 const flip_vdo = function(){
@@ -52,8 +53,10 @@ const flip_vdo = function(){
 
 const stop_vdo = function(){
 	webcamElement.style.display = "none";
+	bg.style.display = "block";
 	canvas.style.display = "none";
 	d.style.display = "none";
+	document.getElementById("xp").value= ''
 	webcam.stop();
 }
 
