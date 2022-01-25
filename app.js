@@ -133,26 +133,6 @@ function server_func(request, response) {
         response.end(data)
     }
 
-
-
-
-
-
-
-
-    if(request.url == "/test"){
-        const data = fs.readFileSync("web/evaluate.html","utf-8")
-        response.writeHead(200,{'Content-type': 'text/html'});
-        response.end(data)
-    }
-
-
-
-
-
-
-
-
     // Icon
     if(request.url == '/favicon.ico'){
         const data = fs.readFileSync("favicon.ico")
