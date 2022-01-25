@@ -25,9 +25,6 @@ async function loadLocalImage (filename) {
     img.onload = () => ctx.drawImage(img, 0, 0);
     img.onerror = err => { throw err };
     img.src = filename;
-    image = tf.browser.fromPixels(canvas, 1);
-    image = image.div(tf.scalar(255))
-    return image
   } catch (err) {
     console.log(err);
   }
@@ -217,7 +214,7 @@ async function runScript(){
 async function getResult(n, response){
     try{
         for (i=0; i<n; i++){
-          img = await loadLocalImage(`${p}ROI_${i}.png`)
+          await loadLocalImage(`${p}ROI_${i}.png`)
           response.write(`<img id="img${i}" src="` + canvas.toDataURL() + '" />\n')
         }
         response.end()
