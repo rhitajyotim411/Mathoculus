@@ -39,15 +39,20 @@ function clrCnv(){
 const toggle = function(flag){
 	let toggle_but = document.getElementById("mode")
 	if(toggle_but.innerHTML == "ERASE" && flag){
-		canvas.style.border = "2px solid red";
+		document.querySelector(".paper").style.boxShadow= " 1px 1px 6px 8px #f44336";
 		ln_color = canvas_color;
 		context.lineWidth = 30;
 		toggle_but.innerHTML = "WRITE";
+		document.getElementById("mode").style.backgroundColor= "#f44336";
+		document.getElementById("mode").style.color= "white";
 	}
 	else if(toggle_but.innerHTML == "WRITE"){
 		canvas.style.border = "0px solid black";
+		document.querySelector(".paper").style.boxShadow= "none";
 		ln_color = "black";
 		context.lineWidth = thicc;
 		toggle_but.innerHTML = "ERASE";
+		document.getElementById("mode").style.backgroundColor= "pink";
+		document.getElementById("mode").style.color= "black";
 	}
 }
