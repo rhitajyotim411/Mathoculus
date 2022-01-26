@@ -32,7 +32,7 @@ def pad(img):
     area = [cv2.contourArea(p) for p in  parts]
 
     for i in range(len(parts)):
-        if i==area.index(max(area)):
+        if i == area.index(max(area)):
             continue
         x,y,w,h = cv2.boundingRect(parts[i])
         img[y:y+h, x:x+w]=0
@@ -74,7 +74,7 @@ def sort_cntr(points):
 #Image processing
 try:
     imarr = cv2.imread("./images/image.png", 0)
-    kernel = np.ones((3,3), np.uint8)
+    kernel = np.ones((2,2), np.uint8)
     imarr = cv2.GaussianBlur(imarr, (9, 9), 0)  #removes noise for smooth thresholding
     imarr = cv2.adaptiveThreshold(imarr, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 21, 4)
     imarr = cv2.dilate(imarr, kernel, iterations=1) #dilates images

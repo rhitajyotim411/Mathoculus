@@ -45,21 +45,21 @@
 					</div>
 				</th>
 				<th align="center">
-					<button class="button" onclick="crop(); getResult();">EVALUATE</button>
+					<button class="button" id="evl" disabled onclick="crop(); getResult();">EVALUATE</button>
 				</th>
 			</tr>
 			<tr>
-				<th><button class="button" onclick="start_vdo()">START</button></th>
+				<th><button class="button" id="start_stop" onclick="start_stop()">START</button></th>
 			</tr>
 			<tr>
-				<th><button class="button" onclick="take_pic()">SNAP</button></th>
+				<th><button class="button" id="snap" disabled onclick="resnap()">SNAP</button></th>
 			</tr>
 			<tr>
 				<th><button class="button" onclick="flip_vdo()">FLIP</button></th>
 			</tr>
-			<tr>
+			<!-- <tr>
 				<th><button class="button" onclick="stop_vdo()">STOP</button></th>
-			</tr>
+			</tr> -->
 		</table>
 			</div>
 

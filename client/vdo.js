@@ -5,26 +5,28 @@ const webcam = new Webcam(webcamElement, 'environment', canvas);  //user or envi
 var picture;
 var i = new Image();
 let d = document.getElementById("crop");
+let vdo_butt = document.getElementById("start_stop");
+let snap_butt = document.getElementById("snap");
+let evl_butt = document.getElementById("evl");
+
+
 let x, y
 let d_h = "485px"
 let d_w = "985px"
 let d_t = "235px"
 let d_l = "505px"
-let cam_flip = true;
 
 
 //VIDEO REALTED OPERATIONS
 const start_vdo = function () {
 	d.style.display = "none";
 	bg.style.display = "none";
+	evl_butt.disabled = true;
 	webcamElement.style.display = "block";
 	canvas.style.display = "none";
+	snap_butt.disabled = false;
 	webcam.start()
 		.then(result => {
-			if(cam_flip){
-				flip_vdo();
-				cam_flip = false;
-			}
 			console.log("webcam started");
 		})
 		.catch(err => {
@@ -35,11 +37,11 @@ const start_vdo = function () {
 const take_pic = function () {
 	try {
 		picture = webcam.snap();
+		evl_butt.disabled = false;
 		i.src = picture;
 		webcamElement.style.display = "none";
 		canvas.style.display = "block";
 		context.drawImage(i, 0, 0);
-		cam_flip = true;
 		webcam.stop();
 	}
 	catch (e) {
@@ -59,17 +61,68 @@ const flip_vdo = function () {
 }
 
 const stop_vdo = function () {
+	snap_butt.disabled = true;
+	evl_butt.disabled = true;
 	webcamElement.style.display = "none";
 	bg.style.display = "block";
 	canvas.style.display = "none";
 	d.style.display = "none";
 	document.getElementById("xp").value = ''
-	cam_flip = true;
 	webcam.stop();
 }
 
 
+
+const resnap = function(){
+	if(snap_butt.innerHTML == "SNAP"){
+		snap_butt.innerHTML = "CANCEL";
+		snap_butt.style.backgroundColor= "#f44336";
+		snap_butt.style.color= "white";
+		vdo_butt.innerHTML = "START";
+		vdo_butt.style.backgroundColor= "pink";
+		vdo_butt.style.color= "black";
+		take_pic();
+	}
+	else if(snap_butt.innerHTML == "CANCEL"){
+		snap_butt.innerHTML = "SNAP";
+		snap_butt.style.backgroundColor= "pink";
+		snap_butt.style.color= "black";
+		stop_vdo();
+	}
+}
+
+
+const start_stop = function(){
+	if(snap_butt.innerHTML == "CANCEL"){
+		snap_butt.innerHTML = "SNAP";
+		snap_butt.style.backgroundColor= "pink";
+		snap_butt.style.color= "black";
+	}
+	if(vdo_butt.innerHTML == "START"){
+		vdo_butt.innerHTML = "STOP";
+		vdo_butt.style.backgroundColor= "#f44336";
+		vdo_butt.style.color= "white";
+		start_vdo();
+	}
+	else if(vdo_butt.innerHTML == "STOP"){
+		vdo_butt.innerHTML = "START";
+		vdo_butt.style.backgroundColor= "pink";
+		vdo_butt.style.color= "black";
+		stop_vdo();
+	}
+}
+
+
+
 function crop() {
+
+	if(snap_butt.innerHTML == "CANCEL"){
+		snap_butt.innerHTML = "SNAP";
+		snap_butt.style.backgroundColor= "pink";
+		snap_butt.style.color= "black";
+	}
+	snap_butt.disabled = true;
+
 	a = Number(getComputedStyle(d).getPropertyValue("top").slice(0, -2))
 	b = Number(getComputedStyle(d).getPropertyValue("height").slice(0, -2))
 
