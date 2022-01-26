@@ -1,0 +1,238 @@
+	@import url('https://fonts.googleapis.com/css2?family=Mansalva&display=swap');
+	@import url('https://fonts.googleapis.com/css2?family=Handlee&display=swap');
+	@import url('https://fonts.googleapis.com/css2?family=Dongle&display=swap');
+	@import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&display=swap');
+	body{
+		margin: 0;
+		position: relative;
+		/*font-family:  "Lucida Console", "Courier New", monospace;*/
+	}
+	h1{
+		text-align: center;
+		font-family: 'Dongle',sans-serif;
+		font-weight: bold;
+		color: black;
+		font-size: 650%;
+		font-weight: bold;
+		/*margin-top: 80px;*/
+		/*padding-top: 30px;*/
+		padding-bottom: 3px;
+		margin-bottom: 0px;
+		position: absolute;
+		left: 600px;
+		top: 0px;
+		margin-top: 0px;
+		z-index: 2;
+		letter-spacing: 4px;
+	}
+	.bgImage{
+		top: 0;
+		left: 0;
+		background-image: url("./home_bg.jpg");
+		background-size: cover;
+		background-repeat: no-repeat;
+		width: 100%;
+		position: fixed;
+		height: 100%;
+		z-index: 0;
+	}
+	.bgImage2{
+		top: 0;
+		left: 0;
+		background-color: rgba(145, 209, 211, 0.8);
+		width: 100%;
+		position: fixed;
+		height: 100%;
+		z-index: 1;
+	}
+	.bgImage3{
+		top: 190px;
+		left: 350px;
+		width: 350px;
+		height: 350px;
+		position: fixed;
+		z-index: 2;
+		border-radius: 20px;
+		background-image: url("./calc.jpg");
+		background-size: cover;
+		background-repeat: no-repeat;
+		animation: fadeInAnimation ease 3s;
+      	animation-iteration-count: 1;
+      	animation-fill-mode: forwards
+	}
+	@keyframes fadeInAnimation {
+      	    0% {
+      	        opacity: 0;
+      	        left: 600px;
+      	        width: 350px;
+				height: 350px;
+      	    }
+      	    25%{
+      	    	opacity: 0.2;
+      	    	left: 600px;
+      	    	width: 350px;
+				height: 350px;
+      	    }
+      	    50%{
+      	    	opacity: 0.4;
+      	    	left: 600px;
+      	    	width: 350px;
+				height: 350px;
+      	    }
+      	    100% {
+      	        opacity: 1;
+      	    }
+      	}
+      	@keyframes fadeInAnimation2{
+        	0%{
+        		opacity: 0;
+        	}
+        	50%{
+        		opacity: 0.4;
+        	}
+        	100%{
+        		opacity: 1;
+        	}
+        }
+	.box1{
+		position: absolute;
+		z-index: 2;
+		left: 780px;
+		top: 200px;
+		font-size: 40px;
+		font-family: 'Mochiy Pop P One', sans-serif;
+		line-height: 2px;
+      	display: block;
+      	overflow: hidden;
+      	animation: slidein 3s;
+	}
+	.box2{
+		position: absolute;
+		z-index: 2;
+		left: 780px;
+		top: 200px;
+		font-size: 40px;
+		font-family: 'Mochiy Pop P One', sans-serif;
+		line-height: 2px;
+      	display: none;
+      	overflow: hidden;
+      	animation: slidein2 2s;
+      	color: white;
+	}
+	@keyframes slidein {
+	    0% { opacity: 0; left: 700px; }
+	    10%{  opacity: 0; }
+	    20%{  opacity: 0; }
+	    30%{  opacity: 0; }
+	    40%{  opacity: 0; }
+	    40%{  opacity: 0; }
+	    60%{  opacity: 0; }
+	    70%{  opacity: 0.0; }
+	    80%{  opacity: 0.2; }
+	    90%{  opacity: 0.6; }
+	    100% { opacity: 1;margin-left:0px; }
+	}
+
+	@keyframes slidein2 {
+	    0% { opacity: 0; left: 700px; }
+	    10%{  opacity: 0; }
+	    20%{  opacity: 0; }
+	    30%{  opacity: 0; }
+	    40%{  opacity: 0.1; }
+	    40%{  opacity: 0.2; }
+	    60%{  opacity: 0.4; }
+	    70%{  opacity: 0.6; }
+	    80%{  opacity: 0.8; }
+	    90%{  opacity: 1.0; }
+	    100% { opacity: 1;margin-left:0px; }
+	}
+	.box3, .box4{
+		position: absolute;
+		z-index: 2;
+		left: 780px;
+		top: 200px;
+		font-size: 40px;
+		font-family: 'Mochiy Pop P One', sans-serif;
+		line-height: 2px;
+      	display: none;
+      	overflow: hidden;
+      	animation: slidein3 1s;
+      	color: white;
+	}
+	@keyframes slidein3 {
+	    0% { opacity: 0; left: 700px; }
+	    10%{  opacity: 0; }
+	    20%{  opacity: 0; }
+	    30%{  opacity: 0; }
+	    40%{  opacity: 0.1; }
+	    40%{  opacity: 0.2; }
+	    60%{  opacity: 0.4; }
+	    70%{  opacity: 0.6; }
+	    80%{  opacity: 0.8; }
+	    90%{  opacity: 1.0; }
+	    100% { opacity: 1;margin-left:0px; }
+	}
+	.open{
+		background-color: black;
+		color: white;
+		width: 3%;
+		height: 45px; /*8*/
+		padding: 5px 8px 5px 2px;
+		overflow-x: hidden;
+		margin-left: 5px;
+		font-size: 2rem; /*50%*/
+		position: absolute;
+		left: 0;
+		text-align: center;
+		border-radius: 0 50% 50% 0;
+		display: block;
+		top: 320px;
+		z-index: 3;
+	}
+	.open:hover{
+		width: 4%;
+		height: 50px;
+		transition: 0.3s;
+		font-size: 220%;
+		background-color: white;
+		color: black;
+		font-weight: bold
+	}
+	.over{
+		height: 100%;
+		width: 0;
+		z-index: 4;
+		top: 0;
+		left: 0;
+		background-color: rgba(0,0,0, 0.8);
+		overflow-x: hidden;
+		transition: 0.5s;
+		position: fixed;
+	}
+	.content{
+		position: absolute;
+		width: 100%;
+		top: 20%;
+		text-align: center;
+		margin-top: 30px;
+	}
+	.over a{
+		padding: 10px;
+	    text-decoration: none;
+	    color: black;
+	    display: block;
+	    transition: 0.3s;
+	    font-size: 30px;
+	    font-weight: bold;
+	}
+	.over a:hover, .over a:focus{
+		color: white;
+		 font-size: 35px;
+	}
+	.over .nav_close{
+		position: absolute;
+		top: 20px;
+		left: 45px;
+		margin-left: 180px;
+		font-size: 50px;
+	}

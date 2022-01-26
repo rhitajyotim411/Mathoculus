@@ -1,12 +1,9 @@
 import cv2
-from imutils import contours
 import numpy as np
 
-# f = open("img.txt", "w")
-# f.close()
+imgSz = 64 #img size
 
 #padding function
-imgSz = 64
 def pad(img):
     h,w = img.shape
 
@@ -28,43 +25,74 @@ def pad(img):
 
     pd[h : -h,  w : -w] = img
 
-    return cv2.resize(pd, (imgSz, imgSz), interpolation=cv2.INTER_AREA) # 64,64
+    img = cv2.resize(pd, (imgSz, imgSz), interpolation=cv2.INTER_AREA) # 64,64
+
+    # Removal of noise
+    parts = cv2.findContours(img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[0]
+    area = [cv2.contourArea(p) for p in  parts]
+
+    for i in range(len(parts)):
+        if i == area.index(max(area)):
+            continue
+        x,y,w,h = cv2.boundingRect(parts[i])
+        img[y:y+h, x:x+w]=0
+
+    return img
 #End of Function
 
-# def store(img):
-#     f=open("img.txt", "a")
-#     for i in img:
-#         f.write(str(i)+",")
-#     f.write("\n\n")
-#     f.close()
+# Sort contours
+def sort_cntr(points):
+    c = len(points)
+    cp = np.array(points, dtype=object)
+    k = []
+    avg_ht = np.sum(cp[::, 3])/len(points)
+    lfx = cp[np.argsort(cp[::, 0])] # sorted according to x
+    tpy = cp[np.argsort(cp[::, 1])] # sorted accordxing to y
+    while c>0:
+        j=0
+        while j<len(tpy)-1:
+            if not (tpy[j,3] < avg_ht and abs(tpy[j,1] - tpy[j+1,1]) < avg_ht):
+                break
+            j+=1
 
-imarr = cv2.imread("./images/image.png", 0)
-imarr = imarr
-#plt.imshow(imarr, cmap="gray")
+        i=0
+        while i<len(lfx)-1:
+            if lfx[i,1] < (tpy[j,1] + tpy[j,3]*0.9):
+                break
+            i+=1
+        k.append(tuple(lfx[i]))
+        if i >= 0:
+            d = list(np.all(lfx[i] == tpy, axis = 1))
+            x = d.index(True)
+            tpy = np.delete(tpy, x, axis = 0)
+        lfx = np.delete(lfx, i, axis = 0)
+        c-=1
+    return k
+#End of Function
 
-imarr = cv2.threshold(imarr, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
 
-cons = cv2.findContours(imarr, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[0]
-
-cons, _ = contours.sort_contours(cons, method="left-to-right")
-
-# plt.imshow(imarr, cmap="gray")
-
-ROI_number = 0
-for c in cons:
-    area = cv2.contourArea(c)
-    if area > 10:
-        x,y,w,h = cv2.boundingRect(c)
-        ROI = imarr[y:y+h, x:x+w]
-        #ROI = cv2.resize(ROI, (64,64))
-        res = f'./images/ROI_{ROI_number}.png'
-        # print(res)
-        sv = pad(ROI)
-        cv2.imwrite(res, sv)
-        # store(sv.flatten())
-        print(sv.flatten())
-        # cv2.rectangle(imarr, (x, y), (x + w, y + h), (255,0,0), 1)
-        ROI_number += 1
-
-# plt.imshow(imarr , cmap="gray")
+#Image processing
+try:
+    imarr = cv2.imread("./images/image.png", 0)
+    kernel = np.ones((2,2), np.uint8)
+    imarr = cv2.GaussianBlur(imarr, (9, 9), 0)  #removes noise for smooth thresholding
+    imarr = cv2.adaptiveThreshold(imarr, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 21, 4)
+    imarr = cv2.dilate(imarr, kernel, iterations=1) #dilates images
+    cons = cv2.findContours(imarr, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[0]
+    cons = sort_cntr( [cv2.boundingRect(c) for c in  cons] ) # Sending bounding rect list
+    ROI_number = 0
+    for c in cons:
+        area = c[2] * c[3]  # Width * Height
+        if area > 100:
+            x,y,w,h = c
+            ROI = imarr[y:y+h, x:x+w]
+            res = f'./images/ROI_{ROI_number}.png'
+            sv = pad(ROI)
+            cv2.imwrite(res, sv)
+            print(sv.flatten())
+            ROI_number += 1
+except:
+    print("An error occured",end=" ")
+finally:
+    print("code ran...")
 #end

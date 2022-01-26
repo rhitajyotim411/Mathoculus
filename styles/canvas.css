@@ -1,0 +1,119 @@
+	@import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&display=swap');
+	html,body{
+		padding: 0px;
+		margin:  0px;
+		background: #91D1D3;
+		position: relative;
+	}
+	#sidenav a{
+		position: absolute;
+		left: -75px;
+		transition: 0.3s;
+		padding: 15px;
+		width: 100px;
+		text-decoration: none;
+		font-size: 30px;
+		color: white;
+		text-align: right;
+		border-radius: 0 5px 5px 0;
+		line-height: 4px;
+	}
+	#sidenav a:hover {
+		left: -10px;
+	}
+	#Home {
+		top: 30px;
+		background-color: #f44336;
+	}
+
+	#Snap {
+		top: 95px;
+		background-color: #555;
+	}
+	h1{
+		font-family: 'Mochiy Pop P One', sans-serif;
+		text-align: center;
+		color: black;
+		margin-top: 0px;
+		padding-top: 0px;
+		
+	}
+	.button {
+		display: inline-block;
+		padding: 15px 25px;
+		font-size: 24px;
+		cursor: pointer;
+		text-decoration: none;
+		color: black;
+		background-color: pink;
+		border: none;
+		border-radius: 15px;
+		box-shadow: 0 9px #999;
+	}
+
+	.button:hover {
+		background-color: #ff1493;
+		color: white;
+	}
+
+	.button:active {
+		background-color: #ff1493;
+		box-shadow: 0 5px #666;
+		transform: translateY(4px);
+		color: white;
+	}
+
+	#xp{
+		display: none;
+		border: none;
+		padding: 3px;
+		outline: none;
+		font-size: 30px;
+		text-align: center;
+		background: #91D1D3;
+		width: 1000px;
+		height: 61px;
+		color : #111;
+	}
+
+	#wait{
+		position: fixed;
+		left: 50%;		top: 40%;
+		transform: translate(-50%,-40%);
+	}
+
+	input[type="text"]::placeholder {
+		text-align: center;
+		font-size: 30px ;
+		color : #555;
+	}
+
+	.paper {
+		position: relative;
+		width: 90%;
+		max-width: 1100px;
+		min-width: 400px;
+		height: 480px;
+		margin: 0 auto;
+		background: #fafafa;
+		border-radius: 20px;
+		box-shadow: 0 2px 8px rgba(0,0,0,.3);
+		overflow: hidden;
+	}
+
+	.paper:before {
+		content: '';
+		position: absolute;
+		top: 0; bottom: 0; left: 0;
+		width: 60px;
+		background: radial-gradient(#575450 6px, transparent 7px) repeat-y;
+		background-size: 30px 30px;
+		border-right: 3px solid #D44147;
+		box-sizing: border-box;
+	}
+
+	.paper-content {
+		position: absolute;
+		top: 10px; right: 0; bottom: 30px; left: 60px;
+		background-size: 130px 130px;
+	}

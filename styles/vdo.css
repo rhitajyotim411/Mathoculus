@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&display=swap');
+	html,body{
+		padding: 0px;
+		margin:  0px;
+		background: #91D1D3;
+		position: relative;
+	}
+	table{
+		margin: 0;
+		position: sticky;
+		height: 600px;
+	}
+	#sidenav a{
+		position: absolute;
+		left: -75px;
+		transition: 0.3s;
+		padding: 15px;
+		width: 100px;
+		text-decoration: none;
+		font-size: 30px;
+		color: white;
+		text-align: right;
+		border-radius: 0 5px 5px 0;
+		line-height: 4px;
+	}
+	#sidenav a:hover {
+	  	left: -10px;
+	}
+	#Home {
+	  	top: 20px;
+	  	background-color: #f44336;
+	  }
+	#Paint {
+	  	top: 85px;
+	  	background-color: #555;
+	}
+	h1, h2{
+		font-family: 'Mochiy Pop P One', sans-serif;
+		text-align: center;
+		color: black
+	}
+	.button {
+	  	padding: 15px 25px;
+		font-size: 15px;
+		cursor: pointer;
+		text-decoration: none;
+		color: black;
+		background-color: pink;
+		border: none;
+		border-radius: 15px;
+		box-shadow: 0 9px #999;
+		margin: 10px;
+	}
+	
+	.button:hover {
+		background-color: #ff1493;
+	}
+	.button:active {
+	  background-color: #ff1493;
+	  box-shadow: 0 5px #666;
+	  transform: translateY(4px);
+	}
+	#bg{
+		border: 6px dashed black;
+		border-radius: 25px;
+		position: absolute;
+		padding-top: 20px;
+		top: 204px;
+		left: 495px;
+		width: 480px;
+		height: 360px;
+		text-align: center;
+		align-content: center;
+		background-color: rgba(7, 7, 7, 0.3);
+	}
+	#c{
+		border: 5px solid black;
+		position: absolute;
+		z-index: 0;
+		top: 230px;
+		left: 500px;
+	}
+	#webcam{
+		border: 5px solid black;
+		position: absolute;
+		left: 240px;
+		top : 160px;
+		z-index: 0;
+		top: 230px;
+		left: 500px;
+	}
+	#crop{
+		width: 980px;
+		height: 480px;
+		resize: both;
+		border: 3px solid red;
+		overflow: auto;
+		position: absolute;
+		z-index: 1;
+		top: 230px;
+		left: 500px;
+		background: transparent;
+		display: none;
+	}
+	#xp{
+		display: none;
+		border: none;
+		padding: 3px;
+	  	outline: none;
+	  	font-size: 25px;
+		text-align: center;
+		background: #91D1D3;
+		height: 61px;
+		width: 1000px;
+		color : #111;
+	}
+	#wait{
+	     position: fixed;
+	     left: 50%;		
+	     top: 40%;
+	     transform: translate(-50%,-40%);
+	} 
+	input[type="text"]::placeholder {
+		text-align: center;
+		font-size: 30px ;
+		color : #555;
+	}
