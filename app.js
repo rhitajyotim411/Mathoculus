@@ -15,8 +15,6 @@ const imgSz = 64
 const { Image, createCanvas } = require('canvas');
 const canvas = createCanvas(imgSz, imgSz);
 const ctx = canvas.getContext('2d');
-const tf = require("@tensorflow/tfjs");
-const url = "https://raw.githubusercontent.com/SXCSEM6-project/ModelStore/main/model.json"
 
 async function loadLocalImage (filename) {
   try {
