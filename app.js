@@ -167,7 +167,6 @@ function server_func(request, response) {
 
 function writeFileToSystem(buffer){
     //deletes previous files
-
     return new Promise((resolve, reject)=>{
         fsp.readdir(p)
             .then((data)=>{

@@ -45,6 +45,10 @@ function  getResult(){	//reads image from canvas
 		//console.log(res)
 		document.getElementById('imgRd').innerHTML = res
 		var l = document.getElementById("imgRd").childElementCount;
+		if(l < 1){
+			document.getElementById("xp").value = "BLANK Expression"; 
+			return;
+		}
 		var img = document.getElementById(`img${l-1}`)
 		img.onload = function() {
 			xp = ''
