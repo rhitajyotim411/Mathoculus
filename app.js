@@ -19,7 +19,6 @@ const ctx = canvas.getContext('2d');
 async function loadLocalImage(filename) {
     try {
         var img = new Image()
-        //console.log('imageloaded')
         img.onload = () => ctx.drawImage(img, 0, 0);
         img.onerror = err => { throw err };
         img.src = filename;
@@ -197,7 +196,6 @@ async function runScript() {
                 canvas.height = Number(temp[0])
                 canvas.width = Number(temp[1])
                 resolve(result.length - 1);
-                //getResult(result.length-1, response)
             }
             else
                 console.log(err);

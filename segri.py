@@ -76,6 +76,7 @@ def sort_cntr(points):
 imarr = cv2.imread("./images/image.png", 0)
 temp = cv2.imread("./images/image.png")
 kernel = np.ones((2, 2), np.uint8)
+
 # removes noise for smooth thresholding
 imarr = cv2.GaussianBlur(imarr, (9, 9), 0)
 imarr = cv2.adaptiveThreshold(
@@ -84,8 +85,8 @@ imarr = cv2.dilate(imarr, kernel, iterations=1)  # dilates images
 cons = cv2.findContours(imarr, cv2.RETR_EXTERNAL,
                         cv2.CHAIN_APPROX_SIMPLE)[0]
 
-if len(cons)<1:
-    print(f'{temp.shape[0]},{temp.shape[1]}')
+if len(cons)<1:    # Blank Canvas Exit
+    print(f'{temp.shape[0]},{temp.shape[1]}')   # Canvas Size
     exit()
 
 cons = sort_cntr([cv2.boundingRect(c)
@@ -106,5 +107,5 @@ for c in cons:
                              (c[0]+c[2], c[1]+c[3]), (57,70,242), 3)
 
 cv2.imwrite("./images/image.png", temp)
-print(f'{temp.shape[0]},{temp.shape[1]}')
+print(f'{temp.shape[0]},{temp.shape[1]}')   # Canvas Size
 # end

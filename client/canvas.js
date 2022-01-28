@@ -32,7 +32,6 @@ function clrCnv(){
 	context.fillStyle = canvas_color;
 	context.lineWidth = thicc;
 	context.fillRect(0, 0, canvas.width, canvas.height);
-	// document.getElementById("xp").value= ''
 }
 
 //ERASER

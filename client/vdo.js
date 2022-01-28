@@ -67,7 +67,6 @@ const stop_vdo = function () {
 	bg.style.display = "block";
 	canvas.style.display = "none";
 	d.style.display = "none";
-	// document.getElementById("xp").value = ''
 	webcam.stop();
 }
 
