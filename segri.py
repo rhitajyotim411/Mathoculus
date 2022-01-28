@@ -83,6 +83,11 @@ imarr = cv2.adaptiveThreshold(
 imarr = cv2.dilate(imarr, kernel, iterations=1)  # dilates images
 cons = cv2.findContours(imarr, cv2.RETR_EXTERNAL,
                         cv2.CHAIN_APPROX_SIMPLE)[0]
+
+if len(cons)<1:
+    print(f'{temp.shape[0]},{temp.shape[1]}')
+    exit()
+
 cons = sort_cntr([cv2.boundingRect(c)
                  for c in cons])  # Sending bounding rect list
 
