@@ -1,7 +1,7 @@
 const imgSz = 64
 var xp = '' 	//stores expresion
 var thicc = 5		//canvas line thiccness (original: 5, dataset_creation: 7)
-const true_labels = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '-', '*', '/', '(', ')', '^']
+const true_labels = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '-', 'x', '/', '(', ')', '^']
 //const canvas = document.getElementById("c");
 
 async function loadModel() {
@@ -68,13 +68,13 @@ function getResult() {	//reads image from canvas
 			// 		// console.log(imgT)
 			// 		ans(imgT, i)	//PREDICT
 			// 	}
-			// 	try {
-			// 		xp_res = Math.round((eval(xp.replaceAll("^", "**")) + Number.EPSILON) * 10000) / 10000
-			// 		document.getElementById("xp").value = `${xp.replaceAll("*", "x")} = ${xp_res}`
-			// 	}
-			// 	catch (err) {
-			// 		document.getElementById("xp").value = "Erroneous expression: " + xp.replaceAll("*", "x")
-			// 	}
+			// try {
+			// 	xp_res = Math.round((eval(xp.replaceAll("^", "**")) + Number.EPSILON) * 10000) / 10000
+			// 	document.getElementById("xp").value = `${xp.replaceAll("*", "x")} = ${xp_res}`
+			// }
+			// catch (err) {
+			// 	document.getElementById("xp").value = "Erroneous expression: " + xp.replaceAll("*", "x")
+			// }
 			// }
 		}).catch(function (err) {
 			console.error(err);
@@ -82,7 +82,7 @@ function getResult() {	//reads image from canvas
 	})
 }
 
-function ans(img) { // predicts ans
+function pred(img) { // predicts ans
 	//prediction
 	temp = img.div(tf.scalar(255))
 	v = model.predict(tf.tensor([temp.arraySync()]))
@@ -91,6 +91,10 @@ function ans(img) { // predicts ans
 	console.log(v.arraySync()[0][res[0]])
 	console.log(v.arraySync()[0])
 	xp += true_labels[res[0]];
+	return {
+		"Symbl": true_labels[res[0]],
+		"acc": v.arraySync()[0][res[0]]
+	};
 }
 
 function resPg(btn) {
@@ -100,8 +104,96 @@ function resPg(btn) {
 
 	let d = document.getElementById('eval')
 	d.innerHTML = ''
-	
+	xp = ''
+
 	getResult().then((imgs) => {
+		if (imgs.length <= 1)
+			alert("No Expression Given !!")
+
 		d.appendChild(imgs[0])
+		d.appendChild(document.createElement("br"))
+		d.appendChild(document.createElement("br"))
+		let tbl = document.createElement("table")
+		tbl.id = "resTbl"
+		tbl.cellSpacing = "0"
+		// tbl.style.border = "5px solid black"
+		d.appendChild(tbl)
+
+		let l = imgs.length - 1
+
+		for (let i = 0; i < Math.floor(l / 5); i++) {
+			let tempR = document.createElement("tr")
+			tbl.appendChild(tempR)
+			for (let j = 0; j < 5; j++) {
+				let tempH = document.createElement("th")
+				tempH.style.border = "2px solid black"
+				tempH.style.padding = "25px"
+				tempR.appendChild(tempH)
+				tempH.appendChild(imgs[(i * 5 + j) + 1])
+
+				tempH.appendChild(document.createElement("br"))
+				tempH.appendChild(document.createElement("br"))
+				let temp = document.createElement("span")
+				temp.style.fontSize = "25px"
+				tempH.appendChild(temp)
+
+				let ans = pred(tf.browser.fromPixels(imgs[(i * 5 + j) + 1], 1))
+				temp.innerHTML = ans.Symbl
+
+				tempH.appendChild(document.createElement("br"))
+				tempH.appendChild(document.createElement("br"))
+				temp = document.createElement("span")
+				temp.style.fontSize = "25px"
+				tempH.appendChild(temp)
+				temp.innerHTML = `${ans.acc * 100}`.slice(0, 6)
+			}
+		}
+
+		let tempR = document.createElement("tr")
+		tbl.appendChild(tempR)
+		for (let i = Math.floor(l / 5) * 5; i < l; i++) {
+			let tempH = document.createElement("th")
+			tempH.style.border = "2px solid black"
+			tempH.style.padding = "25px"
+			tempR.appendChild(tempH)
+			tempH.appendChild(imgs[i + 1])
+
+			tempH.appendChild(document.createElement("br"))
+			tempH.appendChild(document.createElement("br"))
+			let temp = document.createElement("span")
+			temp.style.fontSize = "25px"
+			tempH.appendChild(temp)
+
+			let ans = pred(tf.browser.fromPixels(imgs[i + 1], 1))
+			temp.innerHTML = ans.Symbl
+
+			tempH.appendChild(document.createElement("br"))
+			tempH.appendChild(document.createElement("br"))
+			temp = document.createElement("span")
+			temp.style.fontSize = "25px"
+			tempH.appendChild(temp)
+			temp.innerHTML = `${ans.acc * 100}`.slice(0, 6)
+		}
+
+		d.appendChild(document.createElement("br"))
+		d.appendChild(document.createElement("br"))
+
+		let temp = document.createElement("span")
+		temp.align = "center"
+		temp.style.fontSize = "45px"
+		d.appendChild(temp)
+
+		xp = xp.replaceAll("x", "*")
+
+		try {
+			let xp_res = Math.round((eval(xp.replaceAll("^", "**")) + Number.EPSILON) * 10000) / 10000
+			temp.innerHTML = `${xp.replaceAll("*", "x")} = ${xp_res}`
+		}
+		catch (err) {
+			temp.innerHTML = "Erroneous expression: " + xp.replaceAll("*", "x")
+		}
+
+		d.appendChild(document.createElement("br"))
+		d.appendChild(document.createElement("br"))
 	})
 }
