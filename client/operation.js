@@ -44,12 +44,12 @@ function  getResult(){	//reads image from canvas
 	convert().then(function(res) {
 		//console.log(res)
 		document.getElementById('imgRd').innerHTML = res
-		var l = document.getElementById("imgRd").childElementCount;
+		var l = document.getElementById("imgRd").childElementCount - 1;
 		if(l < 1){
-			document.getElementById("xp").value = "BLANK Expression"; 
+			document.getElementById("xp").value = "BLANK Expression";
 			return;
 		}
-		var img = document.getElementById(`img${l-1}`)
+		var img = document.getElementById(`eval_img`)
 		img.onload = function() {
 			xp = ''
 			for(let i=0;i<l;i++) {
