@@ -67,7 +67,7 @@ const stop_vdo = function () {
 	bg.style.display = "block";
 	canvas.style.display = "none";
 	d.style.display = "none";
-	document.getElementById("xp").value = ''
+	// document.getElementById("xp").value = ''
 	webcam.stop();
 }
 
@@ -212,3 +212,10 @@ d.ondragend = function (event) {
 
 }
 
+function work()
+{
+	document.getElementById('eval').style.display = "none"
+	document.getElementById('Snap').style.display = "none"
+	document.getElementById('work').style.display = "block"
+	stop_vdo();
+}

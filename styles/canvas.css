@@ -17,6 +17,7 @@
 		text-align: right;
 		border-radius: 0 5px 5px 0;
 		line-height: 4px;
+		z-index: 1;
 	}
 	#sidenav a:hover {
 		left: -10px;
@@ -30,13 +31,18 @@
 		top: 95px;
 		background-color: #555;
 	}
+	#Paint {
+		top: 160px;
+		background-color: #555;
+		display: none;
+  	}
 	h1{
 		font-family: 'Mochiy Pop P One', sans-serif;
 		text-align: center;
 		color: black;
 		margin-top: 0px;
 		padding-top: 0px;
-		
+
 	}
 	.button {
 		display: inline-block;

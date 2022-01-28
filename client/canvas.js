@@ -32,7 +32,7 @@ function clrCnv(){
 	context.fillStyle = canvas_color;
 	context.lineWidth = thicc;
 	context.fillRect(0, 0, canvas.width, canvas.height);
-	document.getElementById("xp").value= ''
+	// document.getElementById("xp").value= ''
 }
 
 //ERASER
@@ -55,4 +55,12 @@ const toggle = function(flag){
 		document.getElementById("mode").style.backgroundColor= "pink";
 		document.getElementById("mode").style.color= "black";
 	}
+}
+
+function work()
+{
+	document.getElementById('eval').style.display = "none"
+	document.getElementById('Paint').style.display = "none"
+	document.getElementById('work').style.display = "block"
+	clrCnv()
 }
