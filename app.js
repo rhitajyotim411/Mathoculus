@@ -82,6 +82,13 @@ function server_func(request, response) {
         response.writeHead(200, { 'Content-type': 'text/javascript' });
         response.end(data)
     }
+    
+    // Result Page
+    if (request.url == '/res.css') {
+        const data = fs.readFileSync("styles/res.css", "utf-8")
+        response.writeHead(200, { 'Content-type': 'text/css' });
+        response.end(data)
+    }
 
     // Operation JS
     if (request.url == '/operation.js') {

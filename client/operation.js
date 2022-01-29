@@ -35,14 +35,17 @@ function getResult() {	//reads image from canvas
 		console.clear()
 
 		convert().then(function (res) {
-			document.getElementById('imgRd').innerHTML = res
-			var l = document.getElementById("imgRd").childElementCount - 1;
+			let para_ele = document.createElement("p");
+			para_ele.innerHTML = res;
+			document.body.appendChild(para_ele);
+			var l = para_ele.childElementCount - 1;
 
 			var imgs = [document.getElementById(`eval_img`)]
 
 			for (let i = 0; i < l; i++) {
 				imgs.push(document.getElementById(`img${i}`))
 			}
+			para_ele.remove();
 			resolve(imgs)
 
 		}).catch(function (err) {
@@ -66,14 +69,28 @@ function pred(img) { // predicts ans
 	};
 }
 
+
+
 function resPg(btn) {
 	document.getElementById('work').style.display = "none"
 	document.getElementById('wait2').style.display = "block"
 	document.getElementById(btn).style.display = "block"
 
 	let d = document.getElementById('eval')
-	d.innerHTML = ''
-	xp = ''
+	d.innerHTML = ""
+	xp = ""
+	let res_head = document.createElement("h1");
+	res_head.id = "res_h1";
+	res_head.align = "center";
+	res_head.innerHTML = "THE IDENTIFIED CHARACTERS"
+	d.appendChild(res_head);
+
+	let lgnd = document.createElement("div");
+	lgnd.innerHTML = 
+	'<div id="encl"> <div id="d_sp1"></div> <span id="sp1">ACCURACY</span> <div id="d_sp2"></div> <span id="sp2">CHARACTER</span></div>';
+	lgnd.classList.add("lgnd-style");
+	d.appendChild(lgnd);
+
 
 	getResult().then((imgs) => {
 		if (imgs.length <= 1) {
@@ -90,8 +107,10 @@ function resPg(btn) {
 		}
 		d.appendChild(document.createElement("br"))
 		d.appendChild(document.createElement("br"))
+
+
 		let tbl = document.createElement("table")
-		tbl.id = "resTbl"
+		tbl.id = "resTbl" //table id
 		tbl.cellSpacing = "0"
 		// tbl.style.border = "5px solid black"
 		d.appendChild(tbl)
