@@ -126,7 +126,7 @@ function resPg(btn) {
 				tempH.style.padding = "25px"
 				tempR.appendChild(tempH)
 				tempH.appendChild(imgs[(i * 5 + j) + 1])
-
+				
 				tempH.appendChild(document.createElement("br"))
 				tempH.appendChild(document.createElement("br"))
 				let temp = document.createElement("span")
@@ -188,6 +188,7 @@ function resPg(btn) {
 		try {
 			let xp_res = Math.round((eval(xp.replaceAll("^", "**")) + Number.EPSILON) * 10000) / 10000
 			temp.innerHTML = `${xp.replaceAll("*", "x")} = ${xp_res}`
+			temp.style.fontFamily = "monospace"
 		}
 		catch (err) {
 			temp.innerHTML = "Erroneous expression: " + xp.replaceAll("*", "x")
