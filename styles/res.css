@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&display=swap');
 #eval_img {
     width: 700px;
     margin-top: 20px;
@@ -18,8 +19,10 @@
     height: 120px;
     z-index: 1;
     /* margin-right: 10px; */
-    background-color: greenyellow;
+    background-color: rgba(7, 7, 7, 0.3);
     vertical-align: middle;
+   /* border: 1px solid black;*/
+    border-radius: 20px;
 }
 #encl{
     position: relative;
@@ -29,7 +32,7 @@
     position: absolute;
     width: 20px;
     height: 20px;
-    background-color: green;
+    background-color: darkgreen;
     left: 20px;
     top: 20px;
 }
@@ -40,22 +43,25 @@
     height: 20px;
     left: 20px;
     top: 80px;
-    background-color: red; 
+    background-color: maroon; 
 }
 
 #sp1{
     position: absolute;
     left: 50px;
     top: 20px;
+    font-family: 'Mochiy Pop P One', sans-serif;
 }
 
 #sp2{
     position: absolute;
     top: 80px;
     left: 50px;
+    font-family: 'Mochiy Pop P One', sans-serif;
 }
 
 #encl {
     position: relative;
     height: inherit;
+    font-size: 15px;
 }

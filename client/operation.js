@@ -130,7 +130,8 @@ function resPg(btn) {
 				tempH.appendChild(document.createElement("br"))
 				tempH.appendChild(document.createElement("br"))
 				let temp = document.createElement("span")
-				temp.style.fontSize = "25px"
+				temp.style.fontSize = "30px"
+				temp.style.color = "maroon"
 				tempH.appendChild(temp)
 
 				let ans = pred(tf.browser.fromPixels(imgs[(i * 5 + j) + 1], 1))
@@ -139,9 +140,10 @@ function resPg(btn) {
 				tempH.appendChild(document.createElement("br"))
 				tempH.appendChild(document.createElement("br"))
 				temp = document.createElement("span")
-				temp.style.fontSize = "25px"
+				temp.style.fontSize = "30px"
+				temp.style.color = "darkgreen"
 				tempH.appendChild(temp)
-				temp.innerHTML = `${ans.acc * 100}`.slice(0, 6)
+				temp.innerHTML = `${ans.acc * 100}`.slice(0, 6)+"%"
 			}
 		}
 
@@ -157,7 +159,8 @@ function resPg(btn) {
 			tempH.appendChild(document.createElement("br"))
 			tempH.appendChild(document.createElement("br"))
 			let temp = document.createElement("span")
-			temp.style.fontSize = "25px"
+			temp.style.fontSize = "30px"
+			temp.style.color = "maroon"
 			tempH.appendChild(temp)
 
 			let ans = pred(tf.browser.fromPixels(imgs[i + 1], 1))
@@ -166,9 +169,10 @@ function resPg(btn) {
 			tempH.appendChild(document.createElement("br"))
 			tempH.appendChild(document.createElement("br"))
 			temp = document.createElement("span")
-			temp.style.fontSize = "25px"
+			temp.style.fontSize = "30px"
+			temp.style.color = "darkgreen"
 			tempH.appendChild(temp)
-			temp.innerHTML = `${ans.acc * 100}`.slice(0, 6)
+			temp.innerHTML = `${ans.acc * 100}`.slice(0, 6)+"%"
 		}
 
 		d.appendChild(document.createElement("br"))
