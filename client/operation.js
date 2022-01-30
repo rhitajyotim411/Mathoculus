@@ -108,10 +108,18 @@ function resPg(btn) {
 		d.appendChild(document.createElement("br"))
 		d.appendChild(document.createElement("br"))
 
+		let tabl_head = document.createElement("h1");
+		tabl_head.align = "center";
+		tabl_head.innerHTML = "ACCURACY OF RECOGNIZED CHARACTERS";
+		d.appendChild(tabl_head);
 
 		let tbl = document.createElement("table")
 		tbl.id = "resTbl" //table id
-		tbl.cellSpacing = "0"
+		// tbl.cellSpacing = "1"
+		// tbl.border = "1";
+		tbl.style.borderCollapse = "collapse";
+		// tbl.style.width = "700px";
+		//tbl.style.border = "5px solid black";
 		// tbl.style.border = "5px solid black"
 		d.appendChild(tbl)
 
@@ -122,8 +130,10 @@ function resPg(btn) {
 			tbl.appendChild(tempR)
 			for (let j = 0; j < 5; j++) {
 				let tempH = document.createElement("th")
-				tempH.style.border = "2px solid black"
+				tempH.style.border = "5px solid black"
 				tempH.style.padding = "25px"
+				tempH.style.width = "120px"
+
 				tempR.appendChild(tempH)
 				tempH.appendChild(imgs[(i * 5 + j) + 1])
 				
@@ -151,8 +161,9 @@ function resPg(btn) {
 		tbl.appendChild(tempR)
 		for (let i = Math.floor(l / 5) * 5; i < l; i++) {
 			let tempH = document.createElement("th")
-			tempH.style.border = "2px solid black"
+			tempH.style.border = "5px solid black"
 			tempH.style.padding = "25px"
+			tempH.style.width = "120px"
 			tempR.appendChild(tempH)
 			tempH.appendChild(imgs[i + 1])
 
@@ -178,9 +189,16 @@ function resPg(btn) {
 		d.appendChild(document.createElement("br"))
 		d.appendChild(document.createElement("br"))
 
+		let expr_head = document.createElement("h1");
+		expr_head.align = "center";
+		expr_head.innerHTML = "EVALUATED EXPRESSION";
+		d.appendChild(expr_head);
+
+		
 		let temp = document.createElement("span")
 		temp.align = "center"
 		temp.style.fontSize = "45px"
+		temp.style.fontFamily = "monospace"
 		d.appendChild(temp)
 
 		xp = xp.replaceAll("x", "*")
@@ -188,7 +206,6 @@ function resPg(btn) {
 		try {
 			let xp_res = Math.round((eval(xp.replaceAll("^", "**")) + Number.EPSILON) * 10000) / 10000
 			temp.innerHTML = `${xp.replaceAll("*", "x")} = ${xp_res}`
-			temp.style.fontFamily = "monospace"
 		}
 		catch (err) {
 			temp.innerHTML = "Erroneous expression: " + xp.replaceAll("*", "x")
