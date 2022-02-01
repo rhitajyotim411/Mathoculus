@@ -2,6 +2,7 @@ const canvas = document.getElementById("c");
 const context = canvas.getContext("2d");
 let ln_color = "black";
 let canvas_color = "#fafafa";
+var thicc = 6.5		//canvas line thiccness (original: 5, dataset_creation: 7)
 
 //MOUSE EVENTS
 context.fillStyle = canvas_color;

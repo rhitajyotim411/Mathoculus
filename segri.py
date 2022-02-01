@@ -102,6 +102,7 @@ for c in cons:
     if area > 100:
         x, y, w, h = c
         ROI = imarr[y:y+h, x:x+w]
+        ROI = cv2.erode(ROI, kernel, iterations=1)
         res = f'./images/ROI_{ROI_number}.png'
         sv = pad(ROI)
         cv2.imwrite(res, sv)
