@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import math
 
 imgSz = 64  # img size
 
@@ -9,6 +10,8 @@ def pad(img):
     re_h, re_w = h, w
     x = 7  # pad to be added
     re_sz = imgSz - 2*x
+    mx = max(h, w)
+    kernel = np.ones((3, 3), np.uint8)
 
     if h > w:
         re_h = re_sz
@@ -28,7 +31,10 @@ def pad(img):
     pd = np.full((imgSz, imgSz), 0, dtype=np.uint8)
     pd[h: -h,  w: -w] = img
 
-    img = pd
+    if mx < re_sz:
+        img = cv2.erode(pd, kernel, iterations=1)
+    else:
+        img = cv2.dilate(pd, kernel, iterations=1)
 
     # Removal of noise
     parts = cv2.findContours(img, cv2.RETR_EXTERNAL,
@@ -96,6 +102,9 @@ if len(cons)<1:    # Blank Canvas Exit
 cons = sort_cntr([cv2.boundingRect(c)
                  for c in cons])  # Sending bounding rect list
 
+scale = math.sqrt(temp.shape[0]**2 + temp.shape[1]**2) / 1000
+thicc = round(5 * scale)
+
 ROI_number = 0
 for c in cons:
     area = c[2] * c[3]  # Width * Height
@@ -109,7 +118,7 @@ for c in cons:
         print(sv.flatten())
         ROI_number += 1
         temp = cv2.rectangle(temp, (c[0], c[1]),
-                             (c[0]+c[2], c[1]+c[3]), (57,70,242), 3)
+                             (c[0]+c[2], c[1]+c[3]), (57,70,242), thicc)
 
 cv2.imwrite("./images/image.png", temp)
 print(f'{temp.shape[0]},{temp.shape[1]}')   # Canvas Size

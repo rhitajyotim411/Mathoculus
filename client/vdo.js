@@ -19,15 +19,15 @@ let d_l = "505px"
 
 //VIDEO REALTED OPERATIONS
 const start_vdo = function () {
-	isFlipped = false;
 	d.style.display = "none";
 	bg.style.display = "none";
 	evl_butt.disabled = true;
 	webcamElement.style.display = "block";
 	canvas.style.display = "none";
-	snap_butt.disabled = false;
 	webcam.start()
 		.then(result => {
+			isFlipped = false;
+			snap_butt.disabled = false;
 			console.log("webcam started");
 		})
 		.catch(err => {

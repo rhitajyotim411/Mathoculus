@@ -83,7 +83,6 @@ function resPg(btn) {
 	res_head.innerHTML = "CHARACTERS RECOGNISED AND THIER ACCURACY"
 	d.appendChild(res_head);
 
-
 	let temp_d = document.createElement("div")
 	temp_d.style.fontFamily = "monospace"
 	temp_d.style.width = "700px";
@@ -146,7 +145,7 @@ function resPg(btn) {
 			tempH.appendChild(temp)
 
 			let ans = pred(tf.browser.fromPixels(imgs[i], 1))
-			temp.innerHTML = ans.Symbl
+			temp.innerHTML = `<b>${ans.Symbl}</b>`
 			tempH.appendChild(document.createElement("br"))
 			tempH.appendChild(document.createElement("br"))
 
@@ -163,8 +162,6 @@ function resPg(btn) {
 		expr_head.style.fontSize = "25px"
 		temp_d.appendChild(expr_head);
 
-	
-
 		xp = xp.replaceAll("x", "*")
 		let expr_p = document.createElement("p");
 		expr_p.style.textAlign = "center";
@@ -179,7 +176,5 @@ function resPg(btn) {
 			expr_p.innerHTML = "<b>Erroneous expression: </b>" + xp.replaceAll("*", "x")
 		}
 		temp_d.appendChild(expr_p);
-		d.appendChild(document.createElement("br"))
-		// d.appendChild(document.createElement("br"))
 	})
 }
