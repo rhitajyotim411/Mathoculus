@@ -8,7 +8,7 @@ let d = document.getElementById("crop");
 let vdo_butt = document.getElementById("start_stop");
 let snap_butt = document.getElementById("snap");
 let evl_butt = document.getElementById("evl");
-
+let isFlipped = false
 
 let x, y
 let d_h = "485px"
@@ -19,6 +19,7 @@ let d_l = "505px"
 
 //VIDEO REALTED OPERATIONS
 const start_vdo = function () {
+	isFlipped = false;
 	d.style.display = "none";
 	bg.style.display = "none";
 	evl_butt.disabled = true;
@@ -57,7 +58,10 @@ const take_pic = function () {
 }
 
 const flip_vdo = function () {
-	webcam.flip();
+	if(!isFlipped) {
+		webcam.flip();
+		isFlipped = true;
+	}
 }
 
 const stop_vdo = function () {

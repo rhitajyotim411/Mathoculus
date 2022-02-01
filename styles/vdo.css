@@ -5,7 +5,7 @@
 		background: #91D1D3;
 		position: relative;
 	}
-	table{
+	#butt-tbl{
 		margin: 0;
 		position: sticky;
 		height: 600px;
