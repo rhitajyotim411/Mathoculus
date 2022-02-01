@@ -230,12 +230,20 @@ function resPg(btn) {
 	res_head.innerHTML = "CHARACTERS RECOGNISED AND THIER ACCURACY"
 	d.appendChild(res_head);
 
-	let lgnd = document.createElement("div");
-	lgnd.innerHTML =
-	'<div id="encl"> <div id="d_sp1"></div> <span id="sp1">ACCURACY</span> <div id="d_sp2"></div> <span id="sp2">CHARACTER</span></div>';
-	lgnd.classList.add("lgnd-style");
-	d.appendChild(lgnd);
+	// let lgnd = document.createElement("div");
+	// lgnd.innerHTML =
+	// '<div id="encl"> <div id="d_sp1"></div> <span id="sp1">ACCURACY</span> <div id="d_sp2"></div> <span id="sp2">CHARACTER</span></div>';
+	// lgnd.classList.add("lgnd-style");
+	// d.appendChild(lgnd);
 
+	let temp_d = document.createElement("div")
+	temp_d.style.fontFamily = "monospace"
+	temp_d.style.width = "700px";
+	temp_d.align = "center";
+	temp_d.style.position = "fixed";
+	temp_d.style.left = "200px";
+	// temp_d.style.bottom = "25px";
+	d.appendChild(temp_d)
 
 	getResult().then((imgs) => {
 		if (imgs.length <= 1) {
@@ -245,18 +253,28 @@ function resPg(btn) {
 			return
 		}
 
-		d.appendChild(imgs[0])
+		temp_d.appendChild(imgs[0])
+		temp_d.appendChild(document.createElement("br"))
+		temp_d.appendChild(document.createElement("br"))
+		temp_d.appendChild(document.createElement("br"))
+
 		imgs[0].onload = () => {
 			document.getElementById('wait2').style.display = "none"
 			document.getElementById('eval').style.display = "block"
 		}
-		d.appendChild(document.createElement("br"))
-		d.appendChild(document.createElement("br"))
 
 		// let tabl_head = document.createElement("h1");
 		// tabl_head.align = "center";
 		// tabl_head.innerHTML = "ACCURACY OF RECOGNIZED CHARACTERS";
 		// d.appendChild(tabl_head);
+
+		let lgnd = document.createElement("div");
+		lgnd.innerHTML =
+		'<div id="encl"> <div id="d_sp1"></div> <span id="sp1">ACCURACY</span> <div id="d_sp2"></div> <span id="sp2">CHARACTER</span></div>';
+		lgnd.classList.add("lgnd-style");
+		temp_d.appendChild(lgnd);
+		temp_d.appendChild(document.createElement("br"))
+		temp_d.appendChild(document.createElement("br"))
 
 		let tbl = document.createElement("table")
 		tbl.id = "resTbl" //table id
@@ -336,33 +354,35 @@ function resPg(btn) {
 			tempH.appendChild(temp)
 			temp.innerHTML = `${ans.acc * 100}`.slice(0, 6)+"%"
 		}*/
-
-		d.appendChild(document.createElement("br"))
-		d.appendChild(document.createElement("br"))
+		// temp.style.fontSize = "10px"
+		// temp_d.style.fontFamily = "monospace"
+		// temp_d.style.width = "500px";
+		// temp_d.align = "center";
+		// temp_d.style.position = "fixed";
+		// temp_d.style.left = "200px";
+		// temp_d.style.bottom = "25px";
 
 		let expr_head = document.createElement("h1");
-		expr_head.align = "center";
 		expr_head.innerHTML = "EVALUATED EXPRESSION";
-		expr_head.style.marginTop = "-25px"
-		d.appendChild(expr_head);
+		expr_head.style.fontSize = "25px"
+		temp_d.appendChild(expr_head);
 
-
-		let temp = document.createElement("div")
-		temp.align = "center"
-		temp.style.fontSize = "45px"
-		temp.style.fontFamily = "monospace"
-		d.appendChild(temp)
+	
 
 		xp = xp.replaceAll("x", "*")
+		let expr_p = document.createElement("p");
+		expr_p.style.textAlign = "center";
+		expr_p.style.fontSize = "35px"
+		expr_p.style.margin = "0px"
 
 		try {
 			let xp_res = Math.round((eval(xp.replaceAll("^", "**")) + Number.EPSILON) * 10000) / 10000
-			temp.innerHTML = `${xp.replaceAll("*", "x")} = ${xp_res}`
+			expr_p.innerHTML = `${xp.replaceAll("*", "x")} = ${xp_res}`
 		}
 		catch (err) {
-			temp.innerHTML = "<b>Erroneous expression: </b>" + xp.replaceAll("*", "x")
+			expr_p.innerHTML = "<b>Erroneous expression: </b>" + xp.replaceAll("*", "x")
 		}
-
+		temp_d.appendChild(expr_p);
 		d.appendChild(document.createElement("br"))
 		// d.appendChild(document.createElement("br"))
 	})
