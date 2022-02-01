@@ -6,26 +6,29 @@ imgSz = 64  # img size
 # padding function
 def pad(img):
     h, w = img.shape
+    re_h, re_w = h, w
+    x = 7  # pad to be added
+    re_sz = imgSz - 2*x
 
-    if h % 2 == 1:
-        img = np.vstack([img, np.zeros(w, dtype=np.uint8)])
-        h += 1
+    if h > w:
+        re_h = re_sz
+        re_w = round(re_sz * w/h)
+        re_w = re_w if re_w % 2 == 0 else re_w - 1
+        h = x
+        w = int((re_sz - re_w)/2) + x
+    else:
+        re_h = round(re_sz * h/w)
+        re_h = re_h if re_h % 2 == 0 else re_h - 1
+        re_w = re_sz
+        h = int((re_sz - re_h)/2) + x
+        w = x
 
-    if w % 2 == 1:
-        img = np.column_stack([img, np.zeros(h, dtype=np.uint8)])
-        w += 1
+    img = cv2.resize(img, (re_w, re_h), interpolation=cv2.INTER_AREA)
 
-    sz = max(h, w)
-    x = 20  # pad to be added
-
-    pd = np.full((sz+2*x, sz+2*x), 0, dtype=np.uint8)
-
-    h = int((sz-h) / 2) + x
-    w = int((sz-w) / 2) + x
-
+    pd = np.full((imgSz, imgSz), 0, dtype=np.uint8)
     pd[h: -h,  w: -w] = img
 
-    img = cv2.resize(pd, (imgSz, imgSz), interpolation=cv2.INTER_AREA)  # 64,64
+    img = pd
 
     # Removal of noise
     parts = cv2.findContours(img, cv2.RETR_EXTERNAL,
@@ -40,6 +43,7 @@ def pad(img):
 
     return img
 # End of Function
+
 
 # Sort contours
 def sort_cntr(points):
