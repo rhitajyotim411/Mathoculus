@@ -8,7 +8,7 @@ let d = document.getElementById("crop");
 let vdo_butt = document.getElementById("start_stop");
 let snap_butt = document.getElementById("snap");
 let evl_butt = document.getElementById("evl");
-
+let isFlipped = false
 
 let x, y
 let d_h = "485px"
@@ -24,9 +24,10 @@ const start_vdo = function () {
 	evl_butt.disabled = true;
 	webcamElement.style.display = "block";
 	canvas.style.display = "none";
-	snap_butt.disabled = false;
 	webcam.start()
 		.then(result => {
+			isFlipped = false;
+			snap_butt.disabled = false;
 			console.log("webcam started");
 		})
 		.catch(err => {
@@ -57,7 +58,10 @@ const take_pic = function () {
 }
 
 const flip_vdo = function () {
-	webcam.flip();
+	if(!isFlipped) {
+		webcam.flip();
+		isFlipped = true;
+	}
 }
 
 const stop_vdo = function () {
@@ -67,7 +71,6 @@ const stop_vdo = function () {
 	bg.style.display = "block";
 	canvas.style.display = "none";
 	d.style.display = "none";
-	document.getElementById("xp").value = ''
 	webcam.stop();
 }
 
@@ -212,3 +215,10 @@ d.ondragend = function (event) {
 
 }
 
+function work()
+{
+	document.getElementById('eval').style.display = "none"
+	document.getElementById('Snap').style.display = "none"
+	document.getElementById('work').style.display = "block"
+	stop_vdo();
+}
