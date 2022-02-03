@@ -174,12 +174,13 @@ function writeFileToSystem(buffer) {
                 for (i of data) {
                     if (i == ".dummy")
                         continue
+                    // console.log(`deleted ${i}`)
                     fsp.unlink(path.join(p, i))
                         .catch((e) => {
                             console.log(e)
                         })
                 }
-                fs.writeFile(`${p}/image.png`, buffer, function (err) {
+                fs.writeFile(`${p}/image.png`, buffer, {mode: 0o777}, function (err) {
                     if (err)
                         reject(err)
                     resolve(true);
