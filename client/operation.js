@@ -53,19 +53,27 @@ function getResult() {	//reads image from canvas
 	})
 }
 
-function pred(img) { // predicts ans
+async function pred(img) { // predicts ans
 	//prediction
-	temp = img.div(tf.scalar(255))
-	v = model.predict(tf.tensor([temp.arraySync()]))
-	res = tf.tensor(v.dataSync()).argMax().dataSync()
-	console.log(true_labels[res[0]])
-	console.log(v.arraySync()[0][res[0]])
-	console.log(v.arraySync()[0])
-	xp += true_labels[res[0]];
-	return {
-		"Symbl": true_labels[res[0]],
-		"acc": v.arraySync()[0][res[0]]
-	};
+
+	return new Promise((resolve, reject) => {
+        img.onload = async () => {
+			temp = tf.browser.fromPixels(img, 1)
+			temp = temp.div(tf.scalar(255))
+			// temp = tf.scalar(1).sub(temp)
+			console.log("Sum:" + tf.tensor1d(temp.dataSync()).sum().dataSync()[0])
+			v = model.predict(tf.tensor([temp.arraySync()]))
+			res = tf.tensor(v.dataSync()).argMax().dataSync()
+			console.log(true_labels[res[0]])
+			console.log(v.arraySync()[0][res[0]])
+			console.log(v.arraySync()[0])
+			xp += true_labels[res[0]];
+			resolve({
+				"Symbl": true_labels[res[0]],
+				"acc": v.arraySync()[0][res[0]]
+			})
+		}
+    })
 }
 
 
@@ -91,7 +99,7 @@ function resPg(btn) {
 	temp_d.style.left = "200px";
 	d.appendChild(temp_d)
 
-	getResult().then((imgs) => {
+	getResult().then(async (imgs) => {
 		if (imgs.length <= 1) {
 			alert("No Expression Given !!")
 			document.getElementById('wait2').style.display = "none"
@@ -144,7 +152,7 @@ function resPg(btn) {
 			temp.style.color = "maroon"
 			tempH.appendChild(temp)
 
-			let ans = pred(tf.browser.fromPixels(imgs[i], 1))
+			let ans = await pred(imgs[i])
 			temp.innerHTML = `<b>${ans.Symbl}</b>`
 			tempH.appendChild(document.createElement("br"))
 			tempH.appendChild(document.createElement("br"))

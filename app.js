@@ -82,7 +82,7 @@ function server_func(request, response) {
         response.writeHead(200, { 'Content-type': 'text/javascript' });
         response.end(data)
     }
-    
+
     // Result Page
     if (request.url == '/res.css') {
         const data = fs.readFileSync("styles/res.css", "utf-8")
@@ -215,16 +215,16 @@ async function runScript() {
 async function getResult(n, response) {
     try {
         await loadLocalImage(`${p}image.png`)
-        response.write(`<img id="eval_img" src="` + canvas.toDataURL() + '" />\n')
+        response.writeHead(200, { 'Content-type': 'text/html' });
+        response.write(`<img height="${canvas.height}" width="${canvas.width}" id="eval_img" src="` + canvas.toDataURL() + '" />')
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         canvas.height = 64
         canvas.width = 64
 
         for (i = 0; i < n; i++) {
             await loadLocalImage(`${p}ROI_${i}.png`)
-            response.write(`<img id="img${i}" src="` + canvas.toDataURL() + '" />\n')
+            response.write(`<img height="${imgSz}" width="${imgSz}" id="img${i}" src="` + canvas.toDataURL() + '" />')
         }
-
         response.end()
     } catch (error) {
         console.log(error);
