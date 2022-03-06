@@ -117,8 +117,8 @@ const start_stop = function(){
 
 
 
+//this does the work of main cropping the region of interest.
 function crop() {
-
 	if(snap_butt.innerHTML == "CANCEL"){
 		snap_butt.innerHTML = "SNAP";
 		snap_butt.style.backgroundColor= "pink";
@@ -156,10 +156,8 @@ function crop() {
 	d.style.display = "none";
 }
 
-
+//this function is triggered when the user tries to resize the cropping div through the onclick event.
 function func() {
-	console.log("hello")
-
 	a = Number(getComputedStyle(d).getPropertyValue("top").slice(0, -2))
 	b = Number(getComputedStyle(d).getPropertyValue("height").slice(0, -2))
 
@@ -181,9 +179,8 @@ function func() {
 	}
 }
 
-
+//when the user hust starts to drag he cropping div.
 d.ondragstart = function (event) {
-	// console.log("dragging");
 	x = event.offsetX
 	y = event.offsetY
 	console.log(event.clientX);
@@ -191,9 +188,11 @@ d.ondragstart = function (event) {
 }
 
 d.ondragend = function (event) {
-	// console.log("dragend")
 	d.style.top = (event.clientY - y) + "px";
 	d.style.left = (event.clientX - x) + "px";
+
+	/*the below checkings are necessary to restric the user
+	from taking the cropping div outside the root cropping area.*/
 	a = Number(getComputedStyle(d).getPropertyValue("top").slice(0, -2))
 	b = Number(getComputedStyle(d).getPropertyValue("height").slice(0, -2))
 
@@ -215,8 +214,8 @@ d.ondragend = function (event) {
 
 }
 
-function work()
-{
+//when THE USER MOVES BACK TO THE SNAP PAGE FROM THE EVALUATION PAGE FOR RETAKING ANOTHER SNAP.
+function work(){
 	document.getElementById('eval').style.display = "none"
 	document.getElementById('Snap').style.display = "none"
 	document.getElementById('work').style.display = "block"

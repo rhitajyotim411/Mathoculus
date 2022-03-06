@@ -80,8 +80,8 @@ async function pred(img) { // predicts ans
 function resPg(btn) {
 	document.getElementById('work').style.display = "none"
 	document.getElementById('wait2').style.display = "block"
-	document.getElementById(btn).style.display = "block"
-	document.getElementById(btn).style.cursor = "pointer"
+	// document.getElementById(btn).style.display = "block"
+	// document.getElementById(btn).style.cursor = "pointer"
 
 	let d = document.getElementById('eval')
 	d.innerHTML = ""
@@ -115,6 +115,8 @@ function resPg(btn) {
 		imgs[0].onload = () => {
 			document.getElementById('wait2').style.display = "none"
 			document.getElementById('eval').style.display = "block"
+			document.getElementById(btn).style.display = "block"
+			document.getElementById(btn).style.cursor = "pointer"
 		}
 		let lgnd = document.createElement("div");
 		lgnd.innerHTML =

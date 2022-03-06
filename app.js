@@ -16,69 +16,78 @@ const { Image, createCanvas } = require('canvas');
 const canvas = createCanvas(imgSz, imgSz);
 const ctx = canvas.getContext('2d');
 
-async function loadLocalImage(filename) {
-    try {
-        var img = new Image()
-        img.onload = () => ctx.drawImage(img, 0, 0);
-        img.onerror = err => { throw err };
-        img.src = filename;
-    } catch (err) {
-        console.log(err);
-    }
-}
+// async function loadLocalImage(filename) {
+//     try {
+//         var img = new Image()
+//         img.onload = () => ctx.drawImage(img, 0, 0);
+//         img.onerror = err => { throw err };
+//         img.src = filename;
+//     } catch (err) {
+//         console.log(err);
+//     }
+// }
 
 
 const server = http.createServer(server_func);
 
-function server_func(request, response) {
+async function server_func(request, response) {
     let post = '';
 
     // Index
     if (request.url == "/") {
-        const data = fs.readFileSync("web/index.html", "utf-8")
+        // const data = fs.readFileSync("web/index.html", "utf-8")
+        const data = await fsp.readFile("web/index.html", "utf-8")
         response.end(data)
     }
     if (request.url == "/home.css") {
-        const data = fs.readFileSync("styles/home.css", "utf-8")
+        //const data = fs.readFileSync("styles/home.css", "utf-8")
+        const data = await fsp.readFile("styles/home.css", "utf-8")
         response.writeHead(200, { 'Content-type': 'text/css' });
         response.end(data)
     }
     if (request.url == '/home.js') {
-        const data = fs.readFileSync("client/home.js", "utf-8")
+        //const data = fs.readFileSync("client/home.js", "utf-8")
+        const data = await fsp.readFile("client/home.js", "utf-8")
         response.writeHead(200, { 'Content-type': 'text/javascript' });
         response.end(data)
     }
 
     // Canvas
     if (request.url == "/draw") {
-        const data = fs.readFileSync("web/canvas.html", "utf-8")
+        //const data = fs.readFileSync("web/canvas.html", "utf-8")
+        const data = await fsp.readFile("web/canvas.html", "utf-8")
         response.writeHead(200, { 'Content-type': 'text/html' });
         response.end(data)
     }
     if (request.url == "/canvas.css") {
-        const data = fs.readFileSync("styles/canvas.css", "utf-8")
+        //const data = fs.readFileSync("styles/canvas.css", "utf-8")
+        const data = await fsp.readFile("styles/canvas.css", "utf-8")
         response.writeHead(200, { 'Content-type': 'text/css' });
         response.end(data)
     }
     if (request.url == '/canvas.js') {
-        const data = fs.readFileSync("client/canvas.js", "utf-8")
+        //const data = fs.readFileSync("client/canvas.js", "utf-8")
+        const data = await fsp.readFile("client/canvas.js", "utf-8")
         response.writeHead(200, { 'Content-type': 'text/javascript' });
         response.end(data)
     }
 
     // Video
     if (request.url == "/snap") {
-        const data = fs.readFileSync("web/vdo.html", "utf-8")
+        //const data = fs.readFileSync("web/vdo.html", "utf-8")
+        const data = await fsp.readFile("web/vdo.html", "utf-8")
         response.writeHead(200, { 'Content-type': 'text/html' });
         response.end(data)
     }
     if (request.url == "/vdo.css") {
-        const data = fs.readFileSync("styles/vdo.css", "utf-8")
+        // const data = fs.readFileSync("styles/vdo.css", "utf-8")
+        const data = await fsp.readFile("styles/vdo.css", "utf-8")
         response.writeHead(200, { 'Content-type': 'text/css' });
         response.end(data)
     }
     if (request.url == '/vdo.js') {
-        const data = fs.readFileSync("client/vdo.js", "utf-8")
+        // const data = fs.readFileSync("client/vdo.js", "utf-8")
+        const data = await fsp.readFile("client/vdo.js", "utf-8")
         response.writeHead(200, { 'Content-type': 'text/javascript' });
         response.end(data)
     }
@@ -93,46 +102,54 @@ function server_func(request, response) {
 
     // Result Page
     if (request.url == '/res.css') {
-        const data = fs.readFileSync("styles/res.css", "utf-8")
+        //const data = fs.readFileSync("styles/res.css", "utf-8")
+        const data = await fsp.readFile("styles/res.css", "utf-8")
         response.writeHead(200, { 'Content-type': 'text/css' });
         response.end(data)
     }
 
     // Operation JS
     if (request.url == '/operation.js') {
-        const data = fs.readFileSync("client/operation.js", "utf-8")
+        //const data = fs.readFileSync("client/operation.js", "utf-8")
+        const data = await fsp.readFile("client/operation.js", "utf-8")
         response.writeHead(200, { 'Content-type': 'text/javascript' });
         response.end(data)
     }
 
     // Images
     if (request.url == "/home_bg.jpg") {
-        const data = fs.readFileSync("res/home_bg.jpg")
+        // const data = fs.readFileSync("res/home_bg.jpg")
+        const data = await fsp.readFile("res/home_bg.jpg")
         response.writeHead(200, { 'Content-type': 'image/jpg' });
         response.end(data)
     }
     if (request.url == "/calc.jpg") {
-        const data = fs.readFileSync("res/calc.jpg")
+        // const data = fs.readFileSync("res/calc.jpg")
+        const data = await fsp.readFile("res/calc.jpg")
         response.writeHead(200, { 'Content-type': 'image/jpg' });
         response.end(data)
     }
     if (request.url == "/brush.jpg") {
-        const data = fs.readFileSync("res/brush.jpg")
+        // const data = fs.readFileSync("res/brush.jpg")
+        const data = await fsp.readFile("res/brush.jpg")
         response.writeHead(200, { 'Content-type': 'image/jpg' });
         response.end(data)
     }
     if (request.url == "/cam.jpg") {
-        const data = fs.readFileSync("res/cam.jpg")
+        // const data = fs.readFileSync("res/cam.jpg")
+        const data = await fsp.readFile("res/cam.jpg")
         response.writeHead(200, { 'Content-type': 'image/jpg' });
         response.end(data)
     }
     if (request.url == "/snap.png") {
-        const data = fs.readFileSync("res/snap.png")
+        // const data = fs.readFileSync("res/snap.png")
+        const data = await fsp.readFile("res/snap.png")
         response.writeHead(200, { 'Content-type': 'image/png' });
         response.end(data)
     }
     if (request.url == "/draw.png") {
-        const data = fs.readFileSync("res/draw.png")
+        // const data = fs.readFileSync("res/draw.png")
+        const data = await fsp.readFile("res/draw.png")
         response.writeHead(200, { 'Content-type': 'image/png' });
         response.end(data)
     }
@@ -244,16 +261,21 @@ async function runScript() {
 
 async function getResult(n, response) {
     try {
-        await loadLocalImage(`${p}image.png`)
-        response.writeHead(200, { 'Content-type': 'text/html' });
-        response.write(`<img height="${canvas.height}" width="${canvas.width}" id="eval_img" src="` + canvas.toDataURL() + '" />')
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        canvas.height = 64
-        canvas.width = 64
+        //await loadLocalImage(`${p}image.png`)
+        let data = await fsp.readFile(`${p}image.png`,"base64");
+        data = "data:image/png;base64,"+data;
+        // response.write(`<img id="eval_img" src="` + canvas.toDataURL() + '" />\n')
+        response.write('<img id="eval_img" src="' + data + '" />\n')
+        // ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // canvas.height = 64
+        // canvas.width = 64
 
         for (i = 0; i < n; i++) {
-            await loadLocalImage(`${p}ROI_${i}.png`)
-            response.write(`<img height="${imgSz}" width="${imgSz}" id="img${i}" src="` + canvas.toDataURL() + '" />')
+            //await loadLocalImage(`${p}ROI_${i}.png`)
+            let data = await fsp.readFile(`${p}ROI_${i}.png`,"base64");
+            data = "data:image/png;base64,"+data;
+            //response.write(`<img id="img${i}" src="` + canvas.toDataURL() + '" />\n')
+            response.write(`<img id="img${i}" src="` + data + '" />\n')
         }
         response.end()
     } catch (error) {

@@ -90,17 +90,15 @@ kernel = np.ones((2, 2), np.uint8)
 # removes noise for smooth thresholding
 imarr = cv2.GaussianBlur(imarr, (9, 9), 0)
 imarr = cv2.adaptiveThreshold(
-    imarr, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 21, 4)
+imarr, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 21, 4)
 imarr = cv2.dilate(imarr, kernel, iterations=1)  # dilates images
-cons = cv2.findContours(imarr, cv2.RETR_EXTERNAL,
-                        cv2.CHAIN_APPROX_SIMPLE)[0]
+cons = cv2.findContours(imarr, cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)[0]
 
 if len(cons)<1:    # Blank Canvas Exit
     print(f'{temp.shape[0]},{temp.shape[1]}')   # Canvas Size
     exit()
 
-cons = sort_cntr([cv2.boundingRect(c)
-                 for c in cons])  # Sending bounding rect list
+cons = sort_cntr([cv2.boundingRect(c) for c in cons])  # Sending bounding rect list
 
 scale = math.sqrt(temp.shape[0]**2 + temp.shape[1]**2) / 1000
 thicc = round(5 * scale)
