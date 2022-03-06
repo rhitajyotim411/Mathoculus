@@ -94,7 +94,8 @@ async function server_func(request, response) {
 
     //about us
     if (request.url == "/about") {
-        const data = fs.readFileSync("web/about.html", "utf-8")
+        // const data = fs.readFileSync("web/about.html", "utf-8")
+        const data = await fsp.readFile("web/about.html", "utf-8")
         response.writeHead(200, { 'Content-type': 'text/html' });
         response.end(data)
     }
@@ -154,24 +155,28 @@ async function server_func(request, response) {
         response.end(data)
     }
 
-
+    //about us
     if (request.url == "/grp.png") {
-        const data = fs.readFileSync("res/grp.png")
+        //const data = fs.readFileSync("res/grp.png")
+        const data = await fsp.readFile("res/grp.png")
         response.writeHead(200, { 'Content-type': 'image/png' });
         response.end(data)
     }
     if (request.url == "/ankita.jpg") {
-        const data = fs.readFileSync("res/ankita.jpg")
+        // const data = fs.readFileSync("res/ankita.jpg")
+        const data = await fsp.readFile("res/ankita.jpg")
         response.writeHead(200, { 'Content-type': 'image/jpg' });
         response.end(data)
     }
     if (request.url == "/srirup.jpg") {
-        const data = fs.readFileSync("res/srirup.jpg")
+        // const data = fs.readFileSync("res/srirup.jpg")
+        const data = await fsp.readFile("res/srirup.jpg")
         response.writeHead(200, { 'Content-type': 'image/jpg' });
         response.end(data)
     }
     if (request.url == "/rhitajyoti.jpg") {
-        const data = fs.readFileSync("res/rhitajyoti.jpg")
+        // const data = fs.readFileSync("res/rhitajyoti.jpg")
+        const data = await fsp.readFile("res/rhitajyoti.jpg")
         response.writeHead(200, { 'Content-type': 'image/jpg' });
         response.end(data)
     }
