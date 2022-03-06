@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/x-icon" href="favicon.ico" />
+	<title>About us</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Dongle&display=swap');
+		*{
+			box-sizing: border-box;
+		}
+		body{
+			background-image: url('home_bg.jpg');
+			position: relative;
+		}
+		.bg1{
+			top: 0;
+			left: 0;
+			background-color: rgba(0, 0, 0, 0.8);
+			width: 100%;
+			position: fixed;
+			height: 100%;
+			z-index: 1;
+		}
+		h1{
+			text-align: center;
+			font-family: 'Dongle',sans-serif;
+			font-weight: bold;
+			color: white;
+			font-size: 650%;
+			font-weight: bold;
+			padding-bottom: 3px;
+			margin-bottom: 0px;
+			position: absolute;
+			left: 600px;
+			top: 0px;
+			margin-top: 0px;
+			z-index: 2;
+			letter-spacing: 4px;
+		}
+
+		#sidenav a{
+		position: absolute;
+		left: -55px;
+		transition: 0.3s;
+		padding: 15px;
+		width: 100px;
+		text-decoration: none;
+		font-size: 30px;
+		color: white;
+		text-align: right;
+		border-radius: 0 5px 5px 0;
+		line-height: 4px;
+		z-index: 4;
+	}
+	#sidenav a:hover {
+		left: -10px;
+	}
+	#Home {
+		top: 30px;
+		background-color: #f44336;
+	}
+		
+		#box{
+			display: flex;
+			justify-content: space-around;
+			position: absolute;
+			top: 200px;
+			left: 20px;
+			z-index: 2;
+			margin: 8px -16px;
+			align-content: center0;
+			width: 100%;
+			padding: 0px 100px;
+		}
+		
+		.content1 {
+	  		border-radius: 20px;
+	  		background-color: white;
+	  		padding: 10px;
+	 		margin: 0px;
+		}
+		.content2 {
+	  		border-radius: 20px;
+	  		background-color: white;
+	  		padding: 10px;
+	 		margin: 0px;
+		}
+		.content3 {
+	  		border-radius: 20px;
+	  		background-color: white;
+	  		padding: 10px;
+	 		margin: 0px;
+		}
+		
+		img{
+			vertical-align: middle;
+			border-radius: 50%;
+		}
+		
+		
+	</style>
+</head>
+<body>
+	<div class="bg1"></div>
+	<h1>The Developers</h1>
+	<br>
+	<div id="sidenav" class="side_nav">
+	<a href="/" id="Home"><i class="fa fa-home"></i></a>
+	</div>
+	<div align="center" class="row" id="box">
+	    <div class="content1">
+	      <img src="ankita.jpg" width="180px" height="300px" style="width:100%">
+	      <h3>ANKITA SAMADDAR</h3>
+	    
+	 	  <!-- <h4 style="cursor: pointer" onclick="work1()">About</h4> -->
+	    </div>
+	    <div class="content2">
+	      <img src="srirup.jpg" width="180px" height="300px" style="width:100%">
+	      <h3>SRIRUP MUKHERJEE</h3>
+	      <!-- <h4 style="cursor: pointer" onclick="work2()">About</h4> -->
+	    </div>
+	    <div class="content3">
+	      <img src="rhitajyoti.jpg" width="180px" height="300px" style="width:100%">
+	      <h3>RHITAJYOTI MANDAL</h3>
+	      <!-- <h4 style="cursor: pointer" onclick="work3()">About</h4> -->
+	    </div>
+	</div>
+	
+</body>
+</html>
