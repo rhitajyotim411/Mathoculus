@@ -11,10 +11,10 @@ const host = process.env.HOST
 
 
 
-const imgSz = 64
-const { Image, createCanvas } = require('canvas');
-const canvas = createCanvas(imgSz, imgSz);
-const ctx = canvas.getContext('2d');
+// const imgSz = 64
+// const { Image, createCanvas } = require('canvas');
+// const canvas = createCanvas(imgSz, imgSz);
+// const ctx = canvas.getContext('2d');
 
 // async function loadLocalImage(filename) {
 //     try {
@@ -253,8 +253,8 @@ async function runScript() {
                 console.log("script ran successfully...")
                 console.log("In runscript " + result.length)
                 let temp = result[result.length - 1].split(",")
-                canvas.height = Number(temp[0])
-                canvas.width = Number(temp[1])
+                // canvas.height = Number(temp[0])
+                // canvas.width = Number(temp[1])
                 resolve(result.length - 1);
             }
             else
