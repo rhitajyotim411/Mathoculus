@@ -7,7 +7,6 @@ imgSz = 64  # img size
 # padding function
 def pad(img):
     h, w = img.shape
-    # re_h, re_w = h, w
     x = 7  # pad to be added
     re_sz = imgSz - 2*x
     mx = max(h, w)
@@ -27,7 +26,6 @@ def pad(img):
         w = x
 
     img = cv2.resize(img, (re_w, re_h), interpolation=cv2.INTER_AREA)
-
     pd = np.full((imgSz, imgSz), 0, dtype=np.uint8)
     pd[h: -h,  w: -w] = img
 
@@ -49,7 +47,6 @@ def pad(img):
 
     return img
 # End of Function
-
 
 # Sort contours
 def sort_cntr(points):
@@ -81,7 +78,6 @@ def sort_cntr(points):
     return k
 # End of Function
 
-
 # Image processing
 imarr = cv2.imread("./images/image.png", 0)
 temp = cv2.imread("./images/image.png")
@@ -101,9 +97,10 @@ if len(cons)<1:    # Blank Canvas Exit
 cons = sort_cntr([cv2.boundingRect(c) for c in cons])  # Sending bounding rect list
 
 scale = math.sqrt(temp.shape[0]**2 + temp.shape[1]**2) / 1000
-thicc = round(5 * scale)
+thick = round(5 * scale)
 
 ROI_number = 0
+# pick contours
 for c in cons:
     area = c[2] * c[3]  # Width * Height
     if area > 100:
@@ -115,7 +112,7 @@ for c in cons:
         print(sv.flatten())
         ROI_number += 1
         temp = cv2.rectangle(temp, (c[0], c[1]),
-                             (c[0]+c[2], c[1]+c[3]), (57,70,242), thicc)
+                             (c[0]+c[2], c[1]+c[3]), (57,70,242), thick)
 
 cv2.imwrite("./images/image.png", temp)
 print(f'{temp.shape[0]},{temp.shape[1]}')   # Canvas Size

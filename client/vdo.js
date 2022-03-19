@@ -16,10 +16,7 @@ let d_w = "985px"
 let d_t = "235px"
 let d_l = "505px"
 
-
-
-
-//VIDEO REALTED OPERATIONS
+//starts camera
 const start_vdo = function () {
 	d.style.display = "none";
 	bg.style.display = "none";
@@ -37,6 +34,7 @@ const start_vdo = function () {
 		});
 }
 
+//snaps picture
 const take_pic = function () {
 	try {
 		picture = webcam.snap();
@@ -59,6 +57,7 @@ const take_pic = function () {
 	d.style.display = "block";
 }
 
+//flips vdo
 const flip_vdo = function () {
 	if(!isFlipped) {
 		webcam.flip();
@@ -66,6 +65,7 @@ const flip_vdo = function () {
 	}
 }
 
+//stops camera
 const stop_vdo = function () {
 	snap_butt.disabled = true;
 	evl_butt.disabled = true;
@@ -76,8 +76,7 @@ const stop_vdo = function () {
 	webcam.stop();
 }
 
-
-
+//snap/cancel wrapper function
 const resnap = function(){
 	if(snap_butt.innerHTML == "SNAP"){
 		snap_butt.innerHTML = "CANCEL";
@@ -96,7 +95,7 @@ const resnap = function(){
 	}
 }
 
-
+//start/stop wrapper function
 const start_stop = function(){
 	if(snap_butt.innerHTML == "CANCEL"){
 		snap_butt.innerHTML = "SNAP";
@@ -117,9 +116,7 @@ const start_stop = function(){
 	}
 }
 
-
-
-//this does the work of main cropping the region of interest.
+//cropping the region of interest.
 function crop() {
 	if(snap_butt.innerHTML == "CANCEL"){
 		snap_butt.innerHTML = "SNAP";
@@ -142,10 +139,6 @@ function crop() {
 
 	c_x = g - c_g;
 	c_y = a - c_a;
-	console.log(`${g}, ${c_g}`)
-	console.log(`${a}, ${c_a}`)
-	console.log(c_x);
-	console.log(c_y);
 	context.clearRect(0, 0, canvas.width, canvas.height);
 	canvas.width = h;
 	canvas.height = b;
@@ -172,7 +165,6 @@ function resize() {
 	c_g = Number(getComputedStyle(c).getPropertyValue("left").slice(0, -2))
 	c_h = Number(getComputedStyle(c).getPropertyValue("width").slice(0, -2))
 
-	console.log(c_g + " " + c_h)
 	if ((a + b > c_a + c_b) || (g + h > c_g + c_h)) {
 		d.style.width = d_w;
 		d.style.height = d_h;
@@ -185,8 +177,6 @@ function resize() {
 d.ondragstart = function (event) {
 	x = event.offsetX
 	y = event.offsetY
-	console.log(event.clientX);
-	console.log(event.clientY);
 }
 
 d.ondragend = function (event) {

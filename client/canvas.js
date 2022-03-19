@@ -2,11 +2,11 @@ const canvas = document.getElementById("c");
 const context = canvas.getContext("2d");
 let ln_color = "black";
 let canvas_color = "#fafafa";
-var thicc = 5		//canvas line thiccness (original: 5, dataset_creation: 7)
+var thick = 5		//canvas line thickness
 
 //MOUSE EVENTS
 context.fillStyle = canvas_color;
-context.lineWidth = thicc;
+context.lineWidth = thick;
 context.fillRect(0, 0, canvas.width, canvas.height);
 canvas.addEventListener("mousedown", (event)=>{
 	context.beginPath();
@@ -31,7 +31,7 @@ const draw = function(event){
 function clrCnv(){
 	context.clearRect(0, 0, canvas.width, canvas.height);
 	context.fillStyle = canvas_color;
-	context.lineWidth = thicc;
+	context.lineWidth = thick;
 	context.fillRect(0, 0, canvas.width, canvas.height);
 }
 
@@ -50,7 +50,7 @@ const toggle = function(flag){
 		canvas.style.border = "0px solid black";
 		document.querySelector(".paper").style.boxShadow= "none";
 		ln_color = "black";
-		context.lineWidth = thicc;
+		context.lineWidth = thick;
 		toggle_but.innerHTML = "ERASE";
 		document.getElementById("mode").style.backgroundColor= "pink";
 		document.getElementById("mode").style.color= "black";

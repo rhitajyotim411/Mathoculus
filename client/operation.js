@@ -2,6 +2,7 @@ const imgSz = 64
 var xp = '' 	//stores expresion
 const true_labels = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '-', 'x', '/', '(', ')', '^']
 
+// loads model from a cload storage (here github)
 async function loadModel() {
 	model = undefined;
 	url = "https://raw.githubusercontent.com/SXCSEM6-project/ModelStore/main/model.json"
@@ -14,7 +15,7 @@ async function loadModel() {
 }
 loadModel()
 
-
+//sends XHR
 const convert = function () {
 	return new Promise(function (resolve, reject) {
 		let png = canvas.toDataURL("image/png")
@@ -29,7 +30,8 @@ const convert = function () {
 	});
 }
 
-function getResult() {	//reads image from canvas
+// stores an array of HTML image objects
+function getResult() {
 	return new Promise((resolve) => {
 		console.clear()
 
@@ -53,20 +55,14 @@ function getResult() {	//reads image from canvas
 	})
 }
 
-async function pred(img) { // predicts ans
-	//prediction
-
-	return new Promise((resolve, reject) => {
+//predicts symbols
+async function pred(img) {
+	return new Promise((resolve) => {
         img.onload = async () => {
 			temp = tf.browser.fromPixels(img, 1)
 			temp = temp.div(tf.scalar(255))
-			// temp = tf.scalar(1).sub(temp)
-			console.log("Sum:" + tf.tensor1d(temp.dataSync()).sum().dataSync()[0])
 			v = model.predict(tf.tensor([temp.arraySync()]))
 			res = tf.tensor(v.dataSync()).argMax().dataSync()
-			console.log(true_labels[res[0]])
-			console.log(v.arraySync()[0][res[0]])
-			console.log(v.arraySync()[0])
 			xp += true_labels[res[0]];
 			resolve({
 				"Symbl": true_labels[res[0]],
@@ -76,12 +72,10 @@ async function pred(img) { // predicts ans
     })
 }
 
-
+//creates result pages dynamically
 function resPg(btn) {
 	document.getElementById('work').style.display = "none"
 	document.getElementById('wait2').style.display = "block"
-	// document.getElementById(btn).style.display = "block"
-	// document.getElementById(btn).style.cursor = "pointer"
 
 	let d = document.getElementById('eval')
 	d.innerHTML = ""
@@ -100,6 +94,7 @@ function resPg(btn) {
 	d.appendChild(temp_d)
 
 	getResult().then(async (imgs) => {
+		//blank expression check
 		if (imgs.length <= 1) {
 			alert("No Expression Given !!")
 			document.getElementById('wait2').style.display = "none"
@@ -118,6 +113,7 @@ function resPg(btn) {
 			document.getElementById(btn).style.display = "block"
 			document.getElementById(btn).style.cursor = "pointer"
 		}
+		//legend creation
 		let lgnd = document.createElement("div");
 		lgnd.innerHTML =
 		'<div id="encl"> <div id="d_sp1"></div> <span id="sp1">ACCURACY</span> <div id="d_sp2"></div> <span id="sp2">CHARACTER</span></div>';
@@ -133,6 +129,7 @@ function resPg(btn) {
 
 		let l = imgs.length - 1
 
+		//table creation
 		for (let i = 1; i <= l; i++) {
 			let tempR = document.createElement("tr")
 			tbl.appendChild(tempR)
@@ -178,6 +175,7 @@ function resPg(btn) {
 		expr_p.style.fontSize = "35px"
 		expr_p.style.margin = "0px"
 
+		//display result
 		try {
 			let xp_res = Math.round((eval(xp.replaceAll("^", "**")) + Number.EPSILON) * 10000) / 10000
 			expr_p.innerHTML = `${xp.replaceAll("*", "x")} = ${xp_res}`
