@@ -7,7 +7,7 @@ imgSz = 64  # img size
 # padding function
 def pad(img):
     h, w = img.shape
-    re_h, re_w = h, w
+    # re_h, re_w = h, w
     x = 7  # pad to be added
     re_sz = imgSz - 2*x
     mx = max(h, w)
@@ -36,7 +36,7 @@ def pad(img):
     else:
         img = cv2.dilate(pd, kernel, iterations=1)
 
-    # Removal of noise
+    # Removal of noise as partiallly visibible contour
     parts = cv2.findContours(img, cv2.RETR_EXTERNAL,
                              cv2.CHAIN_APPROX_SIMPLE)[0]
     area = [cv2.contourArea(p) for p in parts]
@@ -56,7 +56,7 @@ def sort_cntr(points):
     c = len(points)
     cp = np.array(points, dtype=object)
     k = []
-    avg_ht = np.sum(cp[::, 3])/len(points)
+    avg_ht = np.sum(cp[::, 3])/c
     lfx = cp[np.argsort(cp[::, 0])]  # sorted according to x
     tpy = cp[np.argsort(cp[::, 1])]  # sorted accordxing to y
     while c > 0:

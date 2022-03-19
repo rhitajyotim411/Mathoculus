@@ -17,6 +17,8 @@ let d_t = "235px"
 let d_l = "505px"
 
 
+
+
 //VIDEO REALTED OPERATIONS
 const start_vdo = function () {
 	d.style.display = "none";
@@ -80,10 +82,10 @@ const resnap = function(){
 	if(snap_butt.innerHTML == "SNAP"){
 		snap_butt.innerHTML = "CANCEL";
 		snap_butt.style.backgroundColor= "#f44336";
-		snap_butt.style.color= "white";
+		snap_butt.style.color = "white";
 		vdo_butt.innerHTML = "START";
 		vdo_butt.style.backgroundColor= "pink";
-		vdo_butt.style.color= "black";
+		vdo_butt.style.color = "black";
 		take_pic();
 	}
 	else if(snap_butt.innerHTML == "CANCEL"){
@@ -157,7 +159,7 @@ function crop() {
 }
 
 //this function is triggered when the user tries to resize the cropping div through the onclick event.
-function func() {
+function resize() {
 	a = Number(getComputedStyle(d).getPropertyValue("top").slice(0, -2))
 	b = Number(getComputedStyle(d).getPropertyValue("height").slice(0, -2))
 
@@ -214,7 +216,7 @@ d.ondragend = function (event) {
 
 }
 
-//when THE USER MOVES BACK TO THE SNAP PAGE FROM THE EVALUATION PAGE FOR RETAKING ANOTHER SNAP.
+//WHEN THE USER MOVES BACK TO THE SNAP PAGE FROM THE EVALUATION PAGE FOR RETAKING ANOTHER SNAP.
 function work(){
 	document.getElementById('eval').style.display = "none"
 	document.getElementById('Snap').style.display = "none"
