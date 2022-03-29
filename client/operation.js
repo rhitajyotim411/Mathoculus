@@ -58,7 +58,7 @@ function getResult() {
 //predicts symbols
 async function pred(img) {
 	return new Promise((resolve) => {
-        img.onload = async () => {
+        img.onload = () => {
 			temp = tf.browser.fromPixels(img, 1)
 			temp = temp.div(tf.scalar(255))
 			v = model.predict(tf.tensor([temp.arraySync()]))
@@ -113,23 +113,23 @@ function resPg(btn) {
 			document.getElementById(btn).style.display = "block"
 			document.getElementById(btn).style.cursor = "pointer"
 		}
+
 		//legend creation
 		let lgnd = document.createElement("div");
 		lgnd.innerHTML =
-		'<div id="encl"> <div id="d_sp1"></div> <span id="sp1">ACCURACY</span> <div id="d_sp2"></div> <span id="sp2">CHARACTER</span></div>';
+		'<div id="encl"><div id="d_sp1"></div> <span id="sp1">ACCURACY</span> <div id="d_sp2"></div> <span id="sp2">CHARACTER</span></div>';
 		lgnd.classList.add("lgnd-style");
 		temp_d.appendChild(lgnd);
 		temp_d.appendChild(document.createElement("br"))
 		temp_d.appendChild(document.createElement("br"))
 
+		//table creation
 		let tbl = document.createElement("table")
 		tbl.id = "resTbl" //table id
 		tbl.classList.add('tbl')
 		d.appendChild(tbl)
 
 		let l = imgs.length - 1
-
-		//table creation
 		for (let i = 1; i <= l; i++) {
 			let tempR = document.createElement("tr")
 			tbl.appendChild(tempR)

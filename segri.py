@@ -85,8 +85,7 @@ kernel = np.ones((2, 2), np.uint8)
 
 # removes noise for smooth thresholding
 imarr = cv2.GaussianBlur(imarr, (9, 9), 0)
-imarr = cv2.adaptiveThreshold(
-imarr, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 21, 4)
+imarr = cv2.adaptiveThreshold(imarr, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 21, 4)
 imarr = cv2.dilate(imarr, kernel, iterations=1)  # dilates images
 cons = cv2.findContours(imarr, cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)[0]
 
